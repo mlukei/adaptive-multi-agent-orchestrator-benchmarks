@@ -2,7 +2,7 @@
 
 Benchmark harness for evaluating an adaptive multi-agent orchestrator on OfficeBench and GAIA.
 
-The orchestrator itself lives in [adaptive-agent-orchestrator](https://github.com/marleenlki/adaptive-agent-orchestrator) and is installed as a dependency. This repository contains everything around the benchmark setup: environments, agent cards, configuration files, logging generated outputs, and analysis code for the paper experiments.
+The orchestrator itself lives in [adaptive-multi-agent-orchestrator-core](https://github.com/mlukei/adaptive-multi-agent-orchestrator-core) and is installed as a dependency. This repository contains everything around the benchmark setup: environments, agent cards, configuration files, logging generated outputs, and analysis code for the paper experiments.
 
 ## Reproducibility
 
