@@ -1,0 +1,17 @@
+{
+  "task": "What's the last line of the rhyme under the flavor name on the headstone visible in the background of the photo of the oldest flavor's headstone in the Ben & Jerry's online flavor graveyard as of the end of 2022?",
+  "username": null,
+  "date": null,
+  "weekday": null,
+  "time": null,
+  "gaia_task_id": "624cbf11-6a41-4692-af9c-36b3e5ca3130",
+  "gaia_level": "2",
+  "evaluation": [
+    {
+      "function": "evaluate_answer_match",
+      "args": {
+        "expected": "So we had to let it die."
+      }
+    }
+  ]
+}

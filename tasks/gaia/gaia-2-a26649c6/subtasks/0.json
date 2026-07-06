@@ -1,0 +1,17 @@
+{
+  "task": "What is the absolute difference in tens of thousands between the population of chinstrap penguins on the Wikipedia page for penguin species populations as of the end of 2018 and the population recorded in the Nature.com \"global population assessment of the Chinstrap penguin\" article from 2020, assuming two penguins per breeding pair?",
+  "username": null,
+  "date": null,
+  "weekday": null,
+  "time": null,
+  "gaia_task_id": "a26649c6-1cb2-470a-871e-6910c64c3e53",
+  "gaia_level": "2",
+  "evaluation": [
+    {
+      "function": "evaluate_answer_match",
+      "args": {
+        "expected": "116"
+      }
+    }
+  ]
+}

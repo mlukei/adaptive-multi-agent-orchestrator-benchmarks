@@ -1,0 +1,17 @@
+{
+  "task": "This spreadsheet contains a list of clients for a retractable awning company. Each client has ordered a new awning for the back of their house within the last 90 days. The company makes different designs depending on whether the awning is made to block sunrises or sunsets. In this region, houses with odd-numbered street addresses face east, and houses with even-numbered street addresses face west. How many of these clients will be receiving the sunset awning design?\n\n[Attached file: 4d51c4bf-4b0e-4f3d-897b-3f6687a7d9f2.xlsx — available in the working directory]",
+  "username": null,
+  "date": null,
+  "weekday": null,
+  "time": null,
+  "gaia_task_id": "4d51c4bf-4b0e-4f3d-897b-3f6687a7d9f2",
+  "gaia_level": "2",
+  "evaluation": [
+    {
+      "function": "evaluate_answer_match",
+      "args": {
+        "expected": "8"
+      }
+    }
+  ]
+}

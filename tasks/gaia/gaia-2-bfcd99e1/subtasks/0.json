@@ -1,0 +1,17 @@
+{
+  "task": "How many applicants for the job in the PDF are only missing a single qualification?\n\n[Attached file: bfcd99e1-0690-4b53-a85c-0174a8629083.zip — available in the working directory]",
+  "username": null,
+  "date": null,
+  "weekday": null,
+  "time": null,
+  "gaia_task_id": "bfcd99e1-0690-4b53-a85c-0174a8629083",
+  "gaia_level": "2",
+  "evaluation": [
+    {
+      "function": "evaluate_answer_match",
+      "args": {
+        "expected": "17"
+      }
+    }
+  ]
+}

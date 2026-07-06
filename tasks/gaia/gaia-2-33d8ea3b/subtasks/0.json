@@ -1,0 +1,17 @@
+{
+  "task": "What is the minimum number of page links a person must click on to go from the english Wikipedia page on The Lord of the Rings (the book) to the english Wikipedia page on A Song of Ice and Fire (the book series)? In your count, include each link you would click on to get to the page. Use the pages as they appeared at the end of the day on July 3, 2023.",
+  "username": null,
+  "date": null,
+  "weekday": null,
+  "time": null,
+  "gaia_task_id": "33d8ea3b-6c6b-4ff1-803d-7e270dea8a57",
+  "gaia_level": "2",
+  "evaluation": [
+    {
+      "function": "evaluate_answer_match",
+      "args": {
+        "expected": "2"
+      }
+    }
+  ]
+}

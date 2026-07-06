@@ -1,0 +1,17 @@
+{
+  "task": "The attached file shows a list of books in the collection of Scribe County Public Library. How many of the library’s books that are authored by Rick Riordan are not currently on the library’s shelves?\n\n[Attached file: e9a2c537-8232-4c3f-85b0-b52de6bcba99.pdf — available in the working directory]",
+  "username": null,
+  "date": null,
+  "weekday": null,
+  "time": null,
+  "gaia_task_id": "e9a2c537-8232-4c3f-85b0-b52de6bcba99",
+  "gaia_level": "2",
+  "evaluation": [
+    {
+      "function": "evaluate_answer_match",
+      "args": {
+        "expected": "7"
+      }
+    }
+  ]
+}

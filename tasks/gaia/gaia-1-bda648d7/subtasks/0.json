@@ -1,0 +1,17 @@
+{
+  "task": "Where were the Vietnamese specimens described by Kuznetzov in Nedoshivina's 2010 paper eventually deposited? Just give me the city name without abbreviations.",
+  "username": null,
+  "date": null,
+  "weekday": null,
+  "time": null,
+  "gaia_task_id": "bda648d7-d618-4883-88f4-3466eabd860e",
+  "gaia_level": "1",
+  "evaluation": [
+    {
+      "function": "evaluate_answer_match",
+      "args": {
+        "expected": "Saint Petersburg"
+      }
+    }
+  ]
+}

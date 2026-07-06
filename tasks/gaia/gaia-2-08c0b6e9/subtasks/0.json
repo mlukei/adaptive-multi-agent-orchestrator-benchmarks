@@ -1,0 +1,17 @@
+{
+  "task": "In the film Goldfinger, what color was the object that James Bond concealed himself and his companion Pussy Galore at the end of the film? If there are multiple colors, put them in a comma-separated list in alphabetical order.",
+  "username": null,
+  "date": null,
+  "weekday": null,
+  "time": null,
+  "gaia_task_id": "08c0b6e9-1b43-4c2e-ae55-4e3fce2c2715",
+  "gaia_level": "2",
+  "evaluation": [
+    {
+      "function": "evaluate_answer_match",
+      "args": {
+        "expected": "orange, white"
+      }
+    }
+  ]
+}

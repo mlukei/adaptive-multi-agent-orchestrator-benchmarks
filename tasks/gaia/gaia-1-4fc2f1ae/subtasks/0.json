@@ -1,0 +1,17 @@
+{
+  "task": "Who nominated the only Featured Article on English Wikipedia about a dinosaur that was promoted in November 2016?",
+  "username": null,
+  "date": null,
+  "weekday": null,
+  "time": null,
+  "gaia_task_id": "4fc2f1ae-8625-45b5-ab34-ad4433bc21f8",
+  "gaia_level": "1",
+  "evaluation": [
+    {
+      "function": "evaluate_answer_match",
+      "args": {
+        "expected": "FunkMonk"
+      }
+    }
+  ]
+}

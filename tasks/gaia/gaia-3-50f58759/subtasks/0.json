@@ -1,0 +1,17 @@
+{
+  "task": "How many times was a Twitter/X post cited as a reference on the english Wikipedia pages for each day of August in the last June 2023 versions of the pages?",
+  "username": null,
+  "date": null,
+  "weekday": null,
+  "time": null,
+  "gaia_task_id": "50f58759-7bd6-406f-9b0d-5692beb2a926",
+  "gaia_level": "3",
+  "evaluation": [
+    {
+      "function": "evaluate_answer_match",
+      "args": {
+        "expected": "3"
+      }
+    }
+  ]
+}

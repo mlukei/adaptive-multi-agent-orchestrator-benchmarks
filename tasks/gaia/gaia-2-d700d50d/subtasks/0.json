@@ -1,0 +1,17 @@
+{
+  "task": "Who composed the song that was performed by a rooster and a hamster in separate animated videos at separate tempos with different lyrics? Answer using the format First name Last name.",
+  "username": null,
+  "date": null,
+  "weekday": null,
+  "time": null,
+  "gaia_task_id": "d700d50d-c707-4dca-90dc-4528cddd0c80",
+  "gaia_level": "2",
+  "evaluation": [
+    {
+      "function": "evaluate_answer_match",
+      "args": {
+        "expected": "Roger Miller"
+      }
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "task": "Using the Biopython library in Python, parse the PDB file of the protein identified by the PDB ID 5wb7 from the RCSB Protein Data Bank. Calculate the distance between the first and second atoms as they are listed in the PDB file. Report the answer in Angstroms, rounded to the nearest picometer.\n\n[Attached file: 7dd30055-0198-452e-8c25-f73dbe27dcb8.pdb — available in the working directory]",
+  "username": null,
+  "date": null,
+  "weekday": null,
+  "time": null,
+  "gaia_task_id": "7dd30055-0198-452e-8c25-f73dbe27dcb8",
+  "gaia_level": "2",
+  "evaluation": [
+    {
+      "function": "evaluate_answer_match",
+      "args": {
+        "expected": "1.456"
+      }
+    }
+  ]
+}

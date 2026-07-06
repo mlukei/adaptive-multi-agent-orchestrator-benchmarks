@@ -1,0 +1,17 @@
+{
+  "task": "Using bass clef notes, what is the age of someone who has experienced the word spelled out in the sheet music by the note letters the total number of lines and notes minus the number of notes on lines in the image?\n\n[Attached file: 8f80e01c-1296-4371-9486-bb3d68651a60.png — available in the working directory]",
+  "username": null,
+  "date": null,
+  "weekday": null,
+  "time": null,
+  "gaia_task_id": "8f80e01c-1296-4371-9486-bb3d68651a60",
+  "gaia_level": "2",
+  "evaluation": [
+    {
+      "function": "evaluate_answer_match",
+      "args": {
+        "expected": "90"
+      }
+    }
+  ]
+}

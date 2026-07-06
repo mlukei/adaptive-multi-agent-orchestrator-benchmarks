@@ -1,0 +1,17 @@
+{
+  "task": "In Emily Midkiff's June 2014 article in a journal named for the one of Hreidmar's sons that guarded his house, what word was quoted from two different authors in distaste for the nature of dragon depictions?",
+  "username": null,
+  "date": null,
+  "weekday": null,
+  "time": null,
+  "gaia_task_id": "b816bfce-3d80-4913-a07d-69b752ce6377",
+  "gaia_level": "1",
+  "evaluation": [
+    {
+      "function": "evaluate_answer_match",
+      "args": {
+        "expected": "fluffy"
+      }
+    }
+  ]
+}

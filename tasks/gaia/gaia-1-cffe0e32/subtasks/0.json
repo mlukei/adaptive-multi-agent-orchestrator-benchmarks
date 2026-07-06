@@ -1,0 +1,17 @@
+{
+  "task": "An office held a Secret Santa gift exchange where each of its twelve employees was assigned one other employee in the group to present with a gift. Each employee filled out a profile including three likes or hobbies. On the day of the gift exchange, only eleven gifts were given, each one specific to one of the recipient's interests. Based on the information in the document, who did not give a gift?\n\n[Attached file: cffe0e32-c9a6-4c52-9877-78ceb4aaa9fb.docx — available in the working directory]",
+  "username": null,
+  "date": null,
+  "weekday": null,
+  "time": null,
+  "gaia_task_id": "cffe0e32-c9a6-4c52-9877-78ceb4aaa9fb",
+  "gaia_level": "1",
+  "evaluation": [
+    {
+      "function": "evaluate_answer_match",
+      "args": {
+        "expected": "Fred"
+      }
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "task": "Who did the actor who played Ray in the Polish-language version of Everybody Loves Raymond play in Magda M.? Give only the first name.",
+  "username": null,
+  "date": null,
+  "weekday": null,
+  "time": null,
+  "gaia_task_id": "305ac316-eef6-4446-960a-92d80d542f82",
+  "gaia_level": "1",
+  "evaluation": [
+    {
+      "function": "evaluate_answer_match",
+      "args": {
+        "expected": "Wojciech"
+      }
+    }
+  ]
+}

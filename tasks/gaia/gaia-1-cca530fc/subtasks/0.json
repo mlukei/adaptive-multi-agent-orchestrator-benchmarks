@@ -1,0 +1,17 @@
+{
+  "task": "Review the chess position provided in the image. It is black's turn. Provide the correct next move for black which guarantees a win. Please provide your response in algebraic notation.\n\n[Attached file: cca530fc-4052-43b2-b130-b30968d8aa44.png — available in the working directory]",
+  "username": null,
+  "date": null,
+  "weekday": null,
+  "time": null,
+  "gaia_task_id": "cca530fc-4052-43b2-b130-b30968d8aa44",
+  "gaia_level": "1",
+  "evaluation": [
+    {
+      "function": "evaluate_answer_match",
+      "args": {
+        "expected": "Rd5"
+      }
+    }
+  ]
+}

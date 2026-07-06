@@ -1,0 +1,17 @@
+{
+  "task": "According to wikipedia, how many Asian countries still have a monarchy and access to the sea in 2021?",
+  "username": null,
+  "date": null,
+  "weekday": null,
+  "time": null,
+  "gaia_task_id": "e961a717-6b25-4175-8a68-874d28190ee4",
+  "gaia_level": "3",
+  "evaluation": [
+    {
+      "function": "evaluate_answer_match",
+      "args": {
+        "expected": "12"
+      }
+    }
+  ]
+}

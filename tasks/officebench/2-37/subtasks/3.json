@@ -1,0 +1,25 @@
+{
+    "username": "Alice",
+    "date": "2024-01-01",
+    "weekday": "Monday",
+    "time": "10:00 AM",
+    "task": "Which event has hightest frequency, save results in events.docx",
+    "evaluation": [
+        {
+            "function": "evaluate_file_exist",
+            "args": {
+                "file": "data/events.docx"
+            }
+        },
+        {
+            "function": "evaluate_contain",
+            "args": {
+                "doc_type": "docx",
+                "file": "data/events.docx",
+                "keywords": [
+                    "workout"
+                ]
+            }
+        }
+    ]
+}

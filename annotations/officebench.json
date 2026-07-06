@@ -1,0 +1,3140 @@
+{
+  "1-1/0": {
+    "task_id": "1-1",
+    "subtask_id": "0",
+    "tier": 1,
+    "task_text": "Add a meeting to Bob's calendar at 5/17/2024 10:30 a.m to 11:00 a.m",
+    "gold_agents": [
+      "calendar"
+    ]
+  },
+  "1-1/1": {
+    "task_id": "1-1",
+    "subtask_id": "1",
+    "tier": 1,
+    "task_text": "remind Bob that he has a dinner at 5/18/2024 7:00 p.m",
+    "gold_agents": [
+      "calendar"
+    ]
+  },
+  "1-1/2": {
+    "task_id": "1-1",
+    "subtask_id": "2",
+    "tier": 1,
+    "task_text": "I have to workout at 5/16/2024 5:00 p.m to 6:00 p.m, notify me on calendar",
+    "gold_agents": [
+      "calendar"
+    ]
+  },
+  "1-1/3": {
+    "task_id": "1-1",
+    "subtask_id": "3",
+    "tier": 1,
+    "task_text": "at 5/15/2024 4:00 p.m to 6:00 p.m at Mathematic Science 4000A, Bob needs to have a class",
+    "gold_agents": [
+      "calendar"
+    ]
+  },
+  "1-1/4": {
+    "task_id": "1-1",
+    "subtask_id": "4",
+    "tier": 1,
+    "task_text": "Bob has a travelling from 6/19/2024 to 6/23/2024 at Florida, set as a calendar event",
+    "gold_agents": [
+      "calendar"
+    ]
+  },
+  "1-10/0": {
+    "task_id": "1-10",
+    "subtask_id": "0",
+    "tier": 1,
+    "task_text": "find the lowest score and highest score of midterm 1, what is their difference?",
+    "gold_agents": [
+      "excel"
+    ]
+  },
+  "1-10/1": {
+    "task_id": "1-10",
+    "subtask_id": "1",
+    "tier": 1,
+    "task_text": "Which students have lower score in midterm2 than midterm1 in score excel file?",
+    "gold_agents": [
+      "excel"
+    ]
+  },
+  "1-10/2": {
+    "task_id": "1-10",
+    "subtask_id": "2",
+    "tier": 1,
+    "task_text": "find the highest incoming in salary excel file, duplicate it at bottom",
+    "gold_agents": [
+      "excel"
+    ]
+  },
+  "1-10/3": {
+    "task_id": "1-10",
+    "subtask_id": "3",
+    "tier": 1,
+    "task_text": "find the lowest cost in budget item, add to highest cost in budget excel file",
+    "gold_agents": [
+      "excel"
+    ]
+  },
+  "1-10/4": {
+    "task_id": "1-10",
+    "subtask_id": "4",
+    "tier": 1,
+    "task_text": "What is the fewest amount of bought item in shopping list excel file?",
+    "gold_agents": [
+      "excel"
+    ]
+  },
+  "1-11/0": {
+    "task_id": "1-11",
+    "subtask_id": "0",
+    "tier": 1,
+    "task_text": "sort students score descently by midterm1, save as a new excel file as sorted_score.xlsx",
+    "gold_agents": [
+      "excel"
+    ]
+  },
+  "1-11/1": {
+    "task_id": "1-11",
+    "subtask_id": "1",
+    "tier": 1,
+    "task_text": "split midterm1 and midterm2 scores in score excel file into two excel files, name them as midterm1.xlsx and midterm2.xlsx",
+    "gold_agents": [
+      "excel",
+      "shell"
+    ]
+  },
+  "1-11/2": {
+    "task_id": "1-11",
+    "subtask_id": "2",
+    "tier": 1,
+    "task_text": "add all incoming in the salery excel file. This is the annual income. So what is the monthly income?",
+    "gold_agents": [
+      "excel"
+    ]
+  },
+  "1-11/3": {
+    "task_id": "1-11",
+    "subtask_id": "3",
+    "tier": 1,
+    "task_text": "sort items in budget descently in budget excel file",
+    "gold_agents": [
+      "excel"
+    ]
+  },
+  "1-12/0": {
+    "task_id": "1-12",
+    "subtask_id": "0",
+    "tier": 1,
+    "task_text": "what is total number of students in class CS161, and how many of them are senior?",
+    "gold_agents": [
+      "excel"
+    ]
+  },
+  "1-12/1": {
+    "task_id": "1-12",
+    "subtask_id": "1",
+    "tier": 1,
+    "task_text": "how many students in CS161 class got 60 or more in final",
+    "gold_agents": [
+      "excel"
+    ]
+  },
+  "1-12/2": {
+    "task_id": "1-12",
+    "subtask_id": "2",
+    "tier": 1,
+    "task_text": "What is Xihozun's HW2 score?",
+    "gold_agents": [
+      "excel"
+    ]
+  },
+  "1-13/0": {
+    "task_id": "1-13",
+    "subtask_id": "0",
+    "tier": 1,
+    "task_text": "Given an Excel containing student's previous courses, does he/she satisfy the prerequiste of CS161 if prerequiste classes are CS101, CS 102, Math 151, and Math 152? Answer should be Yes or No.",
+    "gold_agents": [
+      "excel"
+    ]
+  },
+  "1-13/1": {
+    "task_id": "1-13",
+    "subtask_id": "1",
+    "tier": 1,
+    "task_text": "Given an Excel containing student's previous courses, is he/she qualified for transfering major to CS if student need to take at least 5 CS courses for transfering to CS major? Answer should be 'Yes' or 'No'.",
+    "gold_agents": [
+      "excel"
+    ]
+  },
+  "1-13/2": {
+    "task_id": "1-13",
+    "subtask_id": "2",
+    "tier": 1,
+    "task_text": "Given an Excel containing student's previous courses and GPA, does he satisfy the graduate requirement if student needs to take at least 8 CS courses and 5 math courses? Answer should be Yes or No.",
+    "gold_agents": [
+      "excel"
+    ]
+  },
+  "1-14/0": {
+    "task_id": "1-14",
+    "subtask_id": "0",
+    "tier": 1,
+    "task_text": "Swap row of Alice and row of Bob in score excel file",
+    "gold_agents": [
+      "excel"
+    ]
+  },
+  "1-14/1": {
+    "task_id": "1-14",
+    "subtask_id": "1",
+    "tier": 1,
+    "task_text": "swap column of midterm1 and midterm2 in score excel file",
+    "gold_agents": [
+      "excel"
+    ]
+  },
+  "1-14/2": {
+    "task_id": "1-14",
+    "subtask_id": "2",
+    "tier": 1,
+    "task_text": "swap the lowest and highest incoming item in salary excel file",
+    "gold_agents": [
+      "excel"
+    ]
+  },
+  "1-14/3": {
+    "task_id": "1-14",
+    "subtask_id": "3",
+    "tier": 1,
+    "task_text": "swap the fewest and second fewest shopping item in shopping list excel file",
+    "gold_agents": [
+      "excel"
+    ]
+  },
+  "1-14/4": {
+    "task_id": "1-14",
+    "subtask_id": "4",
+    "tier": 1,
+    "task_text": "swap the highest and second highest item in budget excel file",
+    "gold_agents": [
+      "excel"
+    ]
+  },
+  "1-15/0": {
+    "task_id": "1-15",
+    "subtask_id": "0",
+    "tier": 1,
+    "task_text": "Add the sentence \"This is a test sentence for task 1-15-0.\" to the end of house_creak.docx.",
+    "gold_agents": [
+      "word"
+    ]
+  },
+  "1-15/1": {
+    "task_id": "1-15",
+    "subtask_id": "1",
+    "tier": 1,
+    "task_text": "Retrieve academic integrity for research from academic_integrity.docx and add it to the end of the syllabus sample_syllabus.docx.",
+    "gold_agents": [
+      "word"
+    ]
+  },
+  "1-15/2": {
+    "task_id": "1-15",
+    "subtask_id": "2",
+    "tier": 1,
+    "task_text": "Retrieve reference text from reference.txt and add it to the end of word file project_report.docx.",
+    "gold_agents": [
+      "shell",
+      "word"
+    ]
+  },
+  "1-16/0": {
+    "task_id": "1-16",
+    "subtask_id": "0",
+    "tier": 1,
+    "task_text": "Create a new word file called random_paragraph.docx and add the content in random_paragraph.txt to it.",
+    "gold_agents": [
+      "word"
+    ]
+  },
+  "1-16/1": {
+    "task_id": "1-16",
+    "subtask_id": "1",
+    "tier": 1,
+    "task_text": "Create a new word file called test.docx and add the sentence \"This is a test file for task 1-16-1.\".",
+    "gold_agents": [
+      "word"
+    ]
+  },
+  "1-18/0": {
+    "task_id": "1-18",
+    "subtask_id": "0",
+    "tier": 1,
+    "task_text": "extract concert post from pdf file and save as image named 'concert_post.jpg'",
+    "gold_agents": [
+      "ocr",
+      "pdf",
+      "shell"
+    ]
+  },
+  "1-18/1": {
+    "task_id": "1-18",
+    "subtask_id": "1",
+    "tier": 1,
+    "task_text": "extract concert post and summarize it in a new pdf file named concert_invitation.pdf",
+    "gold_agents": [
+      "llm",
+      "pdf"
+    ]
+  },
+  "1-19/0": {
+    "task_id": "1-19",
+    "subtask_id": "0",
+    "tier": 1,
+    "task_text": "extract title and authors of the paper from pdf file and save in word file named 'paper.docx'",
+    "gold_agents": [
+      "pdf",
+      "word"
+    ]
+  },
+  "1-19/1": {
+    "task_id": "1-19",
+    "subtask_id": "1",
+    "tier": 1,
+    "task_text": "extract paper's abstract and save in word file for review. The word file should be named as 'abstract.docx'",
+    "gold_agents": [
+      "pdf",
+      "shell",
+      "word"
+    ]
+  },
+  "1-19/2": {
+    "task_id": "1-19",
+    "subtask_id": "2",
+    "tier": 1,
+    "task_text": "extract paper abstract and save as an image file called 'abstract.png'",
+    "gold_agents": [
+      "ocr",
+      "pdf",
+      "shell"
+    ]
+  },
+  "1-19/3": {
+    "task_id": "1-19",
+    "subtask_id": "3",
+    "tier": 1,
+    "task_text": "what is the effective date from agreement pdf file?",
+    "gold_agents": [
+      "pdf"
+    ]
+  },
+  "1-19/4": {
+    "task_id": "1-19",
+    "subtask_id": "4",
+    "tier": 1,
+    "task_text": "extract terms from agreement pdf file, with all participated parties into summary.docx",
+    "gold_agents": [
+      "llm",
+      "pdf",
+      "word"
+    ]
+  },
+  "1-2/0": {
+    "task_id": "1-2",
+    "subtask_id": "0",
+    "tier": 1,
+    "task_text": "Find a common time for Bob and Tom to have an one hour zoom meeting on 5/1/2024",
+    "gold_agents": [
+      "calendar"
+    ]
+  },
+  "1-2/1": {
+    "task_id": "1-2",
+    "subtask_id": "1",
+    "tier": 1,
+    "task_text": "Can Bob and Tom have dinner together at 5/1/2024? Add a common time on their calendar.",
+    "gold_agents": [
+      "calendar"
+    ]
+  },
+  "1-2/2": {
+    "task_id": "1-2",
+    "subtask_id": "2",
+    "tier": 1,
+    "task_text": "Bob and Tom need to shopping, help they find one hour at 5/1/2024",
+    "gold_agents": [
+      "calendar"
+    ]
+  },
+  "1-2/3": {
+    "task_id": "1-2",
+    "subtask_id": "3",
+    "tier": 1,
+    "task_text": "Who gets up earlier? Bob or Tom",
+    "gold_agents": [
+      "calendar"
+    ]
+  },
+  "1-2/4": {
+    "task_id": "1-2",
+    "subtask_id": "4",
+    "tier": 1,
+    "task_text": "who has more commitments on 5/1/2024? Tom or Bob",
+    "gold_agents": [
+      "calendar"
+    ]
+  },
+  "1-20/0": {
+    "task_id": "1-20",
+    "subtask_id": "0",
+    "tier": 1,
+    "task_text": "What are Bob's emails for last three months? List the contents as answer.",
+    "gold_agents": [
+      "email"
+    ]
+  },
+  "1-20/1": {
+    "task_id": "1-20",
+    "subtask_id": "1",
+    "tier": 1,
+    "task_text": "What is the earliest email to Bob about? Read the contents as the answer.",
+    "gold_agents": [
+      "email"
+    ]
+  },
+  "1-20/2": {
+    "task_id": "1-20",
+    "subtask_id": "2",
+    "tier": 1,
+    "task_text": "What is the latest email to Bob about? Read the contents as the answer.",
+    "gold_agents": [
+      "email"
+    ]
+  },
+  "1-20/3": {
+    "task_id": "1-20",
+    "subtask_id": "3",
+    "tier": 1,
+    "task_text": "does Bob receive emails in last month? if does, how many? Answer with yes or no and a arabic number.",
+    "gold_agents": [
+      "email"
+    ]
+  },
+  "1-20/4": {
+    "task_id": "1-20",
+    "subtask_id": "4",
+    "tier": 1,
+    "task_text": "In which season does Bob receive most emails?",
+    "gold_agents": [
+      "email"
+    ]
+  },
+  "1-21/0": {
+    "task_id": "1-21",
+    "subtask_id": "0",
+    "tier": 1,
+    "task_text": "what is the subject of the latest email that send to Bob?",
+    "gold_agents": [
+      "email"
+    ]
+  },
+  "1-21/1": {
+    "task_id": "1-21",
+    "subtask_id": "1",
+    "tier": 1,
+    "task_text": "what is the subject of the earliest email that send to Bob?",
+    "gold_agents": [
+      "email"
+    ]
+  },
+  "1-21/2": {
+    "task_id": "1-21",
+    "subtask_id": "2",
+    "tier": 1,
+    "task_text": "does Bob receive emails in last month? Answer yes or no.",
+    "gold_agents": [
+      "email"
+    ]
+  },
+  "1-22/0": {
+    "task_id": "1-22",
+    "subtask_id": "0",
+    "tier": 1,
+    "task_text": "what is the subject of the email I sent to Bob?",
+    "gold_agents": [
+      "email"
+    ]
+  },
+  "1-22/1": {
+    "task_id": "1-22",
+    "subtask_id": "1",
+    "tier": 1,
+    "task_text": "who sent the most email to Bob?",
+    "gold_agents": [
+      "email"
+    ]
+  },
+  "1-22/2": {
+    "task_id": "1-22",
+    "subtask_id": "2",
+    "tier": 1,
+    "task_text": "Check the emails, and let me know if my rent is due. Yes or no?",
+    "gold_agents": [
+      "email"
+    ]
+  },
+  "1-22/3": {
+    "task_id": "1-22",
+    "subtask_id": "3",
+    "tier": 1,
+    "task_text": "Check the emails, and let me know if my scholarship application is approved. Yes or no?",
+    "gold_agents": [
+      "email"
+    ]
+  },
+  "1-22/4": {
+    "task_id": "1-22",
+    "subtask_id": "4",
+    "tier": 1,
+    "task_text": "Check my emails, what is my score of project2?",
+    "gold_agents": [
+      "email"
+    ]
+  },
+  "1-23/0": {
+    "task_id": "1-23",
+    "subtask_id": "0",
+    "tier": 1,
+    "task_text": "what is total hw score of Cixarim? Add his hw1, hw2, and hw3 together.",
+    "gold_agents": [
+      "excel"
+    ]
+  },
+  "1-23/1": {
+    "task_id": "1-23",
+    "subtask_id": "1",
+    "tier": 1,
+    "task_text": "how many students in CS161 is freshman?",
+    "gold_agents": [
+      "excel"
+    ]
+  },
+  "1-3/0": {
+    "task_id": "1-3",
+    "subtask_id": "0",
+    "tier": 1,
+    "task_text": "change the docx file name to test_file1.docx",
+    "gold_agents": [
+      "shell"
+    ]
+  },
+  "1-3/1": {
+    "task_id": "1-3",
+    "subtask_id": "1",
+    "tier": 1,
+    "task_text": "Rename the PDF file to match the name of the DOCX file",
+    "gold_agents": [
+      "shell"
+    ]
+  },
+  "1-3/2": {
+    "task_id": "1-3",
+    "subtask_id": "2",
+    "tier": 1,
+    "task_text": "duplicate the excel file and name temp.xlsx",
+    "gold_agents": [
+      "shell"
+    ]
+  },
+  "1-3/3": {
+    "task_id": "1-3",
+    "subtask_id": "3",
+    "tier": 1,
+    "task_text": "delete file3.xlsx",
+    "gold_agents": [
+      "shell"
+    ]
+  },
+  "1-3/4": {
+    "task_id": "1-3",
+    "subtask_id": "4",
+    "tier": 1,
+    "task_text": "move all docx, pdf, and image files to a new subdirectory named new_dir, create this directory if does not exist",
+    "gold_agents": [
+      "shell"
+    ]
+  },
+  "1-4/0": {
+    "task_id": "1-4",
+    "subtask_id": "0",
+    "tier": 1,
+    "task_text": "change Bob's midterm1 score 100 to score.xlsx excel file",
+    "gold_agents": [
+      "excel"
+    ]
+  },
+  "1-4/1": {
+    "task_id": "1-4",
+    "subtask_id": "1",
+    "tier": 1,
+    "task_text": "buy two yogurt and add to shopping list excel file",
+    "gold_agents": [
+      "excel"
+    ]
+  },
+  "1-4/2": {
+    "task_id": "1-4",
+    "subtask_id": "2",
+    "tier": 1,
+    "task_text": "add annual bonus $50000 to salary excel file",
+    "gold_agents": [
+      "excel"
+    ]
+  },
+  "1-4/3": {
+    "task_id": "1-4",
+    "subtask_id": "3",
+    "tier": 1,
+    "task_text": "add utilities fee $300 to budget excel file",
+    "gold_agents": [
+      "excel"
+    ]
+  },
+  "1-5/0": {
+    "task_id": "1-5",
+    "subtask_id": "0",
+    "tier": 1,
+    "task_text": "change Carol's midterm1 score to 98 in score excel file",
+    "gold_agents": [
+      "excel"
+    ]
+  },
+  "1-5/1": {
+    "task_id": "1-5",
+    "subtask_id": "1",
+    "tier": 1,
+    "task_text": "reduce half amount of apple in shopping list excel file",
+    "gold_agents": [
+      "excel"
+    ]
+  },
+  "1-5/2": {
+    "task_id": "1-5",
+    "subtask_id": "2",
+    "tier": 1,
+    "task_text": "add 'average salary' for each day to the last row in salary excel file, round down with no decimal",
+    "gold_agents": [
+      "excel"
+    ]
+  },
+  "1-5/3": {
+    "task_id": "1-5",
+    "subtask_id": "3",
+    "tier": 1,
+    "task_text": "if budget grow 10% per year, add 'predicted budget' for 3 years later to the last row in budget excel file",
+    "gold_agents": [
+      "excel"
+    ]
+  },
+  "1-6/0": {
+    "task_id": "1-6",
+    "subtask_id": "0",
+    "tier": 1,
+    "task_text": "add a new header Class, randomly assign each student to class 1 to class 5 in class member excel file",
+    "gold_agents": [
+      "excel"
+    ]
+  },
+  "1-6/1": {
+    "task_id": "1-6",
+    "subtask_id": "1",
+    "tier": 1,
+    "task_text": "all students attend class today, record it under new header 'Attendance' in class member excel file with value 'Y'",
+    "gold_agents": [
+      "excel"
+    ]
+  },
+  "1-6/2": {
+    "task_id": "1-6",
+    "subtask_id": "2",
+    "tier": 1,
+    "task_text": "assign each students in Class 1 10 min to have a meeting with doctor in a row, start from 8:00, record the start time under new header 'Meeting' in class_member.xlsx excel file",
+    "gold_agents": [
+      "excel"
+    ]
+  },
+  "1-6/3": {
+    "task_id": "1-6",
+    "subtask_id": "3",
+    "tier": 1,
+    "task_text": "company increases base by 5%/yr, stock by 10%/yr, bonus by 10%/yr, show this in salary excel file with new header 'amount after 1 year'",
+    "gold_agents": [
+      "excel"
+    ]
+  },
+  "1-6/4": {
+    "task_id": "1-6",
+    "subtask_id": "4",
+    "tier": 1,
+    "task_text": "Update the company budget Excel file to include a new header 'Increase Percentage Per Year', increase base salaries by 5%/yr, reduce computer expenses 10%/yr, and increase entertainment expenses 10%/yr.",
+    "gold_agents": [
+      "excel"
+    ]
+  },
+  "1-6/5": {
+    "task_id": "1-6",
+    "subtask_id": "5",
+    "tier": 1,
+    "task_text": "add a new header 'Cost' in shopping list excel file, supposing apple is 2$/pound, others are 1.5$/pound ",
+    "gold_agents": [
+      "excel"
+    ]
+  },
+  "1-7/0": {
+    "task_id": "1-7",
+    "subtask_id": "0",
+    "tier": 1,
+    "task_text": "delete student Alice and her score in score excel file",
+    "gold_agents": [
+      "excel"
+    ]
+  },
+  "1-7/1": {
+    "task_id": "1-7",
+    "subtask_id": "1",
+    "tier": 1,
+    "task_text": "remove the third student and his/her score in score excel file",
+    "gold_agents": [
+      "excel"
+    ]
+  },
+  "1-7/2": {
+    "task_id": "1-7",
+    "subtask_id": "2",
+    "tier": 1,
+    "task_text": "delete the first three students and their scores in score excel file",
+    "gold_agents": [
+      "excel"
+    ]
+  },
+  "1-7/3": {
+    "task_id": "1-7",
+    "subtask_id": "3",
+    "tier": 1,
+    "task_text": "delete the stock and its line in salary excel file",
+    "gold_agents": [
+      "excel"
+    ]
+  },
+  "1-7/4": {
+    "task_id": "1-7",
+    "subtask_id": "4",
+    "tier": 1,
+    "task_text": "company don't need to replace computers, so delete corresponding line in company budget excel file",
+    "gold_agents": [
+      "excel"
+    ]
+  },
+  "1-7/5": {
+    "task_id": "1-7",
+    "subtask_id": "5",
+    "tier": 1,
+    "task_text": "we already have onion at home, remove this entry from the shopping list excel file",
+    "gold_agents": [
+      "excel"
+    ]
+  },
+  "1-8/0": {
+    "task_id": "1-8",
+    "subtask_id": "0",
+    "tier": 1,
+    "task_text": "delete all students' score and the header in score excel file",
+    "gold_agents": [
+      "excel"
+    ]
+  },
+  "1-8/1": {
+    "task_id": "1-8",
+    "subtask_id": "1",
+    "tier": 1,
+    "task_text": "remove all students' class and the header in class member excel file",
+    "gold_agents": [
+      "excel"
+    ]
+  },
+  "1-8/2": {
+    "task_id": "1-8",
+    "subtask_id": "2",
+    "tier": 1,
+    "task_text": "delete all amounts in salary excel file",
+    "gold_agents": [
+      "excel"
+    ]
+  },
+  "1-8/3": {
+    "task_id": "1-8",
+    "subtask_id": "3",
+    "tier": 1,
+    "task_text": "delete everything in company budget excel file",
+    "gold_agents": [
+      "excel"
+    ]
+  },
+  "1-8/4": {
+    "task_id": "1-8",
+    "subtask_id": "4",
+    "tier": 1,
+    "task_text": "delete all amounts in shopping list excel file",
+    "gold_agents": [
+      "excel"
+    ]
+  },
+  "1-9/0": {
+    "task_id": "1-9",
+    "subtask_id": "0",
+    "tier": 1,
+    "task_text": "calculate the average of two midterm scores, write in the bottom row of the score excel file with header 'Average'",
+    "gold_agents": [
+      "excel"
+    ]
+  },
+  "1-9/1": {
+    "task_id": "1-9",
+    "subtask_id": "1",
+    "tier": 1,
+    "task_text": "find the student whose midterm1 score is closest to the average in score excel file, duplicate the line at bottom",
+    "gold_agents": [
+      "excel"
+    ]
+  },
+  "1-9/2": {
+    "task_id": "1-9",
+    "subtask_id": "2",
+    "tier": 1,
+    "task_text": "calculate total salary for one year and add it after the bottom row with header 'Total' in salary excel file",
+    "gold_agents": [
+      "excel"
+    ]
+  },
+  "1-9/3": {
+    "task_id": "1-9",
+    "subtask_id": "3",
+    "tier": 1,
+    "task_text": "calculate total cost listed in budget excel file, append a row with header 'Total' after the bottom of the file",
+    "gold_agents": [
+      "excel"
+    ]
+  },
+  "1-9/4": {
+    "task_id": "1-9",
+    "subtask_id": "4",
+    "tier": 1,
+    "task_text": "calculate the total weights for total's shopping, append a row with header 'Total' after the bottom of the file",
+    "gold_agents": [
+      "excel"
+    ]
+  },
+  "1-9/5": {
+    "task_id": "1-9",
+    "subtask_id": "5",
+    "tier": 1,
+    "task_text": "calculate item average weight, write in the bottom row in shopping list excel file with header 'Average'",
+    "gold_agents": [
+      "excel"
+    ]
+  },
+  "2-1/0": {
+    "task_id": "2-1",
+    "subtask_id": "0",
+    "tier": 2,
+    "task_text": "extract text from power failure notification image and save in power_failure.pdf",
+    "gold_agents": [
+      "ocr",
+      "pdf"
+    ]
+  },
+  "2-1/1": {
+    "task_id": "2-1",
+    "subtask_id": "1",
+    "tier": 2,
+    "task_text": "summarize content from meeting notification image and save in meeting.pdf",
+    "gold_agents": [
+      "llm",
+      "ocr",
+      "pdf"
+    ]
+  },
+  "2-1/2": {
+    "task_id": "2-1",
+    "subtask_id": "2",
+    "tier": 2,
+    "task_text": "summarize content from combined notification image into one notification pdf file named two_notification.pdf",
+    "gold_agents": [
+      "llm",
+      "ocr",
+      "pdf"
+    ]
+  },
+  "2-1/3": {
+    "task_id": "2-1",
+    "subtask_id": "3",
+    "tier": 2,
+    "task_text": "extract text from combined notification image and split into two pdf files, named party.pdf and meeting.pdf",
+    "gold_agents": [
+      "ocr",
+      "pdf",
+      "shell"
+    ]
+  },
+  "2-10/0": {
+    "task_id": "2-10",
+    "subtask_id": "0",
+    "tier": 2,
+    "task_text": "Put first 5 student scores from scanned PDF file to score.xlsx",
+    "gold_agents": [
+      "excel",
+      "ocr"
+    ]
+  },
+  "2-10/1": {
+    "task_id": "2-10",
+    "subtask_id": "1",
+    "tier": 2,
+    "task_text": "extract the first 3 students and their IDs, collect them into excel file SIDs.xlsx",
+    "gold_agents": [
+      "excel",
+      "ocr"
+    ]
+  },
+  "2-11/0": {
+    "task_id": "2-11",
+    "subtask_id": "0",
+    "tier": 2,
+    "task_text": "Collect car trading records and only organize the information about the car I bought into car_records.xlsx",
+    "gold_agents": [
+      "excel",
+      "ocr",
+      "shell"
+    ]
+  },
+  "2-11/1": {
+    "task_id": "2-11",
+    "subtask_id": "1",
+    "tier": 2,
+    "task_text": "collect company trading and save the items about `sold` in company_trading.xlsx",
+    "gold_agents": [
+      "excel",
+      "ocr",
+      "shell"
+    ]
+  },
+  "2-12/0": {
+    "task_id": "2-12",
+    "subtask_id": "0",
+    "tier": 2,
+    "task_text": "Scan handwritten notes from a meeting agenda, convert them to text, and add them to a calendar file meeting.ics",
+    "gold_agents": [
+      "calendar",
+      "ocr",
+      "pdf",
+      "shell"
+    ]
+  },
+  "2-13/0": {
+    "task_id": "2-13",
+    "subtask_id": "0",
+    "tier": 2,
+    "task_text": "Schedule a team training session for all participants from excel file, create calendar events for each member in their name",
+    "gold_agents": [
+      "calendar",
+      "excel",
+      "shell"
+    ]
+  },
+  "2-13/1": {
+    "task_id": "2-13",
+    "subtask_id": "1",
+    "tier": 2,
+    "task_text": "Schedule a team training session for members in section A from excel file, create calendar events file for each member in their name",
+    "gold_agents": [
+      "calendar",
+      "excel",
+      "shell"
+    ]
+  },
+  "2-14/0": {
+    "task_id": "2-14",
+    "subtask_id": "0",
+    "tier": 2,
+    "task_text": "schedule a reward meeting for the top-three students in score excel file and create calendar events for each of them.",
+    "gold_agents": [
+      "calendar",
+      "excel",
+      "shell"
+    ]
+  },
+  "2-15/0": {
+    "task_id": "2-15",
+    "subtask_id": "0",
+    "tier": 2,
+    "task_text": "Convert meeting agenda from calendar into Excel file meeting_agenda.xlsx for further analysis",
+    "gold_agents": [
+      "calendar",
+      "excel",
+      "shell"
+    ]
+  },
+  "2-16/0": {
+    "task_id": "2-16",
+    "subtask_id": "0",
+    "tier": 2,
+    "task_text": "Create meeting agenda from Excel data and add it to my calendar",
+    "gold_agents": [
+      "calendar",
+      "excel"
+    ]
+  },
+  "2-17/0": {
+    "task_id": "2-17",
+    "subtask_id": "0",
+    "tier": 2,
+    "task_text": "Schedule meetings for students in each class seperately, create calendar events for them",
+    "gold_agents": [
+      "calendar",
+      "excel",
+      "shell"
+    ]
+  },
+  "2-18/0": {
+    "task_id": "2-18",
+    "subtask_id": "0",
+    "tier": 2,
+    "task_text": "Write a statement in docx file to the student with the highest score in the class, use the student's name as filename",
+    "gold_agents": [
+      "excel",
+      "llm",
+      "shell",
+      "word"
+    ]
+  },
+  "2-18/1": {
+    "task_id": "2-18",
+    "subtask_id": "1",
+    "tier": 2,
+    "task_text": "assign homework \"\"read book and write essay\"\" in docx file for students, called homework.docx",
+    "gold_agents": [
+      "llm",
+      "shell",
+      "word"
+    ]
+  },
+  "2-18/2": {
+    "task_id": "2-18",
+    "subtask_id": "2",
+    "tier": 2,
+    "task_text": "write all shopping item in docx file (shopping_list.docx) from shopping list (shopping_list.xlsx)",
+    "gold_agents": [
+      "excel",
+      "word"
+    ]
+  },
+  "2-19/0": {
+    "task_id": "2-19",
+    "subtask_id": "0",
+    "tier": 2,
+    "task_text": "Analyze Excel data of students' grade and generate a teaching report in teaching.docx",
+    "gold_agents": [
+      "excel",
+      "llm",
+      "word"
+    ]
+  },
+  "2-2/0": {
+    "task_id": "2-2",
+    "subtask_id": "0",
+    "tier": 2,
+    "task_text": "scan Concert Announcement pdf file, extract name and date saved it as contact card in doc file named contact.docx",
+    "gold_agents": [
+      "ocr",
+      "pdf",
+      "shell",
+      "word"
+    ]
+  },
+  "2-2/1": {
+    "task_id": "2-2",
+    "subtask_id": "1",
+    "tier": 2,
+    "task_text": "scan Concert Announcement pdf file, extract name and address saved it as contact card in doc file named contact.docx",
+    "gold_agents": [
+      "pdf",
+      "word"
+    ]
+  },
+  "2-20/0": {
+    "task_id": "2-20",
+    "subtask_id": "0",
+    "tier": 2,
+    "task_text": "Find all students who are taking CS161 and put the name and Student ID of students into students.docx. Each student should be on seperate lines, with the format `Student ID, name`.",
+    "gold_agents": [
+      "excel",
+      "word"
+    ]
+  },
+  "2-20/1": {
+    "task_id": "2-20",
+    "subtask_id": "1",
+    "tier": 2,
+    "task_text": "Find all students from CS161_roster.csv who are CS major, and put their name and Student ID in cs_class_2024.docx. Each student should be on seperate lines, with the format `Student ID, name`.",
+    "gold_agents": [
+      "excel",
+      "word"
+    ]
+  },
+  "2-20/2": {
+    "task_id": "2-20",
+    "subtask_id": "2",
+    "tier": 2,
+    "task_text": "Find all students from CS161_roster.csv whose final_exam is 100, and put their name and student id in makeup_exam_list.docx. Each student should be on seperate lines, with the format `student id, name`.",
+    "gold_agents": [
+      "excel",
+      "word"
+    ]
+  },
+  "2-21/0": {
+    "task_id": "2-21",
+    "subtask_id": "0",
+    "tier": 2,
+    "task_text": "Extract Bill's previous courses from Bill_course_list.xlsx, and put the course in classes_taken.docx. Each course should be on a seperate line.",
+    "gold_agents": [
+      "excel",
+      "word"
+    ]
+  },
+  "2-21/1": {
+    "task_id": "2-21",
+    "subtask_id": "1",
+    "tier": 2,
+    "task_text": "Retrieve Bill's past courses from the Excel file Bill_course_lists.xlsx and save them into classes_taken.docx. Each course should be on a seperate line.",
+    "gold_agents": [
+      "excel",
+      "word"
+    ]
+  },
+  "2-21/2": {
+    "task_id": "2-21",
+    "subtask_id": "2",
+    "tier": 2,
+    "task_text": "Extract the courses Bill has previously taken from the Excel sheet Bill_course_lists.xlsx and transfer them to classes_taken.docx. Each course should be on a seperate line.",
+    "gold_agents": [
+      "excel",
+      "word"
+    ]
+  },
+  "2-21/3": {
+    "task_id": "2-21",
+    "subtask_id": "3",
+    "tier": 2,
+    "task_text": "Obtain Bill's earlier course data from the Excel document Bill_course_lists.xlsx and input it into classes_taken.docx. Each course should be on a seperate line.",
+    "gold_agents": [
+      "excel",
+      "word"
+    ]
+  },
+  "2-21/4": {
+    "task_id": "2-21",
+    "subtask_id": "4",
+    "tier": 2,
+    "task_text": "Pull Bill's course history from the Excel file Bill_course_lists.xlsx and document it in classes_taken.docx. Each course should be on a seperate line.",
+    "gold_agents": [
+      "excel",
+      "word"
+    ]
+  },
+  "2-21/5": {
+    "task_id": "2-21",
+    "subtask_id": "5",
+    "tier": 2,
+    "task_text": "Take the list of courses Bill has completed from the Excel file Bill_course_lists.xlsx and place it into classes_taken.docx. Each course should be on a seperate line.",
+    "gold_agents": [
+      "excel",
+      "word"
+    ]
+  },
+  "2-22/0": {
+    "task_id": "2-22",
+    "subtask_id": "0",
+    "tier": 2,
+    "task_text": "Generate a word report based on midterm1 and midterm2 scores, the filename is 'midterm_report.docx'.",
+    "gold_agents": [
+      "excel",
+      "llm",
+      "word"
+    ]
+  },
+  "2-22/1": {
+    "task_id": "2-22",
+    "subtask_id": "1",
+    "tier": 2,
+    "task_text": "give some instruction and prediction in word file based on house_price_index.xlsx, and save the word file in the same filename",
+    "gold_agents": [
+      "excel",
+      "llm",
+      "word"
+    ]
+  },
+  "2-23/0": {
+    "task_id": "2-23",
+    "subtask_id": "0",
+    "tier": 2,
+    "task_text": "Extract data from PDF invoice (Invoice.pdf) and put the total due in file costs.xlsx",
+    "gold_agents": [
+      "excel",
+      "pdf"
+    ]
+  },
+  "2-23/1": {
+    "task_id": "2-23",
+    "subtask_id": "1",
+    "tier": 2,
+    "task_text": "Check the total due in Invoice_2.pdf and save it in costs.xlsx",
+    "gold_agents": [
+      "excel",
+      "pdf"
+    ]
+  },
+  "2-24/0": {
+    "task_id": "2-24",
+    "subtask_id": "0",
+    "tier": 2,
+    "task_text": "Extract the score and name then calculate the average score in excel score.xlsx",
+    "gold_agents": [
+      "excel"
+    ]
+  },
+  "2-25/0": {
+    "task_id": "2-25",
+    "subtask_id": "0",
+    "tier": 2,
+    "task_text": "Convert student homework word documents to PDF and rename them into same name with .pdf suffix",
+    "gold_agents": [
+      "pdf",
+      "shell",
+      "word"
+    ]
+  },
+  "2-26/0": {
+    "task_id": "2-26",
+    "subtask_id": "0",
+    "tier": 2,
+    "task_text": "Extract text from PDF and insert it to a new Word file of the same name.",
+    "gold_agents": [
+      "pdf",
+      "shell",
+      "word"
+    ]
+  },
+  "2-26/1": {
+    "task_id": "2-26",
+    "subtask_id": "1",
+    "tier": 2,
+    "task_text": "Retrieve the text from market_analysis.pdf and insert it into a newly created market_analysis.docx file",
+    "gold_agents": [
+      "pdf",
+      "word"
+    ]
+  },
+  "2-26/2": {
+    "task_id": "2-26",
+    "subtask_id": "2",
+    "tier": 2,
+    "task_text": "Take the text from market_analysis.pdf and place it into a new file called market_analysis.docx",
+    "gold_agents": [
+      "pdf",
+      "word"
+    ]
+  },
+  "2-26/3": {
+    "task_id": "2-26",
+    "subtask_id": "3",
+    "tier": 2,
+    "task_text": "Extract text from invitation_letter.pdf and put it in a new word file invitation_letter.docx.",
+    "gold_agents": [
+      "pdf",
+      "word"
+    ]
+  },
+  "2-27/0": {
+    "task_id": "2-27",
+    "subtask_id": "0",
+    "tier": 2,
+    "task_text": "Extract schedule from PDF and add it to my calendar.",
+    "gold_agents": [
+      "calendar",
+      "ocr",
+      "pdf"
+    ]
+  },
+  "2-29/0": {
+    "task_id": "2-29",
+    "subtask_id": "0",
+    "tier": 2,
+    "task_text": "Scan Conference Invitation PDF and search for conference date, add event to that date on calender, save in my calendar.",
+    "gold_agents": [
+      "calendar",
+      "pdf"
+    ]
+  },
+  "2-3/0": {
+    "task_id": "2-3",
+    "subtask_id": "0",
+    "tier": 2,
+    "task_text": "read a pdf file google_form.pdf, make an image post welcome.jpg",
+    "gold_agents": [
+      "pdf",
+      "shell"
+    ]
+  },
+  "2-30/0": {
+    "task_id": "2-30",
+    "subtask_id": "0",
+    "tier": 2,
+    "task_text": "Extract the student ID from docx then rename this docx file to {ID}.docx where the ID is the student ID.",
+    "gold_agents": [
+      "shell",
+      "word"
+    ]
+  },
+  "2-31/0": {
+    "task_id": "2-31",
+    "subtask_id": "0",
+    "tier": 2,
+    "task_text": "What is the maximum prices of the cars sold in March?",
+    "gold_agents": [
+      "ocr"
+    ]
+  },
+  "2-31/1": {
+    "task_id": "2-31",
+    "subtask_id": "1",
+    "tier": 2,
+    "task_text": "What is the maximum prices of the cars sold over all time?",
+    "gold_agents": [
+      "ocr"
+    ]
+  },
+  "2-31/2": {
+    "task_id": "2-31",
+    "subtask_id": "2",
+    "tier": 2,
+    "task_text": "What is the average score and variance for student scores shown in the image",
+    "gold_agents": [
+      "ocr"
+    ]
+  },
+  "2-31/3": {
+    "task_id": "2-31",
+    "subtask_id": "3",
+    "tier": 2,
+    "task_text": "what is median score for student scores in image?",
+    "gold_agents": [
+      "ocr"
+    ]
+  },
+  "2-31/4": {
+    "task_id": "2-31",
+    "subtask_id": "4",
+    "tier": 2,
+    "task_text": "what is median house price index based on house price index image? answer the question!",
+    "gold_agents": [
+      "ocr"
+    ]
+  },
+  "2-32/0": {
+    "task_id": "2-32",
+    "subtask_id": "0",
+    "tier": 2,
+    "task_text": "Does the reimbursement amount exceed the company budget? Yes or No?",
+    "gold_agents": [
+      "ocr"
+    ]
+  },
+  "2-32/1": {
+    "task_id": "2-32",
+    "subtask_id": "1",
+    "tier": 2,
+    "task_text": "Compare income and expenditure based on company trading record. Larger or smaller? Answer the question with `larger` or `smaller`",
+    "gold_agents": [
+      "ocr"
+    ]
+  },
+  "2-33/0": {
+    "task_id": "2-33",
+    "subtask_id": "0",
+    "tier": 2,
+    "task_text": "Print the top 3 students in midterm1 into a file named top3.txt. ",
+    "gold_agents": [
+      "excel",
+      "shell"
+    ]
+  },
+  "2-33/1": {
+    "task_id": "2-33",
+    "subtask_id": "1",
+    "tier": 2,
+    "task_text": "Which class has the least student?",
+    "gold_agents": [
+      "excel"
+    ]
+  },
+  "2-34/0": {
+    "task_id": "2-34",
+    "subtask_id": "0",
+    "tier": 2,
+    "task_text": "Analyze housing price and print the lowest price in lowest.txt",
+    "gold_agents": [
+      "excel",
+      "shell"
+    ]
+  },
+  "2-34/1": {
+    "task_id": "2-34",
+    "subtask_id": "1",
+    "tier": 2,
+    "task_text": "Check satisfying score in the survey. What age has highest score.",
+    "gold_agents": [
+      "excel"
+    ]
+  },
+  "2-35/0": {
+    "task_id": "2-35",
+    "subtask_id": "0",
+    "tier": 2,
+    "task_text": "what is 2024 total revenue from annual financial report?",
+    "gold_agents": [
+      "pdf"
+    ]
+  },
+  "2-35/2": {
+    "task_id": "2-35",
+    "subtask_id": "2",
+    "tier": 2,
+    "task_text": "Calculate variance of all participants' ages listed in the survey pdf. the answer needs to be saved in a file named var.txt.",
+    "gold_agents": [
+      "pdf",
+      "shell"
+    ]
+  },
+  "2-36/0": {
+    "task_id": "2-36",
+    "subtask_id": "0",
+    "tier": 2,
+    "task_text": "Read grade in transcripts and generate a grade report report.docx",
+    "gold_agents": [
+      "llm",
+      "ocr",
+      "pdf",
+      "shell",
+      "word"
+    ]
+  },
+  "2-36/1": {
+    "task_id": "2-36",
+    "subtask_id": "1",
+    "tier": 2,
+    "task_text": "if Dean's list requires term average gpa to be higher than 3.9, how many terms can this students be awarded on Dean's list?",
+    "gold_agents": [
+      "ocr"
+    ]
+  },
+  "2-36/2": {
+    "task_id": "2-36",
+    "subtask_id": "2",
+    "tier": 2,
+    "task_text": "what the maximum sales revenue entry from sales report",
+    "gold_agents": [
+      "pdf"
+    ]
+  },
+  "2-36/3": {
+    "task_id": "2-36",
+    "subtask_id": "3",
+    "tier": 2,
+    "task_text": "Analyze relationship between revenues and sales unit, regions. Save the results in relationship.txt.",
+    "gold_agents": [
+      "llm",
+      "ocr",
+      "pdf",
+      "shell"
+    ]
+  },
+  "2-37/1": {
+    "task_id": "2-37",
+    "subtask_id": "1",
+    "tier": 2,
+    "task_text": "for calendar data, which event has longest total time?",
+    "gold_agents": [
+      "calendar"
+    ]
+  },
+  "2-37/2": {
+    "task_id": "2-37",
+    "subtask_id": "2",
+    "tier": 2,
+    "task_text": "What are conflicts in my calendar events? Tell me the conflict events.",
+    "gold_agents": [
+      "calendar"
+    ]
+  },
+  "2-37/3": {
+    "task_id": "2-37",
+    "subtask_id": "3",
+    "tier": 2,
+    "task_text": "Which event has hightest frequency, save results in events.docx",
+    "gold_agents": [
+      "calendar",
+      "word"
+    ]
+  },
+  "2-38/0": {
+    "task_id": "2-38",
+    "subtask_id": "0",
+    "tier": 2,
+    "task_text": "read notification pdf file and send email notification.eml to Alice",
+    "gold_agents": [
+      "email",
+      "pdf"
+    ]
+  },
+  "2-38/1": {
+    "task_id": "2-38",
+    "subtask_id": "1",
+    "tier": 2,
+    "task_text": "Bob was invited to party hold by Jane Doe, send an email party.eml to Bob to notify Bob",
+    "gold_agents": [
+      "email",
+      "pdf"
+    ]
+  },
+  "2-38/2": {
+    "task_id": "2-38",
+    "subtask_id": "2",
+    "tier": 2,
+    "task_text": "read notification word file and send email notification.eml to people mentioned on post",
+    "gold_agents": [
+      "email",
+      "word"
+    ]
+  },
+  "2-39/0": {
+    "task_id": "2-39",
+    "subtask_id": "0",
+    "tier": 2,
+    "task_text": "find Bob's latest email, save it in latest.docx",
+    "gold_agents": [
+      "email",
+      "shell",
+      "word"
+    ]
+  },
+  "2-39/1": {
+    "task_id": "2-39",
+    "subtask_id": "1",
+    "tier": 2,
+    "task_text": "find Bob's earliest email, save it in earliest.docx",
+    "gold_agents": [
+      "email",
+      "shell",
+      "word"
+    ]
+  },
+  "2-39/2": {
+    "task_id": "2-39",
+    "subtask_id": "2",
+    "tier": 2,
+    "task_text": "find all Bob's emails in this year, save in a doc file and convert the doc file into emails.pdf",
+    "gold_agents": [
+      "email",
+      "pdf",
+      "shell",
+      "word"
+    ]
+  },
+  "2-39/3": {
+    "task_id": "2-39",
+    "subtask_id": "3",
+    "tier": 2,
+    "task_text": "find all Bob's emails in this year, save them in emails.docx by ascending order",
+    "gold_agents": [
+      "email",
+      "shell",
+      "word"
+    ]
+  },
+  "2-39/4": {
+    "task_id": "2-39",
+    "subtask_id": "4",
+    "tier": 2,
+    "task_text": "find Bob's emails in January, save it in Jan_emails.pdf",
+    "gold_agents": [
+      "email",
+      "pdf",
+      "shell"
+    ]
+  },
+  "2-40/0": {
+    "task_id": "2-40",
+    "subtask_id": "0",
+    "tier": 2,
+    "task_text": "read Bob's calendar event and send email using event names to Bob for all events in calendar",
+    "gold_agents": [
+      "calendar",
+      "email"
+    ]
+  },
+  "2-40/1": {
+    "task_id": "2-40",
+    "subtask_id": "1",
+    "tier": 2,
+    "task_text": "read Bob's calendar event and send email using event names to Bob only for class",
+    "gold_agents": [
+      "calendar",
+      "email"
+    ]
+  },
+  "2-40/2": {
+    "task_id": "2-40",
+    "subtask_id": "2",
+    "tier": 2,
+    "task_text": "read Bob's calendar event and send email to Bob using event names for every event except sleeping",
+    "gold_agents": [
+      "calendar",
+      "email"
+    ]
+  },
+  "2-40/3": {
+    "task_id": "2-40",
+    "subtask_id": "3",
+    "tier": 2,
+    "task_text": "read Bob's and Tom's calendars, find their common events and send email using event names to them separately",
+    "gold_agents": [
+      "calendar",
+      "email"
+    ]
+  },
+  "2-41/0": {
+    "task_id": "2-41",
+    "subtask_id": "0",
+    "tier": 2,
+    "task_text": "read work overtime email, save as recipient's calendar event using their names as file names",
+    "gold_agents": [
+      "calendar",
+      "email",
+      "shell"
+    ]
+  },
+  "2-41/1": {
+    "task_id": "2-41",
+    "subtask_id": "1",
+    "tier": 2,
+    "task_text": "read my body test email, save as recipients' calendar event using their names as file names",
+    "gold_agents": [
+      "calendar",
+      "email",
+      "shell"
+    ]
+  },
+  "2-41/2": {
+    "task_id": "2-41",
+    "subtask_id": "2",
+    "tier": 2,
+    "task_text": "read my email, assign tasks mentioned in the multi-task email to and create the corresponding events for the recipients.",
+    "gold_agents": [
+      "calendar",
+      "email",
+      "shell"
+    ]
+  },
+  "2-42/0": {
+    "task_id": "2-42",
+    "subtask_id": "0",
+    "tier": 2,
+    "task_text": "make a table email_counting.xlsx to show how many emails for each people in the email list, first row is Alice, second row is Bob",
+    "gold_agents": [
+      "email",
+      "excel",
+      "shell"
+    ]
+  },
+  "2-43/0": {
+    "task_id": "2-43",
+    "subtask_id": "0",
+    "tier": 2,
+    "task_text": "read company revenues and send a email revenues.eml containing all years' revenues to Bob for reporting",
+    "gold_agents": [
+      "email",
+      "excel"
+    ]
+  },
+  "2-43/1": {
+    "task_id": "2-43",
+    "subtask_id": "1",
+    "tier": 2,
+    "task_text": "read company revenues, send a email revenues.eml to Bob containing first 10 years of revenues, and send a email to Tom containing rest of data",
+    "gold_agents": [
+      "email",
+      "excel"
+    ]
+  },
+  "2-44/0": {
+    "task_id": "2-44",
+    "subtask_id": "0",
+    "tier": 2,
+    "task_text": "make a table in emails.xlsx for each Bob's email with date, sender email account as header",
+    "gold_agents": [
+      "email",
+      "excel",
+      "shell"
+    ]
+  },
+  "2-45/0": {
+    "task_id": "2-45",
+    "subtask_id": "0",
+    "tier": 2,
+    "task_text": "extract notification from business traveling image and send emails bussiness_travel.eml to Bob and Tom",
+    "gold_agents": [
+      "email",
+      "ocr"
+    ]
+  },
+  "2-45/1": {
+    "task_id": "2-45",
+    "subtask_id": "1",
+    "tier": 2,
+    "task_text": "read business traveling image, send emails bussiness_travel.eml to corresponding staff",
+    "gold_agents": [
+      "email",
+      "ocr"
+    ]
+  },
+  "2-45/2": {
+    "task_id": "2-45",
+    "subtask_id": "2",
+    "tier": 2,
+    "task_text": "extract today's schedule from image, send email schedules.eml containg all events in schedule to Bob",
+    "gold_agents": [
+      "email",
+      "ocr"
+    ]
+  },
+  "2-46/0": {
+    "task_id": "2-46",
+    "subtask_id": "0",
+    "tier": 2,
+    "task_text": "extract class canceling notification from email, save it into a doc file and convert the doc file into a pdf named class_canceling.pdf",
+    "gold_agents": [
+      "email",
+      "pdf",
+      "shell",
+      "word"
+    ]
+  },
+  "2-48/0": {
+    "task_id": "2-48",
+    "subtask_id": "0",
+    "tier": 2,
+    "task_text": "extract Bob's and Tom's calendar and count their sleeping time, saved to excel file named events.xlsx, first row is Bob, second row is Tom",
+    "gold_agents": [
+      "calendar",
+      "excel"
+    ]
+  },
+  "2-49/0": {
+    "task_id": "2-49",
+    "subtask_id": "0",
+    "tier": 2,
+    "task_text": "extract score table from email, save as excel file score.xlsx",
+    "gold_agents": [
+      "email",
+      "excel"
+    ]
+  },
+  "2-5/0": {
+    "task_id": "2-5",
+    "subtask_id": "0",
+    "tier": 2,
+    "task_text": "Does the submitted fellowship application PDF material satisfie the school policy?",
+    "gold_agents": [
+      "ocr",
+      "pdf"
+    ]
+  },
+  "2-50/0": {
+    "task_id": "2-50",
+    "subtask_id": "0",
+    "tier": 2,
+    "task_text": "extract revenue data from my email and save it as a table in excel file revenues.xlsx, headers are year and revenues",
+    "gold_agents": [
+      "email",
+      "excel",
+      "shell"
+    ]
+  },
+  "2-6/0": {
+    "task_id": "2-6",
+    "subtask_id": "0",
+    "tier": 2,
+    "task_text": "Scan PDF homework to homework.docx for editing",
+    "gold_agents": [
+      "ocr",
+      "pdf",
+      "shell",
+      "word"
+    ]
+  },
+  "2-7/0": {
+    "task_id": "2-7",
+    "subtask_id": "0",
+    "tier": 2,
+    "task_text": "Extract key points from PDF research papers, summarize them in paper.docx, and save it for reference",
+    "gold_agents": [
+      "llm",
+      "pdf",
+      "word"
+    ]
+  },
+  "2-8/0": {
+    "task_id": "2-8",
+    "subtask_id": "0",
+    "tier": 2,
+    "task_text": "Use OCR to extract text from business cards and convert them into an Excel sheet with contact information, called 'contacts.xlsx'.",
+    "gold_agents": [
+      "excel",
+      "ocr"
+    ]
+  },
+  "2-8/1": {
+    "task_id": "2-8",
+    "subtask_id": "1",
+    "tier": 2,
+    "task_text": "Collect all contact cards except Tom's, save their information in contact.xlsx",
+    "gold_agents": [
+      "excel",
+      "ocr",
+      "shell"
+    ]
+  },
+  "3-1/0": {
+    "task_id": "3-1",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "Convert Excel spreadsheet containing project tasks to task.pdf and email Alice.eml containing pdf file for review",
+    "gold_agents": [
+      "email",
+      "excel",
+      "pdf",
+      "shell"
+    ]
+  },
+  "3-10/0": {
+    "task_id": "3-10",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "read all emails, create folders for each recipients using their names and save their emails in pdf file using original names into their own folders",
+    "gold_agents": [
+      "email",
+      "pdf",
+      "shell"
+    ]
+  },
+  "3-100/0": {
+    "task_id": "3-100",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "extract revenue numbers and save as a table in excel file revenues.xlsx, email the info to manager Tom (Tom@gmail.com)",
+    "gold_agents": [
+      "email",
+      "excel",
+      "shell"
+    ]
+  },
+  "3-11/0": {
+    "task_id": "3-11",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "read notification, send email to people mentioned in post, create folders using their own names for each person and save email notification.eml in it",
+    "gold_agents": [
+      "email",
+      "ocr",
+      "shell"
+    ]
+  },
+  "3-12/0": {
+    "task_id": "3-12",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "extract text from power failure notification image, save in power_failure.pdf, send email power_failure.eml to notify workers Bob and Tom",
+    "gold_agents": [
+      "email",
+      "ocr",
+      "pdf",
+      "shell"
+    ]
+  },
+  "3-12/1": {
+    "task_id": "3-12",
+    "subtask_id": "1",
+    "tier": 3,
+    "task_text": "summarize content from meeting notification image and save in meeting.pdf, send meeting.eml to Alice with meeting agenda",
+    "gold_agents": [
+      "email",
+      "llm",
+      "ocr",
+      "pdf",
+      "shell"
+    ]
+  },
+  "3-12/2": {
+    "task_id": "3-12",
+    "subtask_id": "2",
+    "tier": 3,
+    "task_text": "summarize content from combined notification image into one pdf file named two_notifications.pdf, party need to be prepared by Bob, meeting need to be prepared by Alice, email them using party.eml and meeting.eml",
+    "gold_agents": [
+      "email",
+      "llm",
+      "ocr",
+      "pdf",
+      "shell"
+    ]
+  },
+  "3-13/0": {
+    "task_id": "3-13",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "summarize content from meeting notification image and save in meeting.pdf, save pdf file in folder named schedule",
+    "gold_agents": [
+      "llm",
+      "ocr",
+      "pdf",
+      "shell"
+    ]
+  },
+  "3-13/1": {
+    "task_id": "3-13",
+    "subtask_id": "1",
+    "tier": 3,
+    "task_text": "extract text from combined notification image and split into two pdf files, named party.pdf and meeting.pdf, save them in two folders named activaties and schedule",
+    "gold_agents": [
+      "ocr",
+      "pdf",
+      "shell"
+    ]
+  },
+  "3-14/0": {
+    "task_id": "3-14",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "summarize content from meeting notification image and save in meeting.pdf, create calendar event Bob.ics and Tom.ics about meeting for Bob and Tom",
+    "gold_agents": [
+      "calendar",
+      "llm",
+      "ocr",
+      "pdf",
+      "shell"
+    ]
+  },
+  "3-14/1": {
+    "task_id": "3-14",
+    "subtask_id": "1",
+    "tier": 3,
+    "task_text": "extract text from combined notification image and split into two pdf files, named party.pdf and meeting.pdf, Bob and Alice held party and meeting respectively, create calendar event meeting.ics and party.ics for them",
+    "gold_agents": [
+      "calendar",
+      "ocr",
+      "pdf",
+      "shell"
+    ]
+  },
+  "3-15/0": {
+    "task_id": "3-15",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "scan resume pdf file, extract name and contact information saved it as contact card in image file named contact.jpg, email contact.eml containing contact information to manager Bob",
+    "gold_agents": [
+      "email",
+      "ocr",
+      "pdf",
+      "shell"
+    ]
+  },
+  "3-16/0": {
+    "task_id": "3-16",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "scan concert post file, save as notification image named notification.jpg, convert image into a concert_activaty.docx file",
+    "gold_agents": [
+      "ocr",
+      "pdf",
+      "shell",
+      "word"
+    ]
+  },
+  "3-17/0": {
+    "task_id": "3-17",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "read pdf google form file, make an image post welcome.jpg, email corresponding person with welcome image in welcome.eml",
+    "gold_agents": [
+      "email",
+      "ocr",
+      "pdf",
+      "shell"
+    ]
+  },
+  "3-18/0": {
+    "task_id": "3-18",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "scan resume pdf file, extract name and contact information saved it as contact card in image file named contact.jpg, save basic information in cotact.xlsx",
+    "gold_agents": [
+      "excel",
+      "ocr",
+      "pdf",
+      "shell"
+    ]
+  },
+  "3-19/0": {
+    "task_id": "3-19",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "Check if the submitted fellowship application PDF material satisfies the school policy, write yes or no in result.docx, and email application to officer in application.eml",
+    "gold_agents": [
+      "email",
+      "ocr",
+      "pdf",
+      "shell",
+      "word"
+    ]
+  },
+  "3-2/0": {
+    "task_id": "3-2",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "Extract data from a PDF financial report, analyze it in report.xlsx, and create a summary in summary.docx",
+    "gold_agents": [
+      "excel",
+      "llm",
+      "pdf",
+      "word"
+    ]
+  },
+  "3-20/0": {
+    "task_id": "3-20",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "Check if the submitted fellowship application PDF material satisfies the school policy, write yes or no in result.docx, and schedule a meeting with officer at 1:00 p.m 5/31/2024, save in meeting.ics",
+    "gold_agents": [
+      "calendar",
+      "ocr",
+      "pdf",
+      "shell",
+      "word"
+    ]
+  },
+  "3-21/0": {
+    "task_id": "3-21",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "Check if the submitted fellowship application PDF material satisfies the school policy, write yes or no in result.docx, save application into folder named application",
+    "gold_agents": [
+      "ocr",
+      "pdf",
+      "shell",
+      "word"
+    ]
+  },
+  "3-22/0": {
+    "task_id": "3-22",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "Scan PDF homework and save as homework.docx for editing, save homework file into folder named homework",
+    "gold_agents": [
+      "ocr",
+      "pdf",
+      "shell",
+      "word"
+    ]
+  },
+  "3-23/0": {
+    "task_id": "3-23",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "Scan PDF homework to homework.docx for editing, make a calendar event due.ics to remind that homework is due on 5/31/2024 at 11:59 p.m",
+    "gold_agents": [
+      "calendar",
+      "ocr",
+      "pdf",
+      "shell",
+      "word"
+    ]
+  },
+  "3-24/0": {
+    "task_id": "3-24",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "Extract key points from PDF research papers, summarize them in abstract.docx, and save it for reference, schedule a meeting saved in meeting.ics with professor Dan at 5/31/2024 at 11:00 a.m to talk about paper",
+    "gold_agents": [
+      "calendar",
+      "llm",
+      "pdf",
+      "shell",
+      "word"
+    ]
+  },
+  "3-25/0": {
+    "task_id": "3-25",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "Scan PDF homework to homework.docx for editing, save homework word file to new_homework.pdf",
+    "gold_agents": [
+      "ocr",
+      "pdf",
+      "shell",
+      "word"
+    ]
+  },
+  "3-26/0": {
+    "task_id": "3-26",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "Extract key points from PDF research papers, summarize them in abstract.docx, and save it in email to professor Dan named paper.eml",
+    "gold_agents": [
+      "email",
+      "llm",
+      "pdf",
+      "word"
+    ]
+  },
+  "3-27/0": {
+    "task_id": "3-27",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "Use OCR to extract text from Bob's card and convert them into contact.xlsx with contact information, email excel file to manager Alice named Bob.eml to introduce contact information about Bob",
+    "gold_agents": [
+      "email",
+      "excel",
+      "ocr",
+      "shell"
+    ]
+  },
+  "3-28/0": {
+    "task_id": "3-28",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "Use OCR to extract text from Bob's card and convert them into contact.xlsx with contact information, schedule a meeting with manager Alice at 1:00 p.m 5/21/2024 named meeting.ics",
+    "gold_agents": [
+      "calendar",
+      "excel",
+      "ocr",
+      "shell"
+    ]
+  },
+  "3-29/0": {
+    "task_id": "3-29",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "Collect all contact cards except Tom's, save their information in contact.xlsx, first header is name, save in alphabetic order by name, send contact.xlsx to Tom via contact.eml for information",
+    "gold_agents": [
+      "email",
+      "excel",
+      "ocr",
+      "shell"
+    ]
+  },
+  "3-3/0": {
+    "task_id": "3-3",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "Convert Word document containing employee training manuals to manual.pdf and distribute it to Alice via email Alice.eml",
+    "gold_agents": [
+      "email",
+      "pdf",
+      "shell",
+      "word"
+    ]
+  },
+  "3-30/0": {
+    "task_id": "3-30",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "Collect all contact cards, save their information in contact.xlsx, save in alphabetic order by name, first header is name, save in folder named contacts",
+    "gold_agents": [
+      "excel",
+      "ocr",
+      "shell"
+    ]
+  },
+  "3-32/0": {
+    "task_id": "3-32",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "Scan printed car inventory lists from PDF, convert them to Excel file car_inventory.xlsx using OCR, save in folder named cars",
+    "gold_agents": [
+      "excel",
+      "ocr",
+      "pdf",
+      "shell"
+    ]
+  },
+  "3-33/0": {
+    "task_id": "3-33",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "Scan printed car inventory lists from PDF, convert them to Excel file car_inventory.xlsx, create a meeting.ics to schedule meeting for Bob with the first driver in car_inventory.xlsx at 6/1/2024 10:00 a.m",
+    "gold_agents": [
+      "calendar",
+      "excel",
+      "ocr",
+      "pdf"
+    ]
+  },
+  "3-34/0": {
+    "task_id": "3-34",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "Scan printed car inventory lists from PDF, save cars that milage is lower than 40000 to Excel file good_car.xlsx using OCR, create a meeting.ics to schedule meeting for Bob with the first driver in good_car.xlsx at 6/1/2024 10:00 a.m",
+    "gold_agents": [
+      "calendar",
+      "excel",
+      "ocr",
+      "pdf",
+      "shell"
+    ]
+  },
+  "3-35/0": {
+    "task_id": "3-35",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "Put student scores from scanned PDF file to scores.xlsx, email student with highest score for reward named reward.eml",
+    "gold_agents": [
+      "email",
+      "excel",
+      "ocr",
+      "shell"
+    ]
+  },
+  "3-36/0": {
+    "task_id": "3-36",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "Put student scores from scanned PDF file to scores.xlsx, schedule a meeting meeting.ics with student who has the lowest score at 6/1/2024 10:30 a.m",
+    "gold_agents": [
+      "calendar",
+      "excel",
+      "ocr",
+      "shell"
+    ]
+  },
+  "3-37/0": {
+    "task_id": "3-37",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "Put student scores from scanned PDF file to scores.xlsx, save it in folder scores",
+    "gold_agents": [
+      "excel",
+      "ocr",
+      "shell"
+    ]
+  },
+  "3-38/0": {
+    "task_id": "3-38",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "extract students and their IDs, collect in excel file SIDs.xlsx, save in folder IDs",
+    "gold_agents": [
+      "excel",
+      "ocr",
+      "shell"
+    ]
+  },
+  "3-39/0": {
+    "task_id": "3-39",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "extract students and their IDs, split them in two excel files SID_Class_1.xlsx and SID_Class_2.xlsx, save in two folders Class1 and Class2 respectively",
+    "gold_agents": [
+      "excel",
+      "ocr",
+      "shell"
+    ]
+  },
+  "3-4/0": {
+    "task_id": "3-4",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "Convert Excel spreadsheet containing financial data to report.pdf for archival purposes, and save pdf file under folder financial",
+    "gold_agents": [
+      "excel",
+      "pdf",
+      "shell"
+    ]
+  },
+  "3-40/0": {
+    "task_id": "3-40",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "Collect car trading records and organize them into car_records.xlsx, schedule a meeting meeting.ics between the first case buyer and seller at 6/1/2024 1:00 p.m",
+    "gold_agents": [
+      "calendar",
+      "excel",
+      "ocr",
+      "shell"
+    ]
+  },
+  "3-41/0": {
+    "task_id": "3-41",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "collect company trading and save in company_trading.xlsx, save it in folder trading",
+    "gold_agents": [
+      "excel",
+      "ocr",
+      "shell"
+    ]
+  },
+  "3-42/0": {
+    "task_id": "3-42",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "collect company trading and save in company_trading.xlsx, email it to president",
+    "gold_agents": [
+      "email",
+      "excel",
+      "ocr",
+      "shell"
+    ]
+  },
+  "3-43/0": {
+    "task_id": "3-43",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "Scan handwritten notes from a meeting agenda, convert them to text using OCR, and add them to a calendar file meeting.ics, email it to Alice for record",
+    "gold_agents": [
+      "calendar",
+      "email",
+      "ocr",
+      "pdf",
+      "shell"
+    ]
+  },
+  "3-44/0": {
+    "task_id": "3-44",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "read daily schedule from image, save all events in file daily_schedule.txt, save it in folder daily_schedule",
+    "gold_agents": [
+      "ocr",
+      "shell"
+    ]
+  },
+  "3-45/0": {
+    "task_id": "3-45",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "Schedule a team training session for all participants from excel file, create calendar events for each member in their name",
+    "gold_agents": [
+      "calendar",
+      "excel",
+      "shell"
+    ]
+  },
+  "3-46/0": {
+    "task_id": "3-46",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "schedule a reward meeting to the top-three students in midterm 2, create calendar event reward for them with their score in midterm 2. email to top-three students separately with the same details in the calendar event.",
+    "gold_agents": [
+      "calendar",
+      "email",
+      "excel",
+      "shell"
+    ]
+  },
+  "3-47/0": {
+    "task_id": "3-47",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "schedule a reward meeting to the top-three students, write reward statement in statement.pdf",
+    "gold_agents": [
+      "calendar",
+      "excel",
+      "llm",
+      "pdf"
+    ]
+  },
+  "3-48/0": {
+    "task_id": "3-48",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "Schedule a team training session for members in section A from excel file, create calendar events file for each member in their name",
+    "gold_agents": [
+      "calendar",
+      "excel",
+      "shell"
+    ]
+  },
+  "3-49/0": {
+    "task_id": "3-49",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "schedule a helping section, pair one student whose score is in section A/B and one student in section C, create calendar events for each of them using their names, email those students for notification",
+    "gold_agents": [
+      "calendar",
+      "email",
+      "excel",
+      "shell"
+    ]
+  },
+  "3-5/0": {
+    "task_id": "3-5",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "Convert PDF invoices to invoices.xlsx, analyze payment trends, and generate a report.docx for financial review",
+    "gold_agents": [
+      "excel",
+      "llm",
+      "pdf",
+      "shell",
+      "word"
+    ]
+  },
+  "3-50/0": {
+    "task_id": "3-50",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "Convert meeting agenda from calendar into Excel file meeting_agenda.xlsx for further analysis, create an image post agenda.jpg",
+    "gold_agents": [
+      "calendar",
+      "excel",
+      "shell"
+    ]
+  },
+  "3-51/0": {
+    "task_id": "3-51",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "Convert meeting agenda from calendar into Excel file meeting_agenda.xlsx for further analysis, email it to manager Rena",
+    "gold_agents": [
+      "calendar",
+      "email",
+      "excel",
+      "shell"
+    ]
+  },
+  "3-52/0": {
+    "task_id": "3-52",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "Create meeting agenda from Excel data and add it to my calendar and email to the participants emails as reminders, separately.",
+    "gold_agents": [
+      "calendar",
+      "email",
+      "excel"
+    ]
+  },
+  "3-53/0": {
+    "task_id": "3-53",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "For students in each class seperately, create calendar events for them, create different folders by class numbers (folder name should have the format class_x) and save the student name as a file [NAME].txt in the corresponding folder",
+    "gold_agents": [
+      "calendar",
+      "excel",
+      "shell"
+    ]
+  },
+  "3-54/0": {
+    "task_id": "3-54",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "Write a statement in reward.docx to the student who got the highest score on midterm1, email this to student's parents (the name of the email file is student_name.eml). Student's parents' email have the form student_name@mail.com.",
+    "gold_agents": [
+      "email",
+      "excel",
+      "llm",
+      "shell",
+      "word"
+    ]
+  },
+  "3-55/0": {
+    "task_id": "3-55",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "Write a statement in reward.docx to the student who got the best midterm1 score in the class, make a post reward.jpg",
+    "gold_agents": [
+      "excel",
+      "llm",
+      "shell",
+      "word"
+    ]
+  },
+  "3-56/0": {
+    "task_id": "3-56",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "assign homework \"read book and write essay\" in hw1.docx for students in class 1.",
+    "gold_agents": [
+      "excel",
+      "llm",
+      "shell",
+      "word"
+    ]
+  },
+  "3-57/0": {
+    "task_id": "3-57",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "assign homework \"read book and write essay\" in hw1.docx for students in class 1, email hw1.docx to Carol and Anna in class1",
+    "gold_agents": [
+      "email",
+      "excel",
+      "llm",
+      "shell",
+      "word"
+    ]
+  },
+  "3-58/0": {
+    "task_id": "3-58",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "write all shopping item in shopping.docx from shopping list",
+    "gold_agents": [
+      "excel",
+      "word"
+    ]
+  },
+  "3-59/0": {
+    "task_id": "3-59",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "Analyze Excel data of students' grade and generate a teaching report in teaching.docx, convert to teaching.pdf",
+    "gold_agents": [
+      "excel",
+      "llm",
+      "pdf",
+      "word"
+    ]
+  },
+  "3-6/0": {
+    "task_id": "3-6",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "Schedule a team training as calendar event training.ics for next week and send out emails training.eml to all team members from an excel file",
+    "gold_agents": [
+      "calendar",
+      "email",
+      "excel",
+      "shell"
+    ]
+  },
+  "3-6/1": {
+    "task_id": "3-6",
+    "subtask_id": "1",
+    "tier": 3,
+    "task_text": "Schedule a team training as calendar event training.ics for next week and send out emails training.eml to only members in Section A from an excel file",
+    "gold_agents": [
+      "calendar",
+      "email",
+      "excel",
+      "shell"
+    ]
+  },
+  "3-60/0": {
+    "task_id": "3-60",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "Find all students who are taking CS161 and put the name and student ID of students into students.docx, save in folder CS161",
+    "gold_agents": [
+      "excel",
+      "shell",
+      "word"
+    ]
+  },
+  "3-61/0": {
+    "task_id": "3-61",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "Extract a student's previous courses from Excel, suggest four courses he should take this quarter and put it in classes.docx, email classes.docx to student. The email file should have the name thomas.eml.",
+    "gold_agents": [
+      "email",
+      "excel",
+      "llm",
+      "shell",
+      "word"
+    ]
+  },
+  "3-62/0": {
+    "task_id": "3-62",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "Generate a file report.docx based on midterm1 and midterm2 scores, convert to report.pdf",
+    "gold_agents": [
+      "excel",
+      "llm",
+      "pdf",
+      "word"
+    ]
+  },
+  "3-63/0": {
+    "task_id": "3-63",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "Generate a file report.docx based on midterm1 and midterm2 scores, save in folder named report",
+    "gold_agents": [
+      "excel",
+      "llm",
+      "shell",
+      "word"
+    ]
+  },
+  "3-64/0": {
+    "task_id": "3-64",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "give some instruction and prediction in file house_price.docx based on house price index, convert to a post housing.jpg",
+    "gold_agents": [
+      "excel",
+      "llm",
+      "shell",
+      "word"
+    ]
+  },
+  "3-65/0": {
+    "task_id": "3-65",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "give some instruction and prediction in file house_price.docx based on house price index, email to Bob for reference. The subject of email should be Housing_Instruction",
+    "gold_agents": [
+      "email",
+      "excel",
+      "llm",
+      "shell",
+      "word"
+    ]
+  },
+  "3-66/0": {
+    "task_id": "3-66",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "suggest cars and save in cars.docx for people whose budget is 50000$ based on car trading excel file, email to Tom for reference with subject 'Cars for you'",
+    "gold_agents": [
+      "email",
+      "excel",
+      "llm",
+      "word"
+    ]
+  },
+  "3-67/0": {
+    "task_id": "3-67",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "suggest cars and save in cars.docx for people whose budget is 50000$ based on car trading excel file, convert to suggesting.pdf",
+    "gold_agents": [
+      "excel",
+      "llm",
+      "pdf",
+      "word"
+    ]
+  },
+  "3-68/0": {
+    "task_id": "3-68",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "Extract data from PDF invoices from sales and sum all the costs in file costs.xlsx, if cost in larger than 1300$, email to Bob with subject 'Costs'",
+    "gold_agents": [
+      "email",
+      "excel",
+      "pdf",
+      "shell"
+    ]
+  },
+  "3-69/0": {
+    "task_id": "3-69",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "Extract the score and name from pdf then calculate the score in excel score.xlsx, convert to score.docx",
+    "gold_agents": [
+      "excel",
+      "pdf",
+      "word"
+    ]
+  },
+  "3-7/0": {
+    "task_id": "3-7",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "Extract admitted applicant's name and email, write Graduate Program Admission Letter with applicant's name in admission.pdf, and send it to applicant's email admission.eml under folder using their last name",
+    "gold_agents": [
+      "email",
+      "excel",
+      "llm",
+      "pdf",
+      "shell"
+    ]
+  },
+  "3-70/0": {
+    "task_id": "3-70",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "Convert student homework word documents to PDF and rename them into same name with .pdf suffix, convert to images with same name",
+    "gold_agents": [
+      "pdf",
+      "shell",
+      "word"
+    ]
+  },
+  "3-71/0": {
+    "task_id": "3-71",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "Extract schedule from PDF and add it to a calendar meeting_agenda.ics, also save it as agenda.jpg",
+    "gold_agents": [
+      "calendar",
+      "ocr",
+      "pdf",
+      "shell"
+    ]
+  },
+  "3-72/0": {
+    "task_id": "3-72",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "Extract schedule from PDF and add it to a text file meeting_agenda.txt, also save it in folder named meetings",
+    "gold_agents": [
+      "pdf",
+      "shell"
+    ]
+  },
+  "3-73/0": {
+    "task_id": "3-73",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "Scan Conference Invitation PDF and search for conference date (If no time is specified, use 6:00 am as default start time), add event to that date on calender, save as invitation.ics, make an invitation post named invitation.jpg",
+    "gold_agents": [
+      "calendar",
+      "ocr",
+      "pdf",
+      "shell"
+    ]
+  },
+  "3-74/0": {
+    "task_id": "3-74",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "Scan Conference Invitation PDF and search for conference date, add event to that date on calender, save as invitation.ics, record date, location, conference name, etc. in excel conference.xlsx",
+    "gold_agents": [
+      "calendar",
+      "excel",
+      "ocr",
+      "pdf",
+      "shell"
+    ]
+  },
+  "3-75/0": {
+    "task_id": "3-75",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "Extract the student name from docx then rename this pdf to {name}.pdf in shell, email teacher Alice with pdf file",
+    "gold_agents": [
+      "email",
+      "pdf",
+      "shell",
+      "word"
+    ]
+  },
+  "3-76/0": {
+    "task_id": "3-76",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "What is the maximum prices of the cars sold in March, send it via email to the buyer Tom",
+    "gold_agents": [
+      "email",
+      "ocr"
+    ]
+  },
+  "3-77/0": {
+    "task_id": "3-77",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "Predict house price index in year 2030 based on house price index image, write your answer in prediction.docx",
+    "gold_agents": [
+      "llm",
+      "ocr",
+      "word"
+    ]
+  },
+  "3-78/0": {
+    "task_id": "3-78",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "Identify whether the reimbursement amount exceeds the company budget, report to manager Tom about reimbursement",
+    "gold_agents": [
+      "email",
+      "ocr"
+    ]
+  },
+  "3-79/0": {
+    "task_id": "3-79",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "Identify whether the reimbursement amount exceeds the company budget, schedule a meeting as meeting.ics for staff to talk about reimbursement",
+    "gold_agents": [
+      "calendar",
+      "ocr",
+      "shell"
+    ]
+  },
+  "3-8/0": {
+    "task_id": "3-8",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "read company revenues, delete years that revenues are lower than $2000000 and save in new.xlsx, generate reports report.docx",
+    "gold_agents": [
+      "excel",
+      "llm",
+      "shell",
+      "word"
+    ]
+  },
+  "3-8/1": {
+    "task_id": "3-8",
+    "subtask_id": "1",
+    "tier": 3,
+    "task_text": "read company revenues, extract years that revenues are higher than 4000000$, save in good.xlsx, generate reports report.pdf",
+    "gold_agents": [
+      "excel",
+      "llm",
+      "pdf"
+    ]
+  },
+  "3-8/2": {
+    "task_id": "3-8",
+    "subtask_id": "2",
+    "tier": 3,
+    "task_text": "read company revenues, save the top 2 in top2.xlsx, generate reports.docx",
+    "gold_agents": [
+      "excel",
+      "llm",
+      "word"
+    ]
+  },
+  "3-8/3": {
+    "task_id": "3-8",
+    "subtask_id": "3",
+    "tier": 3,
+    "task_text": "read company revenues, calculate the revenue difference of the first year and last year in the table, save the result in improvement.txt, and generate a short report in reports.docx",
+    "gold_agents": [
+      "excel",
+      "llm",
+      "shell",
+      "word"
+    ]
+  },
+  "3-8/4": {
+    "task_id": "3-8",
+    "subtask_id": "4",
+    "tier": 3,
+    "task_text": "read company revenues, calculate the revenue difference of this year and last year, save the result in improvement.txt, and generate a short report in reports.docx",
+    "gold_agents": [
+      "excel",
+      "llm",
+      "shell",
+      "word"
+    ]
+  },
+  "3-8/5": {
+    "task_id": "3-8",
+    "subtask_id": "5",
+    "tier": 3,
+    "task_text": "read score for midterm1 and midterm2, how many students score 90 or higher for midterm1 and midterm2 seperately, write numbers saved in file exams.docx, and exams.pdf",
+    "gold_agents": [
+      "excel",
+      "pdf",
+      "shell",
+      "word"
+    ]
+  },
+  "3-8/6": {
+    "task_id": "3-8",
+    "subtask_id": "6",
+    "tier": 3,
+    "task_text": "read score for midterm1 and midterm2, which students made progress? find out these students and email them with the score and the email title is congratulations",
+    "gold_agents": [
+      "email",
+      "excel",
+      "shell"
+    ]
+  },
+  "3-8/7": {
+    "task_id": "3-8",
+    "subtask_id": "7",
+    "tier": 3,
+    "task_text": "read score for midterm1 and midterm2, find number of students who make progress, write the answer in a word file, progress.docx",
+    "gold_agents": [
+      "excel",
+      "shell",
+      "word"
+    ]
+  },
+  "3-80/0": {
+    "task_id": "3-80",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "Compare income and expenditure based on company trading record, write a short analysis and save it as trading_record_post.jpg in folder named trading_account",
+    "gold_agents": [
+      "llm",
+      "ocr",
+      "shell"
+    ]
+  },
+  "3-81/0": {
+    "task_id": "3-81",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "Compare income and expenditure based on company trading record, email a short analysis to manager Alice (Alice@abc.com)",
+    "gold_agents": [
+      "email",
+      "llm",
+      "ocr"
+    ]
+  },
+  "3-82/0": {
+    "task_id": "3-82",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "Check student grade in midterm1, write top-5 students' names in list.docx",
+    "gold_agents": [
+      "excel",
+      "shell",
+      "word"
+    ]
+  },
+  "3-83/0": {
+    "task_id": "3-83",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "which class has the least students, save all students' names in this class in Class_member.pdf",
+    "gold_agents": [
+      "excel",
+      "pdf"
+    ]
+  },
+  "3-84/0": {
+    "task_id": "3-84",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "Analyze relationship between sleeping hours and age, weight, gender from survey result, convert report to report.docx file",
+    "gold_agents": [
+      "excel",
+      "llm",
+      "word"
+    ]
+  },
+  "3-85/0": {
+    "task_id": "3-85",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "Analyze relationship between sleeping hours and age, weight, gender from survey result, save report as report.jpg",
+    "gold_agents": [
+      "excel",
+      "llm",
+      "shell"
+    ]
+  },
+  "3-86/0": {
+    "task_id": "3-86",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "Read grade in transcripts and generate a grade report called transcripts_report.docx, also save the report as transcripts_report_pdf_version.pdf",
+    "gold_agents": [
+      "llm",
+      "ocr",
+      "pdf",
+      "shell",
+      "word"
+    ]
+  },
+  "3-87/0": {
+    "task_id": "3-87",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "if Dean's list requires term average gpa to be higher than 3.9, how many terms can this students be awarded on Dean's list? Email to student about this result",
+    "gold_agents": [
+      "email",
+      "ocr"
+    ]
+  },
+  "3-88/0": {
+    "task_id": "3-88",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "Analyze relationship between revenues and sales unit, regions, save as an image post named analyze.jpg",
+    "gold_agents": [
+      "llm",
+      "pdf",
+      "shell"
+    ]
+  },
+  "3-89/0": {
+    "task_id": "3-89",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "Analyze relationship between revenues and sales unit, regions, save your results in the analysis.txt and put it in a folder named report",
+    "gold_agents": [
+      "llm",
+      "pdf",
+      "shell"
+    ]
+  },
+  "3-9/0": {
+    "task_id": "3-9",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "read company revenues, describe revenues in a report. I want the report converted into an image named report.jpg",
+    "gold_agents": [
+      "excel",
+      "llm",
+      "shell"
+    ]
+  },
+  "3-9/1": {
+    "task_id": "3-9",
+    "subtask_id": "1",
+    "tier": 3,
+    "task_text": "read company revenues, how many years of revenues are higher than 4000000$, save results in an image revenues.jpg",
+    "gold_agents": [
+      "excel",
+      "shell"
+    ]
+  },
+  "3-90/0": {
+    "task_id": "3-90",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "for calendar data, find frequency of meeting, generate a file report.pdf about meeting frequency",
+    "gold_agents": [
+      "calendar",
+      "llm",
+      "pdf"
+    ]
+  },
+  "3-91/0": {
+    "task_id": "3-91",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "Do these calendar events have time conflicts? write confliction on schedule.docx, or combine all schedules in that docx file",
+    "gold_agents": [
+      "calendar",
+      "shell",
+      "word"
+    ]
+  },
+  "3-92/0": {
+    "task_id": "3-92",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "Bob was invited to party hold by Jane Doe, send an email from Jane to Bob to notify Bob, make a post welcome.jpg for Bob",
+    "gold_agents": [
+      "email",
+      "pdf",
+      "shell"
+    ]
+  },
+  "3-93/0": {
+    "task_id": "3-93",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "read Bob's calendar event and send email to Bob for all events in calendar, save all events in event.pdf",
+    "gold_agents": [
+      "calendar",
+      "email",
+      "pdf"
+    ]
+  },
+  "3-94/0": {
+    "task_id": "3-94",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "read Bob's and Tom's calendars, find their common events and send email to them, make a post common_events.jpg",
+    "gold_agents": [
+      "calendar",
+      "email",
+      "shell"
+    ]
+  },
+  "3-95/0": {
+    "task_id": "3-95",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "make a table email_counting.xlsx to show how many emails for each people in the email list, summarize it in email_stat.pdf",
+    "gold_agents": [
+      "email",
+      "excel",
+      "llm",
+      "pdf",
+      "shell"
+    ]
+  },
+  "3-96/0": {
+    "task_id": "3-96",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "read company revenues and send a email revenues.eml containing data to Bob for reporting, also write a revenue.docx to summarize it",
+    "gold_agents": [
+      "email",
+      "excel",
+      "llm",
+      "word"
+    ]
+  },
+  "3-97/0": {
+    "task_id": "3-97",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "extract Bob's and Tom's calendar and count their sleeping time, class time length, saved to excel file named events.xlsx, write summarization in daily_event.pdf",
+    "gold_agents": [
+      "calendar",
+      "excel",
+      "pdf",
+      "shell"
+    ]
+  },
+  "3-98/0": {
+    "task_id": "3-98",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "extract score table from email, save as excel file score.xlsx, save excel file in folder named score",
+    "gold_agents": [
+      "email",
+      "excel",
+      "shell"
+    ]
+  },
+  "3-99/0": {
+    "task_id": "3-99",
+    "subtask_id": "0",
+    "tier": 3,
+    "task_text": "extract revenue data and save as a table in excel file revenues.xlsx, write statements in revenues.docx",
+    "gold_agents": [
+      "excel",
+      "llm",
+      "shell",
+      "word"
+    ]
+  }
+}

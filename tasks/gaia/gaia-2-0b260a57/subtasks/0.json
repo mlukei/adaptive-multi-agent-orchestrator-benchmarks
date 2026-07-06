@@ -1,0 +1,17 @@
+{
+  "task": "On ScienceDirect, what is the difference to 3 decimal places in the sample standard deviations of the number of Reference Works in each Life Science domain compared to Health Sciences as of 2022?",
+  "username": null,
+  "date": null,
+  "weekday": null,
+  "time": null,
+  "gaia_task_id": "0b260a57-3f3a-4405-9f29-6d7a1012dbfb",
+  "gaia_level": "2",
+  "evaluation": [
+    {
+      "function": "evaluate_answer_match",
+      "args": {
+        "expected": "0.269"
+      }
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "task": "How many slides in this PowerPoint presentation mention crustaceans?\n\n[Attached file: a3fbeb63-0e8c-4a11-bff6-0e3b484c3e9c.pptx — available in the working directory]",
+  "username": null,
+  "date": null,
+  "weekday": null,
+  "time": null,
+  "gaia_task_id": "a3fbeb63-0e8c-4a11-bff6-0e3b484c3e9c",
+  "gaia_level": "1",
+  "evaluation": [
+    {
+      "function": "evaluate_answer_match",
+      "args": {
+        "expected": "4"
+      }
+    }
+  ]
+}

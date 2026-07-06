@@ -1,0 +1,17 @@
+{
+  "task": "The attached file lists accommodations in the resort town of Seahorse Island. Based on the information in this file, which seems like the better available place to stay for a family that enjoys swimming and wants a full house?\n\n[Attached file: 366e2f2b-8632-4ef2-81eb-bc3877489217.pdf — available in the working directory]",
+  "username": null,
+  "date": null,
+  "weekday": null,
+  "time": null,
+  "gaia_task_id": "366e2f2b-8632-4ef2-81eb-bc3877489217",
+  "gaia_level": "2",
+  "evaluation": [
+    {
+      "function": "evaluate_answer_match",
+      "args": {
+        "expected": "Shelley's place"
+      }
+    }
+  ]
+}

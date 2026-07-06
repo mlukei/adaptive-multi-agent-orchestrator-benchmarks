@@ -1,0 +1,17 @@
+{
+  "task": "Of the cities within the United States where U.S. presidents were born, which two are the farthest apart from the westernmost to the easternmost going east, giving the city names only? Give them to me in alphabetical order, in a comma-separated list",
+  "username": null,
+  "date": null,
+  "weekday": null,
+  "time": null,
+  "gaia_task_id": "c365c1c7-a3db-4d5e-a9a1-66f56eae7865",
+  "gaia_level": "1",
+  "evaluation": [
+    {
+      "function": "evaluate_answer_match",
+      "args": {
+        "expected": "Braintree, Honolulu"
+      }
+    }
+  ]
+}

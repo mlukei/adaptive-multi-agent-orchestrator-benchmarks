@@ -1,0 +1,17 @@
+{
+  "task": "According to Girls Who Code, how long did it take in years for the percentage of computer scientists that were women to change by 13% from a starting point of 37%?",
+  "username": null,
+  "date": null,
+  "weekday": null,
+  "time": null,
+  "gaia_task_id": "7d4a7d1d-cac6-44a8-96e8-ea9584a70825",
+  "gaia_level": "1",
+  "evaluation": [
+    {
+      "function": "evaluate_answer_match",
+      "args": {
+        "expected": "22"
+      }
+    }
+  ]
+}

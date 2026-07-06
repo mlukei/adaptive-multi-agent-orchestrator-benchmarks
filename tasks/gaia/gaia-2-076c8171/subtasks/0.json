@@ -1,0 +1,17 @@
+{
+  "task": "The attached file contains a list of vendors in the Liminal Springs mall, along with each vendor’s monthly revenue and the rent they pay the mall. I want you to find the vendor that makes the least money, relative to the rent it pays. Then, tell me what is listed in the “type” column for that vendor.\n\n[Attached file: 076c8171-9b3b-49b9-a477-244d2a532826.xlsx — available in the working directory]",
+  "username": null,
+  "date": null,
+  "weekday": null,
+  "time": null,
+  "gaia_task_id": "076c8171-9b3b-49b9-a477-244d2a532826",
+  "gaia_level": "2",
+  "evaluation": [
+    {
+      "function": "evaluate_answer_match",
+      "args": {
+        "expected": "Finance"
+      }
+    }
+  ]
+}

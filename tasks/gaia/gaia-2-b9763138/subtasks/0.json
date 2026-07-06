@@ -1,0 +1,17 @@
+{
+  "task": "Compute the check digit the Tropicos ID for the Order Helotiales would have if it were an ISBN-10 number.",
+  "username": null,
+  "date": null,
+  "weekday": null,
+  "time": null,
+  "gaia_task_id": "b9763138-c053-4832-9f55-86200cb1f99c",
+  "gaia_level": "2",
+  "evaluation": [
+    {
+      "function": "evaluate_answer_match",
+      "args": {
+        "expected": "3"
+      }
+    }
+  ]
+}

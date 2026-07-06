@@ -1,0 +1,17 @@
+{
+  "task": "In the 2018 VSCode blog post on replit.com, what was the command they clicked on in the last video to remove extra lines?",
+  "username": null,
+  "date": null,
+  "weekday": null,
+  "time": null,
+  "gaia_task_id": "05407167-39ec-4d3a-a234-73a9120c325d",
+  "gaia_level": "2",
+  "evaluation": [
+    {
+      "function": "evaluate_answer_match",
+      "args": {
+        "expected": "Format Document"
+      }
+    }
+  ]
+}

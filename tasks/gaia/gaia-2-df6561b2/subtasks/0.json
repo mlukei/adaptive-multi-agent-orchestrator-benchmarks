@@ -1,0 +1,17 @@
+{
+  "task": "When you take the average of the standard population deviation of the red numbers and the standard sample deviation of the green numbers in this image using the statistics module in Python 3.11, what is the result rounded to the nearest three decimal points?\n\n[Attached file: df6561b2-7ee5-4540-baab-5095f742716a.png — available in the working directory]",
+  "username": null,
+  "date": null,
+  "weekday": null,
+  "time": null,
+  "gaia_task_id": "df6561b2-7ee5-4540-baab-5095f742716a",
+  "gaia_level": "2",
+  "evaluation": [
+    {
+      "function": "evaluate_answer_match",
+      "args": {
+        "expected": "17.056"
+      }
+    }
+  ]
+}

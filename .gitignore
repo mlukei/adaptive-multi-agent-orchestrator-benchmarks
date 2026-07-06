@@ -1,0 +1,48 @@
+__pycache__
+*.pyc
+.DS_Store
+.init
+*.log
+.env
+.vscode/*
+
+# Generated run artifacts
+outputs*/
+cache/
+results/
+plots/*
+docs/
+scripts/*
+
+# Local experiment configs (configs/template.yaml stays versioned)
+configs/gaia/*
+configs/officebench/*
+
+# Ignore generated task assets, but keep evaluation configs and testbed inputs versionable.
+tasks/**
+!tasks/officebench/
+!tasks/officebench/*/
+!tasks/officebench/*/subtasks/
+!tasks/officebench/*/subtasks/*.json
+!tasks/officebench/*/testbed/
+!tasks/officebench/*/testbed/**
+!tasks/officebench/*/reference/
+!tasks/officebench/*/reference/**
+!tasks/gaia/
+!tasks/gaia/*/
+!tasks/gaia/*/subtasks/
+!tasks/gaia/*/subtasks/*.json
+
+# analysis
+analysis/*
+!analysis/loader.py
+!analysis/metrics/
+!analysis/metrics/*.py
+!analysis/overall_performance.ipynb
+!analysis/retrieval.ipynb
+!analysis/error_decomposition.ipynb
+!analysis/agent_experiment.ipynb
+
+# uv
+.venv/
+.uv_cache/

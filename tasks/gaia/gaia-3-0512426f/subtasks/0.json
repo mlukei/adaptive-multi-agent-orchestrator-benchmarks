@@ -1,0 +1,17 @@
+{
+  "task": "In the YouTube 360 VR video from March 2018 narrated by the voice actor of Lord of the Rings' Gollum, what number was mentioned by the narrator directly after dinosaurs were first shown in the video?",
+  "username": null,
+  "date": null,
+  "weekday": null,
+  "time": null,
+  "gaia_task_id": "0512426f-4d28-49f0-be77-06d05daec096",
+  "gaia_level": "3",
+  "evaluation": [
+    {
+      "function": "evaluate_answer_match",
+      "args": {
+        "expected": "100000000"
+      }
+    }
+  ]
+}

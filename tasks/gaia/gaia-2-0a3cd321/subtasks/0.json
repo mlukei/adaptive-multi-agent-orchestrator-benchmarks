@@ -1,0 +1,17 @@
+{
+  "task": "According to the World Bank, which countries had gross savings of over 35% of GDP for every year in the period 2001-2010? Give your answer as a comma-separated list of countries in alphabetical order. Use the countries most common names in english when answering.",
+  "username": null,
+  "date": null,
+  "weekday": null,
+  "time": null,
+  "gaia_task_id": "0a3cd321-3e76-4622-911b-0fda2e5d6b1a",
+  "gaia_level": "2",
+  "evaluation": [
+    {
+      "function": "evaluate_answer_match",
+      "args": {
+        "expected": "Brunei, China, Morocco, Singapore"
+      }
+    }
+  ]
+}

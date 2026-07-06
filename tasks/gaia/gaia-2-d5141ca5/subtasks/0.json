@@ -1,0 +1,17 @@
+{
+  "task": "When was a picture of St. Thomas Aquinas first added to the Wikipedia page on the Principle of double effect? Answer using the format DD/MM/YYYY.",
+  "username": null,
+  "date": null,
+  "weekday": null,
+  "time": null,
+  "gaia_task_id": "d5141ca5-e7a0-469f-bf3e-e773507c86e2",
+  "gaia_level": "2",
+  "evaluation": [
+    {
+      "function": "evaluate_answer_match",
+      "args": {
+        "expected": "19/02/2009"
+      }
+    }
+  ]
+}

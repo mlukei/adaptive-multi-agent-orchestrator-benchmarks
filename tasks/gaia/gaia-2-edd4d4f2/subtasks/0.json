@@ -1,0 +1,17 @@
+{
+  "task": "The attached spreadsheet lists the locomotives owned by a local railroad museum. What is the typical American name for the type of locomotive this museum uses for the Murder Mystery Express?\n\n[Attached file: edd4d4f2-1a58-45c4-b038-67337af4e029.xlsx — available in the working directory]",
+  "username": null,
+  "date": null,
+  "weekday": null,
+  "time": null,
+  "gaia_task_id": "edd4d4f2-1a58-45c4-b038-67337af4e029",
+  "gaia_level": "2",
+  "evaluation": [
+    {
+      "function": "evaluate_answer_match",
+      "args": {
+        "expected": "Berkshire"
+      }
+    }
+  ]
+}

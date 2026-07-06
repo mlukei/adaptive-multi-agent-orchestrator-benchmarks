@@ -1,0 +1,17 @@
+{
+  "task": "Pull out the sentence in the following 5x7 block of text. Read from left to right and use all of the letters in order:\n\nTHESE\nAGULL\nGLIDE\nDPEAC\nEFULL\nYTOMY\nCHAIR",
+  "username": null,
+  "date": null,
+  "weekday": null,
+  "time": null,
+  "gaia_task_id": "50ad0280-0819-4bd9-b275-5de32d3b5bcb",
+  "gaia_level": "1",
+  "evaluation": [
+    {
+      "function": "evaluate_answer_match",
+      "args": {
+        "expected": "The seagull glided peacefully to my chair."
+      }
+    }
+  ]
+}

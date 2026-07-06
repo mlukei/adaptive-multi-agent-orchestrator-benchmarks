@@ -1,0 +1,17 @@
+{
+  "task": "Which of the text elements under CATEGORIES in the XML would contain the one food in the spreadsheet that does not appear a second time under a different name?\n\n[Attached file: 9b54f9d9-35ee-4a14-b62f-d130ea00317f.zip — available in the working directory]",
+  "username": null,
+  "date": null,
+  "weekday": null,
+  "time": null,
+  "gaia_task_id": "9b54f9d9-35ee-4a14-b62f-d130ea00317f",
+  "gaia_level": "3",
+  "evaluation": [
+    {
+      "function": "evaluate_answer_match",
+      "args": {
+        "expected": "Soups and Stews"
+      }
+    }
+  ]
+}

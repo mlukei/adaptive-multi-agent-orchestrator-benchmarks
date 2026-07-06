@@ -1,0 +1,17 @@
+{
+  "task": "What two-word type of model did Manash Pratim Kashyap's and PS Fader's studies in customer retention studies published during 2018-2019 have in common (no punctuation)?",
+  "username": null,
+  "date": null,
+  "weekday": null,
+  "time": null,
+  "gaia_task_id": "0ff53813-3367-4f43-bcbd-3fd725c1bf4b",
+  "gaia_level": "2",
+  "evaluation": [
+    {
+      "function": "evaluate_answer_match",
+      "args": {
+        "expected": "beta geometric"
+      }
+    }
+  ]
+}

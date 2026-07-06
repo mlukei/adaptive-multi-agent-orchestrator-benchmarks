@@ -1,0 +1,17 @@
+{
+  "task": "Consider the following symbols: 𒐜  𒐐𒐚\n\nThis is a number written using the Mesopotamian/Babylonian number system and represented with Sumerian cuneiform. Convert this number into Arabic numerals as a decimal number.",
+  "username": null,
+  "date": null,
+  "weekday": null,
+  "time": null,
+  "gaia_task_id": "0bb3b44a-ede5-4db5-a520-4e844b0079c5",
+  "gaia_level": "2",
+  "evaluation": [
+    {
+      "function": "evaluate_answer_match",
+      "args": {
+        "expected": "536"
+      }
+    }
+  ]
+}

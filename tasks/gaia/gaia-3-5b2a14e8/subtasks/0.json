@@ -1,0 +1,17 @@
+{
+  "task": "The brand that makes these harnesses the dogs are wearing in the attached pic shares stories from their ambassadors on their website. What meat is mentioned in the story added Dec 8th 2022?\n\n[Attached file: 5b2a14e8-6e59-479c-80e3-4696e8980152.jpg — available in the working directory]",
+  "username": null,
+  "date": null,
+  "weekday": null,
+  "time": null,
+  "gaia_task_id": "5b2a14e8-6e59-479c-80e3-4696e8980152",
+  "gaia_level": "3",
+  "evaluation": [
+    {
+      "function": "evaluate_answer_match",
+      "args": {
+        "expected": "bacon"
+      }
+    }
+  ]
+}

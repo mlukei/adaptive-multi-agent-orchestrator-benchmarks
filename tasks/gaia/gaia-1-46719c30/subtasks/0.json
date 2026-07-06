@@ -1,0 +1,17 @@
+{
+  "task": "Of the authors (First M. Last) that worked on the paper \"Pie Menus or Linear Menus, Which Is Better?\" in 2015, what was the title of the first paper authored by the one that had authored prior papers?",
+  "username": null,
+  "date": null,
+  "weekday": null,
+  "time": null,
+  "gaia_task_id": "46719c30-f4c3-4cad-be07-d5cb21eee6bb",
+  "gaia_level": "1",
+  "evaluation": [
+    {
+      "function": "evaluate_answer_match",
+      "args": {
+        "expected": "Mapping Human Oriented Information to Software Agents for Online Systems Usage"
+      }
+    }
+  ]
+}

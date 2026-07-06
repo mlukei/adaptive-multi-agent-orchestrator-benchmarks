@@ -1,0 +1,17 @@
+{
+  "task": "As of August 2023, who is the only winner of the US version of Survivor to be born in the month of May?",
+  "username": null,
+  "date": null,
+  "weekday": null,
+  "time": null,
+  "gaia_task_id": "e2d69698-bc99-4e85-9880-67eaccd66e6c",
+  "gaia_level": "2",
+  "evaluation": [
+    {
+      "function": "evaluate_answer_match",
+      "args": {
+        "expected": "Michele Fitzgerald"
+      }
+    }
+  ]
+}

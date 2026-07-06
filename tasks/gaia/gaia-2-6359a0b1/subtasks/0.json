@@ -1,0 +1,17 @@
+{
+  "task": "What is the area of the green polygon in the attached file? The numbers in purple represent the lengths of the side they are next to.\n\n[Attached file: 6359a0b1-8f7b-499b-9336-840f9ab90688.png — available in the working directory]",
+  "username": null,
+  "date": null,
+  "weekday": null,
+  "time": null,
+  "gaia_task_id": "6359a0b1-8f7b-499b-9336-840f9ab90688",
+  "gaia_level": "2",
+  "evaluation": [
+    {
+      "function": "evaluate_answer_match",
+      "args": {
+        "expected": "39"
+      }
+    }
+  ]
+}

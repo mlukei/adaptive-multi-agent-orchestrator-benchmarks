@@ -1,0 +1,17 @@
+{
+  "task": "What percentage of the total penguin population according to the upper estimates on english Wikipedia at the end of 2012 is made up by the penguins in this file that don't live on Dream Island or have beaks longer than 42mm? Round to the nearest five decimal places.\n\n[Attached file: 8d46b8d6-b38a-47ff-ac74-cda14cf2d19b.csv — available in the working directory]",
+  "username": null,
+  "date": null,
+  "weekday": null,
+  "time": null,
+  "gaia_task_id": "8d46b8d6-b38a-47ff-ac74-cda14cf2d19b",
+  "gaia_level": "3",
+  "evaluation": [
+    {
+      "function": "evaluate_answer_match",
+      "args": {
+        "expected": "0.00033"
+      }
+    }
+  ]
+}

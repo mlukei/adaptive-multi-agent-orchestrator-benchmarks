@@ -1,0 +1,17 @@
+{
+  "task": "The YouTube channel Game Grumps began a Let’s Play of the game Sonic the Hedgehog (2006) in the year 2012. Thirty seconds into the first episode, a phrase is shown on the screen in white letters on a red background. How many times does the letter \"E\" appear in this phrase?",
+  "username": null,
+  "date": null,
+  "weekday": null,
+  "time": null,
+  "gaia_task_id": "20194330-9976-4043-8632-f8485c6c71b2",
+  "gaia_level": "2",
+  "evaluation": [
+    {
+      "function": "evaluate_answer_match",
+      "args": {
+        "expected": "4"
+      }
+    }
+  ]
+}

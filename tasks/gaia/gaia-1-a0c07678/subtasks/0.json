@@ -1,0 +1,17 @@
+{
+  "task": "Who are the pitchers with the number before and after Taishō Tamai's number as of July 2023? Give them to me in the form Pitcher Before, Pitcher After, use their last names only, in Roman characters.",
+  "username": null,
+  "date": null,
+  "weekday": null,
+  "time": null,
+  "gaia_task_id": "a0c07678-e491-4bbc-8f0b-07405144218f",
+  "gaia_level": "1",
+  "evaluation": [
+    {
+      "function": "evaluate_answer_match",
+      "args": {
+        "expected": "Yoshida, Uehara"
+      }
+    }
+  ]
+}

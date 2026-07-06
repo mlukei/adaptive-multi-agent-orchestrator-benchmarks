@@ -1,0 +1,17 @@
+{
+  "task": "The attached spreadsheet shows the inventory for a movie and video game rental store in Seattle, Washington. What is the title of the oldest Blu-Ray recorded in this spreadsheet? Return it as appearing in the spreadsheet.\n\n[Attached file: 32102e3e-d12a-4209-9163-7b3a104efe5d.xlsx — available in the working directory]",
+  "username": null,
+  "date": null,
+  "weekday": null,
+  "time": null,
+  "gaia_task_id": "32102e3e-d12a-4209-9163-7b3a104efe5d",
+  "gaia_level": "2",
+  "evaluation": [
+    {
+      "function": "evaluate_answer_match",
+      "args": {
+        "expected": "Time-Parking 2: Parallel Universe"
+      }
+    }
+  ]
+}
