@@ -61,4 +61,4 @@ dev = []
 
 
 [tool.uv.sources]
-orchestrator = { git = "https://github.com/marleenlki/adaptive-agent-orchestrator.git", rev = "c4861015dbe47d10f25157915e0daf8bba4f59c5" }
+orchestrator = { git = "https://github.com/mlukei/adaptive-multi-agent-orchestrator-core", rev = "7bbfe8b3729e4ab1938c08b346e64b795a9e6fd8" }
