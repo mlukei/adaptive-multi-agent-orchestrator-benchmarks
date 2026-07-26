@@ -53,10 +53,10 @@ def _condition_summary(
 
 def _fold_summary(runs: pd.DataFrame, config: BenchmarkConfig) -> dict[str, float]:
     summary = {
-        column: _success_rate(runs[runs["tier"] == tier])
+        column: success_rate(runs[runs["tier"] == tier])
         for tier, column in TIER_COLUMNS.items()
     }
-    summary["Overall SR (%)"] = _success_rate(runs)
+    summary["Overall SR (%)"] = success_rate(runs)
     summary["Delegations"] = runs["total_delegations"].mean()
     summary["Tokens (K)"] = runs["tokens_total"].mean() / 1000
     summary["Cost ($)"] = runs["cost_total"].mean()
@@ -64,7 +64,7 @@ def _fold_summary(runs: pd.DataFrame, config: BenchmarkConfig) -> dict[str, floa
     return summary
 
 
-def _success_rate(runs: pd.DataFrame) -> float:
+def success_rate(runs: pd.DataFrame) -> float:
     return runs["is_success"].mean() * 100
 
 

@@ -10,26 +10,19 @@ from .conditions import OFFICEBENCH_CONFIG, discovery_all, gold_agents, load_car
 
 
 def retrieval_table(card: str, config: BenchmarkConfig = OFFICEBENCH_CONFIG) -> pd.DataFrame:
+    """Aggregate episode-level retrieval coverage by experimental condition."""
     metrics = per_row_metrics(card, config)
     rows = []
     for condition in config.system_order:
         condition_metrics = metrics[metrics["Condition"] == condition]
-        # Capability-list usage is aggregated at the retrieval-call level (a row
-        # may issue several calls), so we sum the per-row counts rather than
-        # averaging per-row means.
-        calls = condition_metrics["Retrieval Calls"].sum()
         rows.append(
             {
                 "Condition": condition,
                 "Recall": condition_metrics["Recall"].mean(),
                 "Precision": condition_metrics["Precision"].mean(),
                 "All Gold (%)": condition_metrics["All Gold"].mean() * 100,
-                "Caps/Call": (
-                    condition_metrics["Capabilities Sent"].sum() / calls if calls else 0.0
-                ),
-                "Empty Caps (%)": (
-                    condition_metrics["Empty Cap Calls"].sum() / calls * 100 if calls else 0.0
-                ),
+                "Pool Size": condition_metrics["Pool Size"].mean(),
+                "Retrieval Calls": condition_metrics["Retrieval Calls"].mean(),
             }
         )
     return pd.DataFrame(rows).set_index("Condition").round(
@@ -37,13 +30,14 @@ def retrieval_table(card: str, config: BenchmarkConfig = OFFICEBENCH_CONFIG) -> 
             "Recall": 3,
             "Precision": 3,
             "All Gold (%)": 1,
-            "Caps/Call": 2,
-            "Empty Caps (%)": 1,
+            "Pool Size": 2,
+            "Retrieval Calls": 2,
         }
     )
 
 
 def per_row_metrics(card: str, config: BenchmarkConfig = OFFICEBENCH_CONFIG) -> pd.DataFrame:
+    """Measure coverage over the union of agents discovered during an episode."""
     runs = load_card(card, config)
     gold = load_gold(config)
     rows = []
@@ -55,7 +49,6 @@ def per_row_metrics(card: str, config: BenchmarkConfig = OFFICEBENCH_CONFIG) -> 
         if not gold_set:
             continue
         retrieved = discovery_all(row.get("agent_discovery_sources"))
-        n_calls, n_caps, n_empty = _capability_usage(row.get("agent_retrieval_log"))
         rows.append(
             {
                 "Condition": row["condition"],
@@ -64,29 +57,11 @@ def per_row_metrics(card: str, config: BenchmarkConfig = OFFICEBENCH_CONFIG) -> 
                 "Recall": _recall(retrieved, gold_set),
                 "Precision": _precision(retrieved, gold_set),
                 "All Gold": float(gold_set.issubset(retrieved)),
-                "Retrieval Calls": n_calls,
-                "Capabilities Sent": n_caps,
-                "Empty Cap Calls": n_empty,
+                "Pool Size": len(retrieved),
+                "Retrieval Calls": _retrieval_calls(row.get("agent_retrieval_log")),
             }
         )
     return pd.DataFrame(rows)
-
-
-def _capability_usage(value: object) -> tuple[int, int, int]:
-    """Per-row capability-list usage from ``agent_retrieval_log``.
-
-    Returns (number of retrieval calls, total capabilities sent across calls,
-    number of calls that sent an empty capability list). A call with no
-    capabilities falls back to blueprint/goal-only search, which returns fewer
-    agents than an explicit capability list.
-    """
-    if not isinstance(value, str) or not value:
-        return 0, 0, 0
-    log = json.loads(value)
-    n_calls = len(log)
-    n_caps = sum(len(record.get("capabilities") or []) for record in log)
-    n_empty = sum(1 for record in log if not record.get("capabilities"))
-    return n_calls, n_caps, n_empty
 
 
 def _recall(retrieved: frozenset[str], gold_set: frozenset[str]) -> float:
@@ -99,3 +74,15 @@ def _precision(retrieved: frozenset[str], gold_set: frozenset[str]) -> float:
     if not retrieved:
         return 0.0
     return len(retrieved & gold_set) / len(retrieved)
+
+
+def _retrieval_calls(value: object) -> int:
+    if value is None or value is pd.NA:
+        return 0
+    if isinstance(value, float) and pd.isna(value):
+        return 0
+    if isinstance(value, str):
+        if not value:
+            return 0
+        value = json.loads(value)
+    return len(value) if isinstance(value, list) else 0

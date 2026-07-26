@@ -9,6 +9,26 @@ from pathlib import Path
 
 import pandas as pd
 
+ROOT = Path(__file__).resolve().parents[1]
+OUTPUT_DIR = ROOT / "output"
+
+
+def require_output_file(path: Path) -> Path:
+    """Return an existing file, provided it is inside the canonical output tree."""
+    resolved_path = path.resolve()
+    try:
+        resolved_path.relative_to(OUTPUT_DIR.resolve())
+    except ValueError as error:
+        raise ValueError(
+            f"Analysis inputs must be below {OUTPUT_DIR}; received {path}"
+        ) from error
+    if not resolved_path.is_file():
+        raise FileNotFoundError(
+            f"Analysis input is missing: {resolved_path}. "
+            "Copy the finalized run into the canonical output tree first."
+        )
+    return resolved_path
+
 
 @dataclass(frozen=True)
 class BenchmarkConfig:
@@ -48,7 +68,7 @@ def load_runs(paths: list[Path]) -> pd.DataFrame:
     """Load and concatenate multiple CSVs of OfficeBench runs."""
     frames: list[pd.DataFrame] = []
     for path in paths:
-        frames.append(pd.read_csv(path, engine="python"))
+        frames.append(pd.read_csv(require_output_file(path), engine="python"))
     runs = pd.concat(frames, ignore_index=True, sort=False)
     runs = _apply_aliases(runs)
     return _coerce_numeric(runs)

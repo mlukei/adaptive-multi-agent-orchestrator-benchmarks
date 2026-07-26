@@ -1,0 +1,62 @@
+{
+  "file_document_surfer": {
+    "description": "Document-reading specialist. Use it for local PDF, DOCX, and PPTX attachments after a path is known. It extracts text from documents and answers questions grounded in document contents. It should not be used for spreadsheets, images, audio, web pages, or general computation.",
+    "skills": [
+      {
+        "id": "read_pdf",
+        "name": "read_pdf",
+        "description": "Read a local PDF file and extract page text."
+      },
+      {
+        "id": "read_docx",
+        "name": "read_docx",
+        "description": "Read a local DOCX file and extract paragraph text."
+      },
+      {
+        "id": "read_pptx",
+        "name": "read_pptx",
+        "description": "Read a local PPTX file and extract text from slides."
+      }
+    ]
+  },
+  "file_table_surfer": {
+    "description": "Table-analysis specialist. Use it for local CSV and Excel attachments after a path is known. It inspects tabular data, columns, rows, summary statistics, and spreadsheet sheets. It should not be used for PDFs, images, audio, web lookup, or free-form coding unless another agent needs deeper computation.",
+    "skills": [
+      {
+        "id": "analyze_csv_file",
+        "name": "analyze_csv_file",
+        "description": "Inspect a local CSV file and return shape, columns, sample rows, and summary statistics."
+      },
+      {
+        "id": "analyze_excel_file",
+        "name": "analyze_excel_file",
+        "description": "Inspect a local Excel file or sheet and return shape, columns, sample rows, and summary statistics."
+      }
+    ]
+  },
+  "file_image_surfer": {
+    "description": "Image-analysis specialist. Use it for local images, screenshots, scanned pages, charts, diagrams, and photos after a path is known. It can OCR text from images and ask a vision-capable model about visual content. It should not be used for documents, spreadsheets, audio, or web pages.",
+    "skills": [
+      {
+        "id": "extract_text_from_image",
+        "name": "extract_text_from_image",
+        "description": "Run OCR with pytesseract on a local image file and return extracted text."
+      },
+      {
+        "id": "analyze_image_with_llm",
+        "name": "analyze_image_with_llm",
+        "description": "Ask a vision-capable Azure OpenAI model a question about a local image file."
+      }
+    ]
+  },
+  "file_audio_surfer": {
+    "description": "Audio-transcription specialist. Use it for local audio attachments after a path is known. It transcribes speech recordings and returns transcript text. It should not be used for documents, spreadsheets, images, web pages, or general computation.",
+    "skills": [
+      {
+        "id": "transcribe_audio",
+        "name": "transcribe_audio",
+        "description": "Transcribe a local audio file using local Whisper and return the transcript text."
+      }
+    ]
+  }
+}

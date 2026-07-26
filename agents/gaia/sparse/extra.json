@@ -1,0 +1,18 @@
+{
+  "file_document_surfer": {
+    "description": "Reads local PDF, DOCX, and PPTX documents.",
+    "skills": []
+  },
+  "file_table_surfer": {
+    "description": "Analyzes local CSV and Excel tables.",
+    "skills": []
+  },
+  "file_image_surfer": {
+    "description": "Analyzes local images, scans, screenshots, charts, and diagrams.",
+    "skills": []
+  },
+  "file_audio_surfer": {
+    "description": "Transcribes local audio files.",
+    "skills": []
+  }
+}

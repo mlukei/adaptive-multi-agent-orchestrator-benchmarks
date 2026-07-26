@@ -10,8 +10,8 @@ Runs depend on several moving parts: the orchestrator dependency revision, the t
 
 ### 1. Install dependencies
 
-1. Install host system dependencies used by GAIA tools (tesseract for OCR,
-   ffmpeg for Whisper audio transcription):
+1. Install host system dependencies used by GAIA tools (Tesseract for OCR and
+   FFmpeg for Whisper audio transcription):
 
 ```bash
 sudo apt-get update
@@ -71,7 +71,8 @@ CLI flags override YAML defaults for the current invocation.
 
 See [configs/template.yaml](configs/template.yaml) for a commented configuration template.
 Copy it into `configs/officebench/` or `configs/gaia/` and edit it per experiment.
-Note that those two directories are gitignored, so experiment configs are local to each machine.
+Those experiment directories are gitignored, so local credentials and run-specific
+settings are not published.
 
 Key sections:
 
@@ -103,7 +104,9 @@ Postgres schemas use the variant with slashes converted to underscores (e.g., `s
 - `--split-seed 42`: deterministic shuffle seed.
 - `--mode default|force_new`: skip existing outputs or rerun.
 - `--task-timeout-seconds 900`: hard timeout per task.
-- `--retry-missing | --retry-timeouts | --retry-errors`: re-run only tasks without a result row, timed-out tasks, or errored tasks (matched against `results/{variant}.csv`).
+- `--retry-missing | --retry-timeouts | --retry-errors`: rerun only missing,
+  timed-out, or failed tasks recorded in `results/{variant}.csv`.
+- `--experiment-name name`: override the OfficeBench experiment name.
 
 OfficeBench runs each task in an isolated Docker container. GAIA runs on the host.
 
@@ -148,7 +151,8 @@ tasks/
   gaia/                  GAIA task definitions
 
 output/
-  officebench/           paper-analysis CSV snapshots
+  officebench/           OfficeBench paper-analysis CSV snapshots
+  gaia/                  GAIA paper-analysis CSV snapshots
 
 results/
   */                     generated run CSVs and experiment summaries
@@ -166,14 +170,20 @@ analysis/
     retrieval.py
     errors.py
     agents.py
+    judge.py
+    paths.py
   overall_performance.ipynb
   retrieval.ipynb
   error_decomposition.ipynb
   agent_experiment.ipynb
+  conversion.ipynb
+  judge_agreement.ipynb
+  selection_and_shell_usage.ipynb
+  task_wise_comparison.ipynb
 ```
 
-
-The current paper analysis reads CSV snapshots from `output/officebench/...`.
+The paper analysis reads the curated OfficeBench and GAIA CSV snapshots under
+`output/`.
 
 ## Acknowledgments
 

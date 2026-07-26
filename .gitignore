@@ -7,16 +7,20 @@ __pycache__
 .vscode/*
 
 # Generated run artifacts
+logs/
+openai_key.txt
+gemini_key.txt
 outputs*/
 cache/
 results/
+output/_backups/*
 plots/*
 docs/
 scripts/*
 
-# Local experiment configs (configs/template.yaml stays versioned)
-configs/gaia/*
-configs/officebench/*
+# Ignore experiment configs while keeping the documented template.
+configs/**
+!configs/template.yaml
 
 # Ignore generated task assets, but keep evaluation configs and testbed inputs versionable.
 tasks/**
@@ -35,13 +39,10 @@ tasks/**
 
 # analysis
 analysis/*
-!analysis/loader.py
+!analysis/*.py
 !analysis/metrics/
 !analysis/metrics/*.py
-!analysis/overall_performance.ipynb
-!analysis/retrieval.ipynb
-!analysis/error_decomposition.ipynb
-!analysis/agent_experiment.ipynb
+!analysis/*.ipynb
 
 # uv
 .venv/

@@ -60,6 +60,7 @@ def classified_rows(card: str, config: BenchmarkConfig = OFFICEBENCH_CONFIG) -> 
 
 
 def classify(row: pd.Series, gold: dict[str, object], config: BenchmarkConfig) -> str:
+    """Label success first; otherwise attribute failure to the earliest broken stage."""
     gold_set = gold_agents(gold, config)
     if row["success"] == 1:
         return "success"

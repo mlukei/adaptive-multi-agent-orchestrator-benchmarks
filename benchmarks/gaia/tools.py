@@ -22,6 +22,7 @@ Added by us (not in the upstream repo):
 - ``read_pdf`` / ``read_docx`` / ``read_pptx`` (document text extraction)
 - ``analyze_image_with_llm`` (Azure vision model) and ``transcribe_audio`` (local Whisper)
 - ``_resolve_path`` (resolves task file paths against GAIA_WORKDIR)
+- ``list_workspace_files`` / ``find_workspace_files`` (path discovery without reading content)
 - the WEB_SURFER_TOOLS / FILE_SURFER_TOOLS / CODER_TOOLS exports
 """
 
@@ -297,6 +298,116 @@ def _resolve_path(file_path: str) -> str:
         if name in files:
             return os.path.join(root, name)
     return candidate
+
+
+def _workspace_file_entries(max_files: int = 1000) -> list[dict[str, object]]:
+    """Return file metadata under GAIA_WORKDIR without opening file contents."""
+    workdir = os.environ.get("GAIA_WORKDIR", os.getcwd())
+    entries: list[dict[str, object]] = []
+
+    for root, dirs, files in os.walk(workdir):
+        dirs[:] = sorted(directory for directory in dirs if not directory.startswith("."))
+        for filename in sorted(files):
+            if filename.startswith("."):
+                continue
+            path = os.path.join(root, filename)
+            try:
+                size_bytes = os.path.getsize(path)
+            except OSError:
+                size_bytes = None
+            entries.append(
+                {
+                    "path": os.path.relpath(path, workdir),
+                    "extension": os.path.splitext(filename)[1].lower(),
+                    "size_bytes": size_bytes,
+                }
+            )
+            if len(entries) >= max_files:
+                return entries
+    return entries
+
+
+def _format_file_entries(entries: list[dict[str, object]], *, total: int) -> str:
+    if not entries:
+        return "No files found."
+
+    lines = []
+    for entry in entries:
+        size = entry["size_bytes"]
+        size_text = "unknown size" if size is None else f"{size} bytes"
+        lines.append(f"- {entry['path']} ({size_text})")
+
+    if total > len(entries):
+        lines.append(f"... truncated: showing {len(entries)} of {total} files")
+    return "\n".join(lines)
+
+
+@tool
+def list_workspace_files(max_files: int = 200) -> str:
+    """List file paths under the active GAIA working directory.
+
+    Args:
+        max_files: Maximum number of paths to return.
+    """
+    try:
+        limit = max(1, min(int(max_files), 1000))
+    except (TypeError, ValueError):
+        limit = 200
+
+    all_entries = _workspace_file_entries(max_files=1000)
+    return {
+        "workspace_files": _format_file_entries(
+            all_entries[:limit],
+            total=len(all_entries),
+        )
+    }
+
+
+@tool
+def find_workspace_files(
+    query: str = "",
+    extensions: str = "",
+    max_files: int = 50,
+) -> str:
+    """Find matching file paths under the active GAIA working directory.
+
+    Args:
+        query: Case-insensitive substring to match against file paths.
+        extensions: Optional comma-separated extensions such as ".pdf,.xlsx".
+        max_files: Maximum number of matching paths to return.
+    """
+    query_text = (query or "").strip().lower()
+    allowed_extensions = {
+        extension.strip().lower()
+        for extension in (extensions or "").split(",")
+        if extension.strip()
+    }
+    allowed_extensions = {
+        extension if extension.startswith(".") else f".{extension}"
+        for extension in allowed_extensions
+    }
+
+    try:
+        limit = max(1, min(int(max_files), 500))
+    except (TypeError, ValueError):
+        limit = 50
+
+    matches = []
+    for entry in _workspace_file_entries(max_files=5000):
+        path = str(entry["path"]).lower()
+        extension = str(entry["extension"])
+        if query_text and query_text not in path:
+            continue
+        if allowed_extensions and extension not in allowed_extensions:
+            continue
+        matches.append(entry)
+
+    return {
+        "matching_files": _format_file_entries(
+            matches[:limit],
+            total=len(matches),
+        )
+    }
 
 
 @tool
@@ -914,6 +1025,7 @@ def square_root(n: float) -> float:
 
 WEB_SURFER_TOOLS = [web_search, fetch_webpage, wiki_search, arxiv_search, download_file_from_url]
 
+FILE_LOCATOR_TOOLS = [list_workspace_files, find_workspace_files]
 FILE_SURFER_TOOLS = [
     read_pdf,
     read_docx,
@@ -925,5 +1037,9 @@ FILE_SURFER_TOOLS = [
     transcribe_audio,
     save_and_read_file,
 ]
+FILE_DOCUMENT_SURFER_TOOLS = [read_pdf, read_docx, read_pptx]
+FILE_TABLE_SURFER_TOOLS = [analyze_csv_file, analyze_excel_file]
+FILE_IMAGE_SURFER_TOOLS = [extract_text_from_image, analyze_image_with_llm]
+FILE_AUDIO_SURFER_TOOLS = [transcribe_audio]
 
 CODER_TOOLS = [execute_code_multilang, multiply, add, subtract, divide, modulus, power, square_root]

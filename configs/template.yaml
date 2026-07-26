@@ -86,10 +86,16 @@ orchestrator:
   # extra_agent_cards_path: "agents/officebench/sparse/extra.json"
 
   # Optional capability perturbations.
-  # OfficeBench: disabled_actions hides app actions from the sub-agent's
-  # prompt (agent -> list of action names).
+  # OfficeBench: disabled_actions removes app actions from the sub-agent prompt
+  # and blocks them at tool execution time (app/agent -> list of action names).
   # disabled_actions:
-  #   excel: ["convert_to_pdf"]
+  #   excel:
+  #     - convert_to_pdf
+  #   pdf:
+  #     - convert_to_word
+  #     - convert_to_image
+
+
   # GAIA: disabled_tools removes tools from the agent's tool list entirely
   # (agent -> list of tool names), so the removal is enforced.
   # disabled_tools:

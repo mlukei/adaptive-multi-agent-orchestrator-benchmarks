@@ -10,16 +10,11 @@ from loader import (
     REAL_AGENTS_OFFICEBENCH,
     REAL_GAIA_AGENTS,
     BenchmarkConfig,
+    OUTPUT_DIR,
+    ROOT,
     add_derived_metrics,
     load_runs,
 )
-
-ROOT = Path(__file__).resolve().parents[2]
-OUTPUT_DIR = ROOT / "output"
-
-# ---------------------------------------------------------------------------
-# OfficeBench config
-# ---------------------------------------------------------------------------
 
 _OB_DIR = OUTPUT_DIR / "officebench"
 _OB_GOLD = ROOT / "annotations" / "officebench.json"
@@ -87,9 +82,6 @@ OFFICEBENCH_CONFIG = BenchmarkConfig(
     system_order=SYSTEM_ORDER,
 )
 
-# ---------------------------------------------------------------------------
-# GAIA config
-# ---------------------------------------------------------------------------
 
 _GAIA_DIR = OUTPUT_DIR / "gaia"
 _GAIA_GOLD = ROOT / "annotations" / "gaia.json"
@@ -156,11 +148,6 @@ GAIA_CONFIG = BenchmarkConfig(
     card_paths=GAIA_CARD_PATHS,
     system_order=GAIA_SYSTEM_ORDER,
 )
-
-# ---------------------------------------------------------------------------
-# Generic loading
-# ---------------------------------------------------------------------------
-
 
 def load_card(card: str, config: BenchmarkConfig = OFFICEBENCH_CONFIG) -> pd.DataFrame:
     frames: list[pd.DataFrame] = []
