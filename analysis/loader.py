@@ -1,5 +1,5 @@
 """
-Load OfficeBench experiment CSVs for paper metrics.
+Load experiment CSVs for paper metrics.
 """
 
 from __future__ import annotations
@@ -16,17 +16,8 @@ OUTPUT_DIR = ROOT / "output"
 def require_output_file(path: Path) -> Path:
     """Return an existing file, provided it is inside the canonical output tree."""
     resolved_path = path.resolve()
-    try:
-        resolved_path.relative_to(OUTPUT_DIR.resolve())
-    except ValueError as error:
-        raise ValueError(
-            f"Analysis inputs must be below {OUTPUT_DIR}; received {path}"
-        ) from error
-    if not resolved_path.is_file():
-        raise FileNotFoundError(
-            f"Analysis input is missing: {resolved_path}. "
-            "Copy the finalized run into the canonical output tree first."
-        )
+    resolved_path.relative_to(OUTPUT_DIR.resolve())
+
     return resolved_path
 
 
@@ -102,3 +93,7 @@ def _coerce_numeric(runs: pd.DataFrame) -> pd.DataFrame:
         if column in df.columns:
             df[column] = pd.to_numeric(df[column], errors="coerce")
     return df
+
+
+def percentage(numerator: int, denominator: int) -> float:
+    return numerator / denominator * 100 if denominator else 0.0

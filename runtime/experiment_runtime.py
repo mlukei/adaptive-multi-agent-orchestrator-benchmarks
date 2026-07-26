@@ -8,8 +8,7 @@ import time
 from dataclasses import dataclass
 from datetime import datetime
 from typing import Any
-
-import pytz
+from zoneinfo import ZoneInfo
 
 STATUS_OK = "ok"
 STATUS_TIMEOUT = "timeout"
@@ -17,19 +16,13 @@ STATUS_ERROR = "error"
 
 
 def make_run_tag() -> str:
-    """Timestamp tag (LA time) used to namespace a task's output directory."""
-    return datetime.now(pytz.timezone("America/Los_Angeles")).strftime("%Y%m%d%H%M%S")
-
+    """Timestamp tag in German local time used for task output directories."""
+    return datetime.now(ZoneInfo("Europe/Berlin")).strftime("%Y%m%d%H%M%S")
 
 
 @dataclass(frozen=True)
 class TaskExecutionConfig:
-    """Configuration for running one benchmark task process.
-
-    Docker-related fields (``docker_name``, ``dockerfile_path``,
-    ``container_name_prefix``) are optional: leave them ``None`` for
-    benchmarks that run on the host (e.g. GAIA).
-    """
+    """Process settings for one benchmark task."""
 
     python_executable: str
     task_runner_script: str

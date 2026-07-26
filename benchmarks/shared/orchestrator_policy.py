@@ -15,12 +15,7 @@ from benchmarks.shared.orchestrator_factory import (
     OrchestratorFactoryConfig,
     build_adaptive_orchestrator,
 )
-from logger import RunLogger
-from logger.local_logger import CsvLogger
-from logger.policy_logging import (
-    collect_run_context,
-    log_last_run_summary as write_last_run_summary,
-)
+from logger.run_logger import RunLogger, collect_run_context
 from runtime.config import load_config
 from runtime.llm import create_llm
 
@@ -114,7 +109,7 @@ class BaseOrchestratorPolicy(ABC):
         )
 
         self.run_logger = RunLogger(
-            csv_logger=CsvLogger(path=csv_path),
+            path=csv_path,
             pricing_cfg=getattr(llm_cfg, "pricing", None),
             task_config=task_config,
             tag=tag,
@@ -181,14 +176,11 @@ class BaseOrchestratorPolicy(ABC):
             start=start,
         )
 
-    # ------------------------------------------------------------------
     # Logging
-    # ------------------------------------------------------------------
 
     def log_last_run_summary(self, *, eval_result: bool | None) -> None:
         """Write the last run summary to CSV."""
-        write_last_run_summary(
-            self.run_logger,
-            last_run_context=self._last_run_context,
+        self.run_logger.log_last(
+            context=self._last_run_context,
             eval_result=eval_result,
         )

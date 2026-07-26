@@ -8,7 +8,7 @@ from pathlib import Path
 
 import pandas as pd
 
-from loader import OUTPUT_DIR, require_output_file
+from loader import OUTPUT_DIR, percentage, require_output_file
 
 
 @dataclass(frozen=True)
@@ -139,11 +139,7 @@ def _agreement_metrics(group: pd.DataFrame) -> dict[str, float | int]:
     predicted_positive = int(accepted.sum())
     return {
         "N": total,
-        "Benchmark Success (%)": _rate(int(truth.sum()), total),
-        "Judge Accept (%)": _rate(predicted_positive, total),
-        "Positive Label Precision (%)": _rate(true_positive, predicted_positive),
+        "Benchmark Success (%)": percentage(int(truth.sum()), total),
+        "Judge Accept (%)": percentage(predicted_positive, total),
+        "Positive Label Precision (%)": percentage(true_positive, predicted_positive),
     }
-
-
-def _rate(numerator: int, denominator: int) -> float:
-    return numerator / denominator * 100 if denominator else 0.0

@@ -121,7 +121,7 @@ GAIA_FORMAT_SUFFIX = """
 
 ---
 
-ANSWER FORMAT (mandatory — the evaluator compares your answer string-for-string against the ground truth after normalization):
+ANSWER FORMAT (mandatory):
 
 Your final answer must be ONE of:
 - A number (no commas in the number, no units unless the question explicitly asks for them)

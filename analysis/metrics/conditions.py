@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+from collections.abc import Iterator
 from pathlib import Path
 from typing import Any
 
@@ -219,3 +220,35 @@ def _json_value(value: object, default: object) -> object:
     if isinstance(value, str):
         return json.loads(value) if value else default
     return value
+
+
+def iter_gold_task_rows(
+    runs: pd.DataFrame,
+    gold: dict[str, Any],
+    config: BenchmarkConfig,
+) -> Iterator[tuple[pd.Series, str, frozenset[str]]]:
+    for _, row in runs.iterrows():
+        task_key = row["task_key"]
+        if task_key not in gold:
+            continue
+        gold_set = gold_agents(gold[task_key], config)
+        if not gold_set:
+            continue
+        yield row, task_key, gold_set
+
+
+def distractor_share(runs: pd.DataFrame, valid_agents: set[str] | frozenset[str]) -> float:
+    """Mean percentage of delegated calls to agents outside benchmark's real-agent set, ignoring episodes with no calls."""
+    fractions = runs["executed_agents"].apply(
+        lambda value: _distractor_fraction(value, valid_agents)
+    )
+    mean = fractions.mean()
+    return 0.0 if pd.isna(mean) else mean * 100
+
+
+def _distractor_fraction(value: object, valid_agents: set[str] | frozenset[str]) -> float:
+    agents = agent_sequence(value)
+    if not agents:
+        return float("nan")
+    distractors = sum(1 for agent in agents if agent not in valid_agents)
+    return distractors / len(agents)

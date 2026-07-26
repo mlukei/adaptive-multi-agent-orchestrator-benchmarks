@@ -9,20 +9,15 @@ from collections import Counter
 from pathlib import Path
 from typing import Any
 
-from dotenv import find_dotenv, load_dotenv
-
-from benchmarks.shared.runner import (
-    add_retry_args,
-    apply_retry_filters,
-    make_retry_loaders,
-    validate_retry_args,
-)
 from runtime.cli import (
+    add_execution_args,
     add_task_selection_args,
     resolve_task_indices,
+    task_split_settings,
+    validate_execution_args,
     validate_split_fractions,
 )
-from runtime.config import load_config
+from runtime.config import load_config, load_experiment_env
 from runtime.experiment_runtime import (
     STATUS_ERROR,
     STATUS_OK,
@@ -30,14 +25,6 @@ from runtime.experiment_runtime import (
     TaskExecutionConfig,
     execute_task_with_retries,
 )
-
-
-def load_experiment_env() -> None:
-    dotenv_path = find_dotenv(usecwd=True)
-    if dotenv_path:
-        load_dotenv(dotenv_path, override=False)
-    else:
-        load_dotenv(override=False)
 
 
 load_experiment_env()
@@ -50,32 +37,27 @@ def sanitize_filename(name: str) -> str:
 
 def parse_args(cfg: Any = _CFG) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Run OfficeBench benchmark tasks")
-    parser.add_argument("--docker-name", default=cfg.docker.image_name)
-    parser.add_argument("--container-name", default=cfg.docker.container_name)
-    parser.add_argument("--dockerfile-path", default=cfg.docker.dockerfile_path)
-    parser.add_argument("--model-name", default=cfg.llm.model_name)
-    parser.add_argument("--tag", default=None)
-    parser.add_argument("--mode", default=cfg.execution.mode)
     parser.add_argument("--experiment-name", default=cfg.orchestrator.variant)
     add_task_selection_args(parser, cfg)
-    add_retry_args(parser, cfg)
+    add_execution_args(parser, cfg)
 
     args = parser.parse_args()
-    validate_retry_args(args)
-    validate_split_fractions(args)
+    args.mode = cfg.execution.mode
+    validate_execution_args(args)
+    validate_split_fractions(*task_split_settings(cfg)[1:3])
     return args
 
 
-def build_task_execution_config(args: argparse.Namespace) -> TaskExecutionConfig:
+def build_task_execution_config(args: argparse.Namespace, cfg: Any) -> TaskExecutionConfig:
     project_root = Path(__file__).resolve().parent.parent.parent
     return TaskExecutionConfig(
         python_executable=sys.executable,
         task_runner_script=str(project_root / "benchmarks" / "officebench" / "run_task.py"),
-        docker_name=args.docker_name,
-        dockerfile_path=args.dockerfile_path,
-        model_name=args.model_name,
+        docker_name=cfg.docker.image_name,
+        dockerfile_path=cfg.docker.dockerfile_path,
+        model_name=cfg.llm.model_name,
         mode=args.mode,
-        container_name_prefix=args.container_name,
+        container_name_prefix=cfg.docker.container_name,
         task_timeout_seconds=args.task_timeout_seconds,
         timeout_retries=args.timeout_retries,
         retry_backoff_seconds=args.retry_backoff_seconds,
@@ -84,42 +66,26 @@ def build_task_execution_config(args: argparse.Namespace) -> TaskExecutionConfig
 
 def main() -> None:
     args = parse_args()
+    cfg = load_config()
     experiment_name = args.experiment_name
-    run_tag = args.tag or sanitize_filename(experiment_name)
+    run_tag = sanitize_filename(experiment_name)
 
-    selected_indices, all_tasks, train_ids, test_ids = _select_tasks(args, experiment_name)
-    if selected_indices is None:
-        return
+    selected_indices, all_tasks, train_ids, test_ids = resolve_task_indices(args, cfg)
 
     print(f"Starting local experiment '{experiment_name}'")
-    _log_split_summary(args, selected_indices, all_tasks, train_ids, test_ids)
+    _log_split_summary(cfg, selected_indices, all_tasks, train_ids, test_ids)
 
-    _run_tasks(args, selected_indices, all_tasks, run_tag)
-
-
-def _select_tasks(
-    args: argparse.Namespace,
-    experiment_name: str,
-) -> tuple[list[int] | None, list[dict[str, Any]], set[str], set[str]]:
-    selected_indices, all_tasks, train_ids, test_ids = resolve_task_indices(args)
-    selected_indices = apply_retry_filters(
-        args,
-        selected_indices,
-        all_tasks,
-        task_key=_task_key,
-        loaders=make_retry_loaders(experiment_name, _row_key),
-        log=print,
-    )
-    return selected_indices, all_tasks, train_ids, test_ids
+    _run_tasks(args, cfg, selected_indices, all_tasks, run_tag)
 
 
 def _run_tasks(
     args: argparse.Namespace,
+    cfg: Any,
     selected_indices: list[int],
     all_tasks: list[dict[str, Any]],
     run_tag: str,
 ) -> list[dict[str, Any]]:
-    task_execution_config = build_task_execution_config(args)
+    task_execution_config = build_task_execution_config(args, cfg)
     records: list[dict[str, Any]] = []
 
     for rank, idx in enumerate(selected_indices, 1):
@@ -154,22 +120,23 @@ def _handle_failed_record(record: dict[str, Any], *, stop_on_error: bool) -> Non
 
 
 def _log_split_summary(
-    args: argparse.Namespace,
+    cfg: Any,
     selected_indices: list[int],
     all_tasks: list[dict[str, Any]],
     train_ids: set[str],
     test_ids: set[str],
 ) -> None:
-    if args.task_split == "all":
+    split_name, train_fraction, test_fraction, split_seed = task_split_settings(cfg)
+    if split_name == "all":
         return
 
     selected_ids = {str(all_tasks[idx]["task_id"]) for idx in selected_indices}
     print(
         "Task split active: "
-        f"split={args.task_split}, "
-        f"train_fraction={args.train_fraction:.2f}, "
-        f"test_fraction={args.test_fraction:.2f}, "
-        f"split_seed={args.split_seed}, "
+        f"split={split_name}, "
+        f"train_fraction={train_fraction:.2f}, "
+        f"test_fraction={test_fraction:.2f}, "
+        f"split_seed={split_seed}, "
         f"train_task_ids={len(train_ids)}, "
         f"test_task_ids={len(test_ids)}, "
         f"selected_runs={len(selected_indices)}"
@@ -185,14 +152,3 @@ def _log_split_summary(
 def _tier_counts(task_ids: set[str]) -> str:
     counts = Counter(str(task_id).split("-", 1)[0] for task_id in task_ids)
     return ", ".join(f"{tier}:{counts[tier]}" for tier in sorted(counts))
-
-
-
-
-def _row_key(row: dict[str, str]) -> str:
-    task_id = row.get("task_id", "")
-    return f"{task_id}/{row.get('subtask_id', '0')}" if task_id else ""
-
-
-def _task_key(task_entry: dict[str, Any]) -> str:
-    return f"{task_entry['task_id']}/{task_entry['subtask_id']}"

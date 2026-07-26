@@ -1,8 +1,12 @@
 """GAIA answer-match evaluation.
 
-Scores the agent's ``answer.txt`` against the expected GAIA answer using the
-official GAIA scorer plus extraction/containment fallbacks. (Extracted from the
-former ``utils/evaluate.py`` GAIA section.)
+Scores the agent's ``answer.txt`` against the expected GAIA answer.
+
+Attribution
+-----------
+The exact-match logic is the official GAIA scorer, from
+aymeric-roucher/GAIA (``scripts/evaluation/gaia_scorer.py``):
+https://github.com/aymeric-roucher/GAIA/blob/main/scripts/evaluation/gaia_scorer.py
 """
 
 from __future__ import annotations

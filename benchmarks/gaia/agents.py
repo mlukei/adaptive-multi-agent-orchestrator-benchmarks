@@ -157,7 +157,7 @@ class GaiaAgents:
         return base_system_template
 
     def _build_langchain_llm(self, agent_name: str) -> Any:
-        """Create an AzureChatOpenAI for one sub-agent via runtime.create_llm.
+        """Create an AzureChatOpenAI for one sub-agent
         """
         agent_cfg = getattr(self.app_config.llm.agents, agent_name, None)
 

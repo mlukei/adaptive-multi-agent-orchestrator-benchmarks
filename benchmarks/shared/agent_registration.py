@@ -21,10 +21,6 @@ AgentConfigs = dict[str, dict[str, Any]]
 
 def load_profiled_bullets(app_config: Any, *, should_profile: bool) -> dict[str, list[str]]:
     """Load precomputed profiled bullets when profiling mode is enabled.
-
-    When no ``profiled_bullets_path`` is configured (missing, null, or empty),
-    return an empty mapping so agents are profiled at runtime instead of falling
-    back to a hard-coded default file.
     """
     if not should_profile:
         return {}

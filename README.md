@@ -8,38 +8,57 @@ The orchestrator itself lives in [adaptive-multi-agent-orchestrator-core](https:
 
 Runs depend on several moving parts: the orchestrator dependency revision, the task split seed, memory schema, model deployment names, configuration files, and the state of the Postgres memory database.
 
-### 1. Install dependencies
+### Prerequisites
 
-1. Install host system dependencies used by GAIA tools (Tesseract for OCR and
-   FFmpeg for Whisper audio transcription):
+- **uv** - manages the environment and the lockfile:
+
+  ```bash
+  curl -LsSf https://astral.sh/uv/install.sh | sh
+  ```
+
+- **Docker** - required for the Postgres memory database (both benchmarks) and for
+  the per-task OfficeBench containers. The OfficeBench image is built automatically
+  on the first run.
+- **Tesseract and FFmpeg** - host binaries the GAIA tools need for OCR and
+  for Whisper audio transcription:
+
+  ```bash
+  sudo apt-get update && sudo apt-get install -y tesseract-ocr ffmpeg
+  ```
+
+- **A Hugging Face account** with the [GAIA dataset](https://huggingface.co/datasets/gaia-benchmark/GAIA) terms accepted, if you want to run GAIA (see step 4).
+
+### 1. Create the environment
 
 ```bash
-sudo apt-get update
-sudo apt-get install -y tesseract-ocr ffmpeg
+uv sync
 ```
 
-2. Use Python 3.11:
+This installs every Python dependency from `uv.lock`, including the orchestrator
+itself at its pinned revision.
 
-```bash
-uv sync --python 3.11
-```
+`.python-version` pins Python 3.11, and uv downloads that interpreter itself if the
+host does not have it.
 
-3. Configure Azure OpenAI credentials:
+### 2. Configure Azure OpenAI credentials
 
 ```bash
 cp .env.example .env
 ```
 
-Then edit `.env`:
+Then fill in the endpoint, key and API version.
 
-```text
-AZURE_OPENAI_ENDPOINT="https://..."
-AZURE_OPENAI_API_KEY="..."
-AZURE_OPENAI_API_VERSION="2024-12-01-preview"
-AZURE_OPENAI_DEPLOYMENT="..."
-```
+Credentials and deployment names are split:
 
-4. Start the local memory database for the adaptive orchestrator:
+- **`.env` holds the connection**: endpoint, API key and API version.
+- **The YAML config names the deployments**, per role, under `llm`:
+  `orchestrator`, `agents`, `curator`, `judge` and `embedder` each take a
+  `model_name`, which is the Azure deployment to use. This is what lets one
+  experiment run the orchestrator on a different model than its sub-agents.
+
+### 3. Start the memory database
+
+The adaptive orchestrator persists its memory in Postgres:
 
 ```bash
 docker run --name orch-bench-postgres \
@@ -56,59 +75,58 @@ If the container already exists, start it with:
 docker start orch-bench-postgres
 ```
 
+### 4. Provision GAIA attachment files (GAIA only)
+
+GAIA task questions are versioned in this repository, but their attachment files
+are not and must be downloaded from the Hugging Face dataset.
+
+```bash
+uv run python scripts/provision_gaia_testbeds.py
+```
+
+
 ## Running Experiments
 
 All runs go through `run.py`, which loads experiment configuration from YAML files:
 
 ```bash
-uv run python run.py --benchmark officebench --config <config.yaml> [flags]
-uv run python run.py --benchmark gaia        --config <config.yaml> [flags]
+uv run python run.py --benchmark officebench --config <config.yaml> 
+uv run python run.py --benchmark gaia        --config <config.yaml>
 ```
 
-CLI flags override YAML defaults for the current invocation.
 
 ### YAML Configuration
 
 See [configs/template.yaml](configs/template.yaml) for a commented configuration template.
 Copy it into `configs/officebench/` or `configs/gaia/` and edit it per experiment.
-Those experiment directories are gitignored, so local credentials and run-specific
-settings are not published.
 
-Key sections:
+### Reproducing the paper folds
 
-- **`llm`**: model deployments, Azure credentials, request timeout, pricing for cost logging.
-- **`orchestrator`**: memory schema, feature toggles, agent card paths, noise agents, profiled capability bullets.
-- **`docker`**: OfficeBench image/container settings (OfficeBench only).
-- **`execution`**: task root directory, output mode, timeouts, task split configuration.
+The published results are averaged over three folds. A fold is one deterministic
+stratified re-split of the full task set. Folds 1, 2
+and 3 use seeds **42, 43 and 44**, with `train_fraction: 0.4` / `test_fraction: 0.6`
+(the values in [configs/template.yaml](configs/template.yaml)).
 
-Results are written to `results/{orchestrator.variant}.csv`. For example, a config with:
+Each fold is a separate config file. Fold 2's training config sets:
 
 ```yaml
-orchestrator:
-  variant: "sparse/adaptive_train"
+execution:
+  task_split:
+    name: train
+    train_fraction: 0.4
+    test_fraction: 0.6
+    seed: 43
 ```
 
-writes to:
+and its testing config sets `name: test` with the same `seed: 43`, typically with
+`memory_schema` pointed at the fold-2 training variant. Then run each phase with
+its own config file:
 
-```text
-results/sparse/adaptive_train.csv
+```bash
+uv run python run.py --benchmark gaia --config configs/gaia/fold2_train.yaml
+uv run python run.py --benchmark gaia --config configs/gaia/fold2_test.yaml
 ```
 
-Postgres schemas use the variant with slashes converted to underscores (e.g., `sparse_adaptive_train`).
-
-### Common CLI Flags
-
-- `--start-index N --end-index M`: run task slice `[N, M)`.
-- `--task-ids 0 5 9`: run specific task indices.
-- `--task-split train|test`: override the split in the config.
-- `--split-seed 42`: deterministic shuffle seed.
-- `--mode default|force_new`: skip existing outputs or rerun.
-- `--task-timeout-seconds 900`: hard timeout per task.
-- `--retry-missing | --retry-timeouts | --retry-errors`: rerun only missing,
-  timed-out, or failed tasks recorded in `results/{variant}.csv`.
-- `--experiment-name name`: override the OfficeBench experiment name.
-
-OfficeBench runs each task in an isolated Docker container. GAIA runs on the host.
 
 ## Repository Layout
 
@@ -130,7 +148,7 @@ apps/
 benchmarks/
   officebench/           OfficeBench runner, policy, agents, environment, evaluation
   gaia/                  GAIA runner, policy, agents, evaluation
-  shared/                shared policy, runner, card, registration helpers
+  shared/                shared policy, card, and registration helpers
 
 configs/
   template.yaml          commented config template
@@ -140,8 +158,11 @@ configs/
 docker/
   Dockerfile             OfficeBench task container image
 
+scripts/
+  provision_gaia_testbeds.py   fetches GAIA attachments into local testbeds
+
 logger/
-  *.py                   CSV logging and run-summary helpers
+  run_logger.py          CSV run summaries and policy logging helpers
 
 runtime/
   *.py                   config loading, CLI flags, task selection, subprocess execution
@@ -162,26 +183,6 @@ results/
 
 The paper-metric analysis lives in `analysis/`:
 
-```text
-analysis/
-  metrics/
-    conditions.py
-    overall.py
-    retrieval.py
-    errors.py
-    agents.py
-    judge.py
-    paths.py
-  overall_performance.ipynb
-  retrieval.ipynb
-  error_decomposition.ipynb
-  agent_experiment.ipynb
-  conversion.ipynb
-  judge_agreement.ipynb
-  selection_and_shell_usage.ipynb
-  task_wise_comparison.ipynb
-```
-
 The paper analysis reads the curated OfficeBench and GAIA CSV snapshots under
 `output/`.
 
@@ -192,5 +193,6 @@ This work builds on several existing benchmarks, environments, and open-source p
 - **GAIA** — Mialon et al., *GAIA: a benchmark for General AI Assistants* ([arXiv:2311.12983](https://arxiv.org/abs/2311.12983)). The GAIA tasks evaluated here come from this benchmark.
 - **OfficeBench** — Wang et al., *OfficeBench: Benchmarking Language Agents across Multiple Applications for Office Automation* ([arXiv:2407.19056](https://arxiv.org/abs/2407.19056), [zlwang-cs/OfficeBench](https://github.com/zlwang-cs/OfficeBench)). The OfficeBench tasks, apps, and testbeds are drawn from this benchmark.
 - **InterCode** — Yang et al., *InterCode: Standardizing and Benchmarking Interactive Coding with Execution Feedback* (NeurIPS 2023, [arXiv:2306.14898](https://arxiv.org/abs/2306.14898), [princeton-nlp/intercode](https://github.com/princeton-nlp/intercode)). OfficeBench's Docker-based execution environment builds on InterCode.
-- **fisherman611/gaia-agent** ([github.com/fisherman611/gaia-agent](https://github.com/fisherman611/gaia-agent/tree/main)) — the starting point for the GAIA agent tool functions in [benchmarks/gaia/tools.py](benchmarks/gaia/tools.py) (see the attribution header in that file for the exact split of adopted vs. rewritten vs. added tools).
+- **fisherman611/gaia-agent** ([github.com/fisherman611/gaia-agent](https://github.com/fisherman611/gaia-agent/tree/main)) — the starting point for the GAIA agent tool functions in [benchmarks/gaia/tools.py](benchmarks/gaia/tools.py) 
+- **gaia-scorer** — Roucher, [`scripts/evaluation/gaia_scorer.py`](https://github.com/aymeric-roucher/GAIA/blob/main/scripts/evaluation/gaia_scorer.py). The official GAIA answer-matching logic used to score GAIA results in [benchmarks/gaia/evaluation.py](benchmarks/gaia/evaluation.py) 
 - **LEGOMem** — Han et al., *LEGOMem: Modular Procedural Memory for Multi-agent LLM Systems for Workflow Automation* ([arXiv:2510.04851](https://arxiv.org/abs/2510.04851)). Inspiration for the multi-agent integration on OfficeBench.

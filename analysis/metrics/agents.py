@@ -17,19 +17,8 @@ from loader import (
     load_runs,
 )
 
-from .conditions import agent_sequence
+from .conditions import agent_sequence, distractor_share
 
-
-ORIGINAL_PATHS = {
-    "officebench": tuple(
-        OUTPUT_DIR / "officebench" / "rich" / "adaptive" / f"train_memory_fold_{fold}.csv"
-        for fold in (1, 2, 3)
-    ),
-    "gaia": tuple(
-        OUTPUT_DIR / "gaia" / "rich" / "adaptive" / f"adaptive_training_rich_fold_{fold}.csv"
-        for fold in (1, 2, 3)
-    ),
-}
 
 STABLE_POOL_PATHS = {
     "officebench": tuple(
@@ -66,25 +55,6 @@ PAIRED_ORIGINAL_PATHS = {
     ),
     "gaia": tuple(
         OUTPUT_DIR / "gaia" / "rich" / "adaptive" / f"adaptive_testing_rich_fold_{fold}.csv"
-        for fold in (1, 2, 3)
-    ),
-}
-
-UPPER_BASELINE_PATHS = {
-    "officebench": tuple(
-        OUTPUT_DIR
-        / "officebench"
-        / "rich"
-        / "baselines"
-        / f"baseline_upper_fold_{fold}.csv"
-        for fold in (1, 2, 3)
-    ),
-    "gaia": tuple(
-        OUTPUT_DIR
-        / "gaia"
-        / "rich"
-        / "baselines"
-        / f"baseline_upper_rich_fold_{fold}.csv"
         for fold in (1, 2, 3)
     ),
 }
@@ -130,10 +100,8 @@ STABILITY_ROUNDING = {
 }
 
 
-
-
 def stability_table(benchmark: str) -> pd.DataFrame:
-    """Compare phase-2 stability with and without pool restructuring."""
+    """Compare phase-2 stability with and without pool change."""
     base_agents = set(BASE_AGENTS[benchmark])
     changed_pool_agents = base_agents | set(NEW_AGENTS[benchmark])
     conditions = {
@@ -141,24 +109,6 @@ def stability_table(benchmark: str) -> pd.DataFrame:
         "Restructured Pool": (DYNAMIC_PATHS[benchmark], changed_pool_agents),
     }
     return _stability_comparison(conditions)
-
-
-def stale_memory_comparison_table(benchmark: str) -> pd.DataFrame:
-    """Compare Upper, stale, and updating-memory runs on complete fold task sets."""
-    base_agents = set(BASE_AGENTS[benchmark])
-    changed_pool_agents = base_agents | set(NEW_AGENTS[benchmark])
-    stale_condition = "Stale Memory, Unchanged Pool"
-    conditions = {
-        "Upper Baseline, Unchanged Pool": (UPPER_BASELINE_PATHS[benchmark], base_agents),
-        stale_condition: (PAIRED_ORIGINAL_PATHS[benchmark], base_agents),
-        "Updating Memory, Unchanged Pool": (STABLE_POOL_PATHS[benchmark], base_agents),
-        "Updating Memory, Changed Pool": (DYNAMIC_PATHS[benchmark], changed_pool_agents),
-    }
-    table = _stability_comparison(conditions)
-    table["Delta vs. Stale (pp)"] = (
-        table["Overall SR (%)"] - table.loc[stale_condition, "Overall SR (%)"]
-    ).round(1)
-    return table
 
 
 def _stability_comparison(
@@ -346,26 +296,8 @@ def _stability_fold_summary(
         "Delegations": runs["total_delegations"].mean(),
         "Tokens (K)": runs["tokens_total"].mean() / 1000,
         "Cost ($)": runs["cost_total"].mean(),
-        "Distract (%)": _distractor_share(runs, valid_agents),
+        "Distract (%)": distractor_share(runs, valid_agents),
     }
-
-
-def _distractor_share(runs: pd.DataFrame, valid_agents: set[str]) -> float:
-    """Mean percentage of delegated calls to agents outside the intended pool."""
-    fractions = runs["executed_agents"].apply(
-        lambda value: _distractor_fraction(value, valid_agents)
-    )
-    mean = fractions.mean()
-    return 0.0 if pd.isna(mean) else mean * 100
-
-
-def _distractor_fraction(value: object, valid_agents: set[str]) -> float:
-    agents = agent_sequence(value)
-    if not agents:
-        return float("nan")
-    distractors = sum(1 for agent in agents if agent not in valid_agents)
-    return distractors / len(agents)
-
 
 def _paired_condition_usage(
     benchmark: str,

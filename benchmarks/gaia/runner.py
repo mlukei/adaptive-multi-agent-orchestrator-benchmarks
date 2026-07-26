@@ -4,28 +4,22 @@ from __future__ import annotations
 
 import argparse
 import logging
-import shutil
 import sys
 import time
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-from dotenv import find_dotenv, load_dotenv
-
-from benchmarks.shared.runner import (
-    add_retry_args,
-    apply_retry_filters,
-    make_retry_loaders,
-    validate_retry_args,
-)
-from logger.local_logger import CsvLogger, RunSummary
+from logger.run_logger import RunSummary, write_run_summary
 from runtime.cli import (
+    add_execution_args,
     add_task_selection_args,
     resolve_task_indices,
+    task_split_settings,
+    validate_execution_args,
     validate_split_fractions,
 )
-from runtime.config import load_config
+from runtime.config import load_config, load_experiment_env
 from runtime.experiment_runtime import (
     STATUS_ERROR,
     STATUS_OK,
@@ -33,14 +27,6 @@ from runtime.experiment_runtime import (
     TaskExecutionConfig,
     execute_task_with_retries,
 )
-
-
-def load_experiment_env() -> None:
-    dotenv_path = find_dotenv(usecwd=True)
-    if dotenv_path:
-        load_dotenv(dotenv_path, override=False)
-    else:
-        load_dotenv(override=False)
 
 
 load_experiment_env()
@@ -56,29 +42,22 @@ logger = logging.getLogger(__name__)
 
 def parse_args(cfg: Any = _CFG) -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Run GAIA benchmark tasks")
-    parser.add_argument("--model-name", default=cfg.llm.model_name)
-    parser.add_argument("--tag", default=None)
-    parser.add_argument(
-        "--mode",
-        choices=["default", "force_new"],
-        default=cfg.execution.mode,
-        help="default: skip tasks with existing output; force_new: re-run all",
-    )
     add_task_selection_args(parser, cfg)
-    add_retry_args(parser, cfg)
+    add_execution_args(parser, cfg)
 
     args = parser.parse_args()
-    validate_split_fractions(args)
-    validate_retry_args(args)
+    args.mode = cfg.execution.mode
+    validate_split_fractions(*task_split_settings(cfg)[1:3])
+    validate_execution_args(args)
     return args
 
 
-def build_task_execution_config(args: argparse.Namespace) -> TaskExecutionConfig:
+def build_task_execution_config(args: argparse.Namespace, cfg: Any) -> TaskExecutionConfig:
     project_root = Path(__file__).resolve().parent.parent.parent
     return TaskExecutionConfig(
         python_executable=sys.executable,
         task_runner_script=str(project_root / "benchmarks" / "gaia" / "run_task.py"),
-        model_name=args.model_name,
+        model_name=cfg.llm.model_name,
         mode=args.mode,
         task_timeout_seconds=args.task_timeout_seconds,
         timeout_retries=args.timeout_retries,
@@ -89,56 +68,28 @@ def build_task_execution_config(args: argparse.Namespace) -> TaskExecutionConfig
 def main() -> None:
     args = parse_args()
     cfg = load_config()
-    tag = args.tag or cfg.orchestrator.variant
+    tag = cfg.orchestrator.variant
+    split_name = task_split_settings(cfg)[0]
 
     logger.info(
         "GAIA Benchmark Runner | Model: %s | Tasks: %s | Split: %s | Variant: %s",
-        args.model_name,
+        cfg.llm.model_name,
         args.tasks_root,
-        args.task_split,
+        split_name,
         cfg.orchestrator.variant,
     )
 
-    selected_indices, all_tasks, train_ids, test_ids = _select_tasks(args, cfg, tag)
-    if selected_indices is None:
-        return
+    selected_indices, all_tasks, train_ids, test_ids = resolve_task_indices(args, cfg)
 
     logger.info(
         "Running %d tasks (split=%s, train=%d, test=%d)",
         len(selected_indices),
-        args.task_split,
+        split_name,
         len(train_ids),
         len(test_ids),
     )
 
     _run_tasks(args, cfg, selected_indices, all_tasks, tag)
-
-
-def _select_tasks(
-    args: argparse.Namespace,
-    cfg: Any,
-    tag: str,
-) -> tuple[list[int] | None, list[dict[str, Any]], set[str], set[str]]:
-    selected_indices, all_tasks, train_ids, test_ids = resolve_task_indices(args)
-    selected_indices = apply_retry_filters(
-        args,
-        selected_indices,
-        all_tasks,
-        task_key=_task_key,
-        loaders=make_retry_loaders(
-            cfg.orchestrator.variant,
-            _row_key,
-            error_checks_success=False,
-        ),
-        on_selected=lambda indices, label: _purge_output_dirs(
-            indices,
-            all_tasks,
-            args.model_name,
-            tag,
-            label,
-        ),
-    )
-    return selected_indices, all_tasks, train_ids, test_ids
 
 
 def _run_tasks(
@@ -148,7 +99,7 @@ def _run_tasks(
     all_tasks: list[dict[str, Any]],
     tag: str,
 ) -> list[dict[str, Any]]:
-    task_execution_config = build_task_execution_config(args)
+    task_execution_config = build_task_execution_config(args, cfg)
     records: list[dict[str, Any]] = []
 
     for rank, idx in enumerate(selected_indices, 1):
@@ -170,7 +121,6 @@ def _run_tasks(
             record=record,
             task_meta=task_meta,
             variant=cfg.orchestrator.variant,
-            model_name=args.model_name,
             tag=tag,
             elapsed=time.monotonic() - start,
             stop_on_error=args.stop_on_error,
@@ -186,7 +136,6 @@ def _handle_worker_failure(
     record: dict[str, Any],
     task_meta: dict[str, Any],
     variant: str,
-    model_name: str,
     tag: str,
     elapsed: float,
     stop_on_error: bool,
@@ -247,35 +196,4 @@ def _write_sentinel(
         error_type=error_type,
         wall_clock_seconds=round(elapsed, 2),
     )
-    CsvLogger(path=f"results/{variant}.csv").log(summary)
-
-
-def _purge_output_dirs(
-    selected_indices: list[int],
-    all_tasks: list[dict[str, Any]],
-    model_name: str,
-    tag: str,
-    label: str,
-) -> None:
-    model_dir = model_name.replace("/", "_")
-    for idx in selected_indices:
-        task = all_tasks[idx]
-        output_dir = (
-            Path(task["task_dir"])
-            / "outputs"
-            / task.get("subtask_id", "0")
-            / f"{model_dir}_{tag}"
-        )
-        if output_dir.exists():
-            logger.info("%s: removing stale output: %s", label, output_dir)
-            shutil.rmtree(output_dir)
-
-
-
-
-def _row_key(row: dict[str, str]) -> str:
-    return row.get("task_id", "")
-
-
-def _task_key(task_entry: dict[str, Any]) -> str:
-    return task_entry["task_id"]
+    write_run_summary(summary, f"results/{variant}.csv")

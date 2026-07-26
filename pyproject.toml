@@ -1,7 +1,7 @@
 [project]
 name = "orch-bench"
 version = "0.1.0"
-description = "Orch-Bench - A dual benchmark suite for evaluating the performance of orchestrators on OfficeBench and GAIA benchmarks."
+description = "A dual benchmark suite for evaluating the performance of orchestrators on OfficeBench and GAIA benchmarks."
 readme = "README.md"
 requires-python = ">=3.11,<3.13"
 license = { text = "MIT" }
@@ -39,11 +39,12 @@ dependencies = [
     "docker",
     "pyyaml",
     "python-dotenv>=1.0",
-    "pytz",
     # Required by the vendored InterCode envs (intercode/envs/*)
     "gymnasium",
     "mysql-connector-python",
     "rpyc",
+    "scipy>=1.17.1",
+    "huggingface-hub>=1.24.0",
 ]
 
 
@@ -57,7 +58,9 @@ packages = ["apps", "benchmarks", "intercode", "logger", "runtime"]
 [tool.uv]
 
 [dependency-groups]
-dev = []
+dev = [
+    "ipykernel>=7.3.0",
+]
 
 
 [tool.uv.sources]

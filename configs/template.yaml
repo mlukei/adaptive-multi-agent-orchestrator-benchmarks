@@ -21,7 +21,7 @@ llm:
 
   # Model used for agent-level and episode-level curation.
   curator:
-    model_name: "gpt-5.1"
+    model_name: "gpt-5.4-mini"
     temperature: 0.0
 
   # Optional model used by the final judge gate.
@@ -33,11 +33,6 @@ llm:
   embedder:
     model_name: "text-embedding-ada-002"
 
-  azure:
-    endpoint: "${AZURE_OPENAI_ENDPOINT}"
-    api_key: "${AZURE_OPENAI_API_KEY}"
-    api_version: "${AZURE_OPENAI_API_VERSION}"
-    deployment: "${AZURE_OPENAI_DEPLOYMENT}"
 
   request_timeout: 120
 
@@ -119,6 +114,7 @@ execution:
   # "default" skips existing task outputs; "force_new" reruns.
   mode: "force_new"
 
+  # Process safety: terminate hung tasks and optionally retry them.
   task_timeout_seconds: 900
   timeout_retries: 1
   retry_backoff_seconds: 5

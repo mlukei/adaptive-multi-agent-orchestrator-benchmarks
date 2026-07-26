@@ -8,15 +8,10 @@ __pycache__
 
 # Generated run artifacts
 logs/
-openai_key.txt
-gemini_key.txt
 outputs*/
 cache/
 results/
 output/_backups/*
-plots/*
-docs/
-scripts/*
 
 # Ignore experiment configs while keeping the documented template.
 configs/**

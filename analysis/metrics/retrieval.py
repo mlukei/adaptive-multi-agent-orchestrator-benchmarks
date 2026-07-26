@@ -6,7 +6,7 @@ import pandas as pd
 
 from loader import BenchmarkConfig
 
-from .conditions import OFFICEBENCH_CONFIG, discovery_all, gold_agents, load_card, load_gold
+from .conditions import OFFICEBENCH_CONFIG, discovery_all, iter_gold_task_rows, load_card, load_gold
 
 
 def retrieval_table(card: str, config: BenchmarkConfig = OFFICEBENCH_CONFIG) -> pd.DataFrame:
@@ -41,13 +41,7 @@ def per_row_metrics(card: str, config: BenchmarkConfig = OFFICEBENCH_CONFIG) -> 
     runs = load_card(card, config)
     gold = load_gold(config)
     rows = []
-    for _, row in runs.iterrows():
-        task_key = row["task_key"]
-        if task_key not in gold:
-            continue
-        gold_set = gold_agents(gold[task_key], config)
-        if not gold_set:
-            continue
+    for row, task_key, gold_set in iter_gold_task_rows(runs, gold, config):
         retrieved = discovery_all(row.get("agent_discovery_sources"))
         rows.append(
             {

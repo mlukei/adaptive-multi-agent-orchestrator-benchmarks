@@ -4,7 +4,7 @@ import pandas as pd
 
 from loader import BenchmarkConfig
 
-from .conditions import OFFICEBENCH_CONFIG, agent_sequence, load_card
+from .conditions import OFFICEBENCH_CONFIG, distractor_share, load_card
 
 TIER_COLUMNS = {
     1: "T1 SR (%)",
@@ -60,23 +60,9 @@ def _fold_summary(runs: pd.DataFrame, config: BenchmarkConfig) -> dict[str, floa
     summary["Delegations"] = runs["total_delegations"].mean()
     summary["Tokens (K)"] = runs["tokens_total"].mean() / 1000
     summary["Cost ($)"] = runs["cost_total"].mean()
-    summary["Distract (%)"] = _distractor_share(runs, config.real_agents)
+    summary["Distract (%)"] = distractor_share(runs, config.real_agents)
     return summary
 
 
 def success_rate(runs: pd.DataFrame) -> float:
     return runs["is_success"].mean() * 100
-
-
-def _distractor_share(runs: pd.DataFrame, real_agents: frozenset[str]) -> float:
-    fractions = runs["executed_agents"].apply(lambda v: _distractor_fraction(v, real_agents))
-    mean = fractions.mean()
-    return 0.0 if pd.isna(mean) else mean * 100
-
-
-def _distractor_fraction(value: object, real_agents: frozenset[str]) -> float:
-    agents = agent_sequence(value)
-    if not agents:
-        return float("nan")
-    distractors = sum(1 for agent in agents if agent not in real_agents)
-    return distractors / len(agents)

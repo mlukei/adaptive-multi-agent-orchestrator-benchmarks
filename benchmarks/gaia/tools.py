@@ -3,21 +3,20 @@
 Attribution
 -----------
 The starting point for this module was the GAIA solution
-fisherman611/gaia-agent (https://github.com/fisherman611/gaia-agent),
-with its ``agent.py``, ``code_interpreter.py`` and ``image_processing.py``.
+fisherman611/gaia-agent (https://github.com/fisherman611/gaia-agent).
 
-Adopted from that repo (kept, lightly adapted):
+Adopted from that repo:
 - ``CodeInterpreter`` class + ``execute_code_multilang``
 - the math tools (multiply/add/subtract/divide/modulus/power/square_root)
 - ``extract_text_from_image`` (pytesseract OCR), ``analyze_csv_file``,
-  ``analyze_excel_file``, ``save_and_read_file``, ``download_file_from_url``
+  ``analyze_excel_file``, ``download_file_from_url``
 
 Rewritten (same intent, new implementation):
 - ``web_search`` now uses DuckDuckGo (ddgs) instead of paid Tavily
 - ``wiki_search`` / ``arxiv_search`` now hit the free Wikipedia/arXiv HTTP APIs
   via httpx instead of langchain_community document loaders
 
-Added by us (not in the upstream repo):
+Added (not in the upstream repo):
 - ``fetch_webpage`` (httpx + HTML stripping)
 - ``read_pdf`` / ``read_docx`` / ``read_pptx`` (document text extraction)
 - ``analyze_image_with_llm`` (Azure vision model) and ``transcribe_audio`` (local Whisper)

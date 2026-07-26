@@ -4,7 +4,7 @@ import time
 
 import docker
 
-TRUTHY_VALUES = {"1", "true", "yes", "y"}
+TRUTHY_VALUES = {"1", "true"}
 
 
 def should_force_rebuild():

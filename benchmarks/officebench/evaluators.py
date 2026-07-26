@@ -1,8 +1,8 @@
 """Evaluation functions for OfficeBench.
 
 Implementation notes:
-- The public ``evaluate_*`` functions are the OfficeBench evaluator surface
-  originally implemented in ``utils/evaluate.py``.
+- The public ``evaluate_*`` functions are the OfficeBench evaluator
+  originally implemented
 - Blocks marked ``NOTE: Modification`` are local changes added for this
   benchmark setup, mainly to make evaluation robust
 """
@@ -12,11 +12,11 @@ import logging
 import os
 import re
 from collections import Counter
+from datetime import timezone
 from decimal import Decimal, InvalidOperation
 
 import icalendar
 import openpyxl
-import pytz
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
@@ -536,14 +536,9 @@ def evaluate_calendar_no_overlap(testbed_dir, args):
     calendar = icalendar.Calendar.from_ical(open(calendar_file, 'rb').read())
     # sort events by start time
 
-    utc=pytz.UTC
-    def is_naive(dt):
-        return dt.tzinfo is None
     def proc_dt(dt):
-        if is_naive(dt):
-            return utc.localize(dt)
-        else:
-            return dt
+        return dt.replace(tzinfo=timezone.utc) if dt.tzinfo is None else dt
+
     calendar.subcomponents.sort(key=lambda x: proc_dt(x.get('dtstart').dt))
     events = []
     for component in calendar.walk():

@@ -21,9 +21,7 @@ class GaiaHostEnv:
         Args:
             task_dir: Path to the GAIA task directory (contains testbed/).
             task: The GAIA question text.
-            output_dir: Per-run output directory. When provided, the agent
-                operates on ``{output_dir}/testbed/`` instead of the shared
-                ``{task_dir}/testbed/data/``.
+            output_dir: Per-run output directory.
         """
         self.task_dir = os.path.abspath(task_dir)
         self.task = task
