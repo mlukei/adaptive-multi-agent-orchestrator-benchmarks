@@ -9,6 +9,7 @@ from collections import Counter
 from pathlib import Path
 from typing import Any
 
+from logger.run_logger import write_sentinel_summary
 from runtime.cli import (
     add_execution_args,
     add_task_selection_args,
@@ -52,7 +53,7 @@ def build_task_execution_config(args: argparse.Namespace, cfg: Any) -> TaskExecu
     project_root = Path(__file__).resolve().parent.parent.parent
     return TaskExecutionConfig(
         python_executable=sys.executable,
-        task_runner_script=str(project_root / "benchmarks" / "officebench" / "run_task.py"),
+        worker_script=str(project_root / "benchmarks" / "officebench" / "worker.py"),
         docker_name=cfg.docker.image_name,
         dockerfile_path=cfg.docker.dockerfile_path,
         model_name=cfg.llm.model_name,
@@ -100,23 +101,53 @@ def _run_tasks(
             tag=run_tag,
         )
         records.append(record)
-        _handle_failed_record(record, stop_on_error=args.stop_on_error)
+        _handle_failed_record(
+            record,
+            task_meta=task,
+            variant=cfg.orchestrator.variant,
+            tag=run_tag,
+            stop_on_error=args.stop_on_error,
+        )
 
     return records
 
 
-def _handle_failed_record(record: dict[str, Any], *, stop_on_error: bool) -> None:
+def _handle_failed_record(
+    record: dict[str, Any],
+    *,
+    task_meta: dict[str, Any],
+    variant: str,
+    tag: str,
+    stop_on_error: bool,
+) -> None:
     status = record["status"]
     if status == STATUS_OK:
         return
+
     if status == STATUS_TIMEOUT:
         print(f"Task timed out after {record['attempts']} attempt(s): {record['task_key']}")
-        if stop_on_error:
-            raise TimeoutError(str(record.get("error", "Task timed out.")))
+        termination_reason, error_type = "timeout", "TimeoutError"
     elif status == STATUS_ERROR:
         print(f"Task failed: {record['task_key']} -> {record.get('error', 'Unknown task error')}")
-        if stop_on_error:
-            raise RuntimeError(str(record.get("error", "Task failed.")))
+        termination_reason, error_type = "error", "WorkerCrash"
+    else:
+        return
+    write_sentinel_summary(
+        path=f"results/{variant}.csv",
+        task_id=task_meta["task_id"],
+        subtask_id=task_meta.get("subtask_id", "0"),
+        task_dir=task_meta["task_dir"],
+        tag=tag,
+        orchestrator_variant=variant,
+        elapsed_seconds=record.get("duration_seconds") or 0.0,
+        termination_reason=termination_reason,
+        error_type=error_type,
+    )
+
+    if stop_on_error:
+        if status == STATUS_TIMEOUT:
+            raise TimeoutError(str(record.get("error", "Task timed out.")))
+        raise RuntimeError(str(record.get("error", "Task failed.")))
 
 
 def _log_split_summary(

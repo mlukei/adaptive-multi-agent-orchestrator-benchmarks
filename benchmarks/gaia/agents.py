@@ -77,7 +77,7 @@ class GaiaAgents:
 
         agent_cards = load_cards(
             orch_cfg.agent_cards_path,
-            orch_cfg.extra_agent_cards_path,
+            getattr(orch_cfg, "extra_agent_cards_path", None),
         )
 
         chains: dict[str, Any] = {}

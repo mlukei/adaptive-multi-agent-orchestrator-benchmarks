@@ -25,7 +25,7 @@ class TaskExecutionConfig:
     """Process settings for one benchmark task."""
 
     python_executable: str
-    task_runner_script: str
+    worker_script: str
     model_name: str
     mode: str
     task_timeout_seconds: int
@@ -81,7 +81,7 @@ def run_single_task_subprocess(
     """
     command = [
         config.python_executable,
-        config.task_runner_script,
+        config.worker_script,
         "--model_name",
         config.model_name,
         "--task_dir",
@@ -121,7 +121,7 @@ def run_single_task_subprocess(
         return {
             "status": STATUS_ERROR,
             "duration_seconds": duration,
-            "error": f"{config.task_runner_script} exited with code {exc.returncode}",
+            "error": f"{config.worker_script} exited with code {exc.returncode}",
         }
 
 

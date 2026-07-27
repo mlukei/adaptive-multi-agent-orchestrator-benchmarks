@@ -18,15 +18,14 @@ from loader import (
 )
 
 _OB_DIR = OUTPUT_DIR / "officebench"
-_OB_GOLD = ROOT / "annotations" / "officebench.json"
 
-SYSTEM_ORDER = [
+SYSTEM_ORDER = (
     "BL-Lower",
     "BL-Upper",
     "Blueprint",
     "Playbook",
     "Adaptive System",
-]
+)
 
 CARD_PATHS: dict[str, dict[str, tuple[Path, ...]]] = {
     "rich": {
@@ -78,22 +77,13 @@ CARD_PATHS: dict[str, dict[str, tuple[Path, ...]]] = {
 OFFICEBENCH_CONFIG = BenchmarkConfig(
     name="officebench",
     real_agents=REAL_AGENTS_OFFICEBENCH,
-    gold_path=_OB_GOLD,
+    gold_path=ROOT / "annotations" / "officebench.json",
     card_paths=CARD_PATHS,
     system_order=SYSTEM_ORDER,
 )
 
 
 _GAIA_DIR = OUTPUT_DIR / "gaia"
-_GAIA_GOLD = ROOT / "annotations" / "gaia.json"
-
-GAIA_SYSTEM_ORDER = [
-    "BL-Lower",
-    "BL-Upper",
-    "Blueprint",
-    "Playbook",
-    "Adaptive System",
-]
 
 GAIA_CARD_PATHS: dict[str, dict[str, tuple[Path, ...]]] = {
     "rich": {
@@ -105,18 +95,18 @@ GAIA_CARD_PATHS: dict[str, dict[str, tuple[Path, ...]]] = {
             _GAIA_DIR / "rich" / "baselines" / f"baseline_upper_rich_fold_{fold}.csv"
             for fold in (1, 2, 3)
         ),
-        "Blueprint":      tuple(
+        "Blueprint": tuple(
             _GAIA_DIR / "rich" / "blueprints" / f"adaptive_testing_rich_blueprint_fold_{fold}.csv"
             for fold in (1, 2, 3)
-        ),        
+        ),
         "Playbook": tuple(
             _GAIA_DIR / "rich" / "playbooks" / f"adaptive_testing_rich_playbook_fold_{fold}.csv"
             for fold in (1, 2, 3)
-        ),        
+        ),
         "Adaptive System": tuple(
             _GAIA_DIR / "rich" / "adaptive" / f"adaptive_testing_rich_fold_{fold}.csv"
             for fold in (1, 2, 3)
-        ),        
+        ),
     },
     "sparse": {
         "BL-Lower": tuple(
@@ -145,10 +135,11 @@ GAIA_CARD_PATHS: dict[str, dict[str, tuple[Path, ...]]] = {
 GAIA_CONFIG = BenchmarkConfig(
     name="gaia",
     real_agents=REAL_GAIA_AGENTS,
-    gold_path=_GAIA_GOLD,
+    gold_path=ROOT / "annotations" / "gaia.json",
     card_paths=GAIA_CARD_PATHS,
-    system_order=GAIA_SYSTEM_ORDER,
+    system_order=SYSTEM_ORDER,
 )
+
 
 def load_card(card: str, config: BenchmarkConfig = OFFICEBENCH_CONFIG) -> pd.DataFrame:
     frames: list[pd.DataFrame] = []
@@ -168,58 +159,30 @@ def load_gold(config: BenchmarkConfig = OFFICEBENCH_CONFIG) -> dict[str, dict[st
     return json.loads(config.gold_path.read_text())
 
 
-def tier_from_task_id(task_id: object) -> int | None:
+def tier_from_task_id(task_id: str) -> int:
     """Extract tier from task_id.
 
     OfficeBench: "1-task-name"   → parts[0] = "1"
     GAIA:        "gaia-1-uuid"   → parts[1] = "1"
     """
-    parts = str(task_id).split("-")
-    if parts[0].isdigit():
-        return int(parts[0])
-    if len(parts) > 1 and parts[1].isdigit():
-        return int(parts[1])
-    return None
+    parts = task_id.split("-")
+    return int(parts[0] if parts[0].isdigit() else parts[1])
 
 
 def gold_agents(gold: dict[str, Any], config: BenchmarkConfig = OFFICEBENCH_CONFIG) -> frozenset[str]:
-    return frozenset(str(agent) for agent in gold["gold_agents"]) & config.real_agents
+    return frozenset(gold["gold_agents"]) & config.real_agents
 
 
-def agent_sequence(value: object) -> list[str]:
-    parsed = _json_value(value, [])
-    if not isinstance(parsed, list):
-        return []
-    return [str(agent) for agent in parsed if agent]
+def agent_sequence(value: str) -> list[str]:
+    return json.loads(value)
 
 
-def agent_set(value: object) -> frozenset[str]:
+def agent_set(value: str) -> frozenset[str]:
     return frozenset(agent_sequence(value))
 
 
-def discovery_agents(value: object, config: BenchmarkConfig = OFFICEBENCH_CONFIG) -> frozenset[str]:
-    return discovery_all(value) & config.real_agents
-
-
-def discovery_all(value: object) -> frozenset[str]:
-    parsed = _json_value(value, {})
-    if isinstance(parsed, dict):
-        names = parsed.keys()
-    elif isinstance(parsed, list):
-        names = parsed
-    else:
-        names = []
-    return frozenset(str(name) for name in names if name)
-
-
-def _json_value(value: object, default: object) -> object:
-    if value is None or value is pd.NA:
-        return default
-    if isinstance(value, float) and pd.isna(value):
-        return default
-    if isinstance(value, str):
-        return json.loads(value) if value else default
-    return value
+def discovery_all(value: str) -> frozenset[str]:
+    return frozenset(json.loads(value))
 
 
 def iter_gold_task_rows(
@@ -246,7 +209,7 @@ def distractor_share(runs: pd.DataFrame, valid_agents: set[str] | frozenset[str]
     return 0.0 if pd.isna(mean) else mean * 100
 
 
-def _distractor_fraction(value: object, valid_agents: set[str] | frozenset[str]) -> float:
+def _distractor_fraction(value: str, valid_agents: set[str] | frozenset[str]) -> float:
     agents = agent_sequence(value)
     if not agents:
         return float("nan")

@@ -37,8 +37,7 @@ uv sync
 This installs every Python dependency from `uv.lock`, including the orchestrator
 itself at its pinned revision.
 
-`.python-version` pins Python 3.11, and uv downloads that interpreter itself if the
-host does not have it.
+`.python-version` pins Python 3.11.
 
 ### 2. Configure Azure OpenAI credentials
 
@@ -77,8 +76,7 @@ docker start orch-bench-postgres
 
 ### 4. Provision GAIA attachment files (GAIA only)
 
-GAIA task questions are versioned in this repository, but their attachment files
-are not and must be downloaded from the Hugging Face dataset.
+GAIA attachment files must be downloaded from the Hugging Face dataset.
 
 ```bash
 uv run python scripts/provision_gaia_testbeds.py
@@ -99,6 +97,8 @@ uv run python run.py --benchmark gaia        --config <config.yaml>
 
 See [configs/template.yaml](configs/template.yaml) for a commented configuration template.
 Copy it into `configs/officebench/` or `configs/gaia/` and edit it per experiment.
+
+The exact YAML configuration files used for the experiments reported in the thesis are available in the [`Configs/` directory of the experimental artifacts](https://tubcloud.tu-berlin.de/s/Ne48mdXqCdQRjnL).
 
 ### Reproducing the paper folds
 
@@ -132,8 +132,9 @@ uv run python run.py --benchmark gaia --config configs/gaia/fold2_test.yaml
 
 ```text
 agents/
-  officebench/           rich and sparse OfficeBench cards, noise cards, profiled bullets
-  gaia/                  rich and sparse GAIA cards, noise cards, profiled bullets
+  officebench/           rich and sparse OfficeBench agent cards
+  gaia/                  rich and sparse GAIA agent cards
+  noise/                 shared rich and sparse noise-agent cards
 
 analysis/
   loader.py              lightweight CSV loader for paper metrics
@@ -146,9 +147,9 @@ apps/
   */                     OfficeBench app/tool implementations
 
 benchmarks/
-  officebench/           OfficeBench runner, policy, agents, environment, evaluation
-  gaia/                  GAIA runner, policy, agents, evaluation
-  shared/                shared policy, card, and registration helpers
+  officebench/           batch runner, single-task worker, policy, agents, evaluation
+  gaia/                  batch runner, single-task worker, policy, agents, evaluation
+  shared/                base policy, card, and registration helpers
 
 configs/
   template.yaml          commented config template
@@ -181,10 +182,21 @@ results/
 
 ## Analysis
 
-The paper-metric analysis lives in `analysis/`:
+The analysis reads the curated result snapshots under `output/`.
+`analysis/metrics/` holds the calculation modules, and one notebook per metric
+family calls into them:
 
-The paper analysis reads the curated OfficeBench and GAIA CSV snapshots under
-`output/`.
+| Notebook | Produces | Metric module |
+| --- | --- | --- |
+| `overall_performance.ipynb` | Main results table: success rate per difficulty tier, delegations, tokens, cost, distractor share | `metrics/overall.py` |
+| `task_wise_comparison.ipynb` | Paired per-task condition comparison with McNemar tests and pairwise p-values | `metrics/conditions.py` |
+| `error_decomposition.ipynb` | Failure breakdown by error category | `metrics/errors.py` |
+| `conversion.ipynb` | Conversion of retrieved memory into successful outcomes | `metrics/errors.py` |
+| `retrieval.ipynb` | Blueprint and playbook retrieval quality | `metrics/retrieval.py` |
+| `judge_agreement.ipynb` | Agreement between the judge gate and task evaluation on the training folds | `metrics/judge.py` |
+| `selection_and_shell_usage.ipynb` | Agent-selection misses against the gold labels, and OfficeBench shell-workaround usage | `metrics/agents.py`, `metrics/paths.py` |
+| `agent_experiment.ipynb` | Dynamic-pool experiment: stability, new-agent adoption, usage shift, playbook activity | `metrics/agents.py` |
+
 
 ## Acknowledgments
 

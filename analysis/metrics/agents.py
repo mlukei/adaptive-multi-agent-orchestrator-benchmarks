@@ -87,19 +87,6 @@ USAGE_SHIFT_AGENTS = {
     ],
 }
 
-STABILITY_ROUNDING = {
-    "Fold 1 SR (%)": 1,
-    "Fold 2 SR (%)": 1,
-    "Fold 3 SR (%)": 1,
-    "Overall SR (%)": 1,
-    "SR Std. (%)": 1,
-    "Delegations": 2,
-    "Tokens (K)": 1,
-    "Cost ($)": 3,
-    "Distract (%)": 1,
-}
-
-
 def stability_table(benchmark: str) -> pd.DataFrame:
     """Compare phase-2 stability with and without pool change."""
     base_agents = set(BASE_AGENTS[benchmark])
@@ -142,7 +129,10 @@ def _stability_comparison(
                 "Distract (%)": fold_stats["Distract (%)"].mean(),
             }
         )
-    return pd.DataFrame(rows).set_index("Condition").round(STABILITY_ROUNDING)
+    table = pd.DataFrame(rows).set_index("Condition")
+    decimals = {column: 1 for column in table.columns}
+    decimals.update({"Delegations": 2, "Cost ($)": 3})
+    return table.round(decimals)
 
 
 def _expected_tasks_by_fold(
@@ -374,33 +364,21 @@ def _bullet_table(runs: pd.DataFrame, agents: Iterable[str]) -> pd.DataFrame:
     agent_filter = set(agents)
     rows = []
     for step, (_, row) in enumerate(_order_by_step(runs).iterrows(), start=1):
-        for event in _playbook_evolution(row.get("playbook_evolution")):
-            agent = str(event.get("agent", ""))
+        for event in json.loads(row["playbook_evolution"]):
+            agent = event["agent"]
             if agent not in agent_filter:
                 continue
             for event_type, key in (("added", "added_bullets"), ("pruned", "pruned_bullets")):
-                for bullet in event.get(key) or []:
+                for bullet in event.get(key, []):
                     rows.append(
                         {
                             "Step": step,
                             "task_key": row.get("task_key"),
                             "agent": agent,
                             "event_type": event_type,
-                            "bullet_id": bullet.get("bullet_id", ""),
-                            "section": str(bullet.get("section", "")),
-                            "rule": bullet.get("rule", ""),
+                            "bullet_id": bullet["bullet_id"],
+                            "section": bullet["section"],
+                            "rule": bullet["rule"],
                         }
                     )
     return pd.DataFrame(rows)
-
-
-def _playbook_evolution(value: object) -> list[dict]:
-    if not isinstance(value, str) or not value:
-        return []
-    try:
-        parsed = json.loads(value)
-    except json.JSONDecodeError:
-        return []
-    if not isinstance(parsed, list):
-        return []
-    return [item for item in parsed if isinstance(item, dict)]

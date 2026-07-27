@@ -11,7 +11,7 @@ from langgraph.errors import GraphRecursionError
 
 from benchmarks.gaia.agents import GaiaAgents
 from benchmarks.gaia.prompts import GAIA_FORMAT_SUFFIX
-from benchmarks.shared.orchestrator_policy import BaseOrchestratorPolicy
+from benchmarks.shared.base_policy import BaseOrchestratorPolicy
 
 logger = logging.getLogger(__name__)
 

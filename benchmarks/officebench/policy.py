@@ -10,7 +10,7 @@ from typing import Any
 from langgraph.errors import GraphRecursionError
 
 from benchmarks.officebench.agents import OfficeBenchAgents
-from benchmarks.shared.orchestrator_policy import BaseOrchestratorPolicy
+from benchmarks.shared.base_policy import BaseOrchestratorPolicy
 
 logger = logging.getLogger(__name__)
 

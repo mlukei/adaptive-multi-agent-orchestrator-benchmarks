@@ -1,4 +1,4 @@
-"""Internal subprocess worker for one GAIA benchmark task."""
+"""Single-task subprocess worker for GAIA."""
 
 from __future__ import annotations
 

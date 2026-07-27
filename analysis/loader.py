@@ -27,7 +27,7 @@ class BenchmarkConfig:
     real_agents: frozenset[str]
     gold_path: Path
     card_paths: dict[str, dict[str, tuple[Path, ...]]]
-    system_order: list[str]
+    system_order: tuple[str, ...]
 
 REAL_AGENTS_OFFICEBENCH: frozenset[str] = frozenset(
     ["calendar", "email", "excel", "llm", "ocr", "pdf", "shell", "word"]

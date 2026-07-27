@@ -1,5 +1,4 @@
-"""Internal subprocess worker — executes a single benchmark task.
-"""
+"""Single-task subprocess worker for OfficeBench."""
 
 import json
 import os

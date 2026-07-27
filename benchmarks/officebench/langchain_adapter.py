@@ -1,4 +1,4 @@
-"""OfficeBench LangGraph adapter with task-local tool history."""
+"""OfficeBench LangGraph adapter with task-local tool history maintained like the original benchmark."""
 
 from __future__ import annotations
 

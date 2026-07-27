@@ -6,11 +6,10 @@ import argparse
 import logging
 import sys
 import time
-from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-from logger.run_logger import RunSummary, write_run_summary
+from logger.run_logger import write_sentinel_summary
 from runtime.cli import (
     add_execution_args,
     add_task_selection_args,
@@ -56,7 +55,7 @@ def build_task_execution_config(args: argparse.Namespace, cfg: Any) -> TaskExecu
     project_root = Path(__file__).resolve().parent.parent.parent
     return TaskExecutionConfig(
         python_executable=sys.executable,
-        task_runner_script=str(project_root / "benchmarks" / "gaia" / "run_task.py"),
+        worker_script=str(project_root / "benchmarks" / "gaia" / "worker.py"),
         model_name=cfg.llm.model_name,
         mode=args.mode,
         task_timeout_seconds=args.task_timeout_seconds,
@@ -146,7 +145,7 @@ def _handle_worker_failure(
 
     if status == STATUS_TIMEOUT:
         logger.error(
-            "Task %s timed out after %d attempt(s); writing sentinel row.",
+            "Task %s timed out after %d attempt(s).",
             task_meta["task_id"],
             record.get("attempts", 1),
         )
@@ -184,16 +183,14 @@ def _write_sentinel(
     termination_reason: str,
     error_type: str,
 ) -> None:
-    summary = RunSummary(
-        created_at_utc=datetime.now(timezone.utc).isoformat(timespec="seconds"),
+    write_sentinel_summary(
+        path=f"results/{variant}.csv",
         task_id=task_meta["task_id"],
         subtask_id=task_meta.get("subtask_id", "0"),
         task_dir=task_meta["task_dir"],
         tag=tag,
         orchestrator_variant=variant,
-        success=-1,
+        elapsed_seconds=elapsed,
         termination_reason=termination_reason,
         error_type=error_type,
-        wall_clock_seconds=round(elapsed, 2),
     )
-    write_run_summary(summary, f"results/{variant}.csv")

@@ -1,23 +1,23 @@
-"""Shared base class for OfficeBench and GAIA orchestrator policies.
-
-Both policies use the same AdaptiveOrchestrator, the same config layout,
-and the same shared registration/factory/logging helpers.
-"""
+"""Shared orchestrator setup and policy lifecycle."""
 
 from __future__ import annotations
 
+import logging
 import uuid
 from abc import ABC, abstractmethod
 from typing import Any
 
+from orchestrator import AdaptiveOrchestrator
+from orchestrator.memory import create_pg_stores
+from orchestrator.registration.registry import AgentRegistry
+from orchestrator.shared.embedder import Embedder
+
 from benchmarks.shared.agent_registration import register_agents
-from benchmarks.shared.orchestrator_factory import (
-    OrchestratorFactoryConfig,
-    build_adaptive_orchestrator,
-)
 from logger.run_logger import RunLogger, collect_run_context
 from runtime.config import load_config
 from runtime.llm import create_llm
+
+logger = logging.getLogger(__name__)
 
 
 class BaseOrchestratorPolicy(ABC):
@@ -127,26 +127,47 @@ class BaseOrchestratorPolicy(ABC):
 
     def _build_orchestrator(self) -> None:
         """Lazily create the AdaptiveOrchestrator and register all agents."""
-        self.orchestrator = build_adaptive_orchestrator(
-            llm=self.llm,
-            config=OrchestratorFactoryConfig(
-                db_conninfo=self.db_conninfo,
-                schema=self.orchestrator_schema,
-                embedder_model=self.embedder_model,
-                curator_model_name=self.curator_model_name,
-                curator_temperature=self.curator_temperature,
-                judge_model_name=self.judge_model_name,
-                judge_temperature=self.judge_temperature,
+        logger.info("Creating orchestrator (schema=%s)", self.orchestrator_schema)
+        embedder = Embedder(model=self.embedder_model)
+        stores = create_pg_stores(
+            _add_connect_timeout(self.db_conninfo),
+            embedder,
+            schema=self.orchestrator_schema,
+        )
+        episode_store, blueprint_store, playbook_store, trajectory_store = stores
+        trajectory_store = self._configure_trajectory_store(trajectory_store)
+
+        curator_llm = create_llm(
+            model_name=self.curator_model_name,
+            temperature=self.curator_temperature,
+            request_timeout=self.request_timeout,
+        )
+        judge_llm = (
+            create_llm(
+                model_name=self.judge_model_name,
+                temperature=self.judge_temperature,
                 request_timeout=self.request_timeout,
-                enable_subagent_memory=self.enable_subagent_memory,
-                enable_playbooks=self.enable_playbooks,
-                enable_blueprints=self.enable_blueprints,
-                enable_planning=self.enable_planning,
-                enable_agent_filtering=self.enable_agent_filtering,
-                memory_mode=self.memory_mode,
-                enable_judge=self.enable_judge,
-            ),
-            on_timeline_saved=self._capture_timeline,
+            )
+            if self.judge_model_name
+            else None
+        )
+
+        self.orchestrator = AdaptiveOrchestrator(
+            llm=self.llm,
+            registry=AgentRegistry(),
+            episode_store=episode_store,
+            blueprint_store=blueprint_store,
+            playbook_store=playbook_store,
+            trajectory_store=trajectory_store,
+            enable_subagent_memory=self.enable_subagent_memory,
+            enable_playbooks=self.enable_playbooks,
+            enable_blueprints=self.enable_blueprints,
+            enable_planning=self.enable_planning,
+            enable_agent_filtering=self.enable_agent_filtering,
+            memory_mode=self.memory_mode,
+            enable_judge=self.enable_judge,
+            curator_llm=curator_llm,
+            judge_llm=judge_llm,
         )
         register_agents(
             orchestrator=self.orchestrator,
@@ -155,8 +176,32 @@ class BaseOrchestratorPolicy(ABC):
             should_profile=self.profile_agents,
         )
 
-    def _capture_timeline(self, timeline: list[Any]) -> None:
-        self._last_timeline = list(timeline)
+    def _configure_trajectory_store(self, trajectory_store: Any) -> Any:
+        """Capture timelines and keep failed trajectory saves non-fatal."""
+        if trajectory_store is None:
+            return None
+
+        original_save = trajectory_store.save
+
+        def safe_save(task, timeline, final_response, episode_id="", **kwargs):
+            self._last_timeline = list(timeline)
+            try:
+                return original_save(
+                    task=task,
+                    timeline=timeline,
+                    final_response=final_response,
+                    episode_id=episode_id,
+                    **kwargs,
+                )
+            except Exception as exc:
+                logger.warning(
+                    "Trajectory save failed; skipping non-fatal side effect: %s",
+                    exc,
+                )
+                return None
+
+        trajectory_store.save = safe_save
+        return trajectory_store
 
     def _collect_run_context(
         self,
@@ -184,3 +229,13 @@ class BaseOrchestratorPolicy(ABC):
             context=self._last_run_context,
             eval_result=eval_result,
         )
+
+
+def _add_connect_timeout(conninfo: str, timeout_seconds: int = 10) -> str:
+    """Append ``connect_timeout`` to a PostgreSQL DSN if not already set."""
+    if "connect_timeout" in conninfo:
+        return conninfo
+    if conninfo.startswith(("postgresql://", "postgres://")):
+        separator = "&" if "?" in conninfo else "?"
+        return f"{conninfo}{separator}connect_timeout={timeout_seconds}"
+    return f"{conninfo} connect_timeout={timeout_seconds}"

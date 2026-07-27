@@ -47,7 +47,7 @@ from PIL import Image
 logger = logging.getLogger(__name__)
 
 
-# =============== BROWSER TOOLS ===============
+#  BROWSER TOOLS
 
 
 @tool
@@ -262,13 +262,13 @@ def download_file_from_url(url: str, filename: str = None) -> str:
         return {"error": f"Failed to download from {url}: {str(e)}"}
 
 
-# =============== FILE READING TOOLS ===============
+#  FILE READING TOOLS 
 
 
 def _resolve_path(file_path: str) -> str:
     """Resolve a (possibly relative) path against the GAIA working directory.
 
-    run_task.py sets GAIA_WORKDIR to the per-run testbed directory where attached
+    worker.py sets GAIA_WORKDIR to the per-run testbed directory where attached
     files live. Absolute paths are returned as-is; relative paths are resolved
     against GAIA_WORKDIR, falling back to a basename search under it.
     """
@@ -726,7 +726,7 @@ def save_and_read_file(content: str, filename: str = None) -> str:
         return {"error": f"Failed to save file: {str(e)}"}
 
 
-# =============== CODE INTERPRETER ===============
+# CODE INTERPRETER
 
 
 class CodeInterpreter:
@@ -968,7 +968,7 @@ def execute_code_multilang(code: str, language: str = "python") -> str:
     return "\n".join(response)
 
 
-# =============== MATH TOOLS ===============
+# MATH TOOLS
 
 
 @tool
@@ -1019,7 +1019,7 @@ def square_root(n: float) -> float:
     return n ** 0.5
 
 
-# =============== TOOL EXPORTS ===============
+# TOOL EXPORTS
 
 
 WEB_SURFER_TOOLS = [web_search, fetch_webpage, wiki_search, arxiv_search, download_file_from_url]

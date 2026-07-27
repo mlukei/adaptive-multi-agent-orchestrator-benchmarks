@@ -132,6 +132,65 @@ def _single_line(value: Any) -> Any:
     return value
 
 
+def _last_summary_row(output_path: Path) -> dict[str, str] | None:
+    """Return the most recently appended row, or None if the CSV has no rows."""
+    if not output_path.exists() or output_path.stat().st_size == 0:
+        return None
+    with output_path.open(newline="", encoding="utf-8") as existing:
+        rows = list(csv.DictReader(existing))
+    return rows[-1] if rows else None
+
+
+def write_sentinel_summary(
+    *,
+    path: str | None,
+    task_id: str,
+    subtask_id: str,
+    task_dir: str,
+    tag: str,
+    orchestrator_variant: str,
+    elapsed_seconds: float,
+    termination_reason: str,
+    error_type: str,
+) -> bool:
+    """
+    Record a failure row for a task whose worker produced no summary.
+
+    """
+    if not path:
+        return False
+
+    last_row = _last_summary_row(Path(path))
+    if (
+        last_row is not None
+        and last_row.get("task_id") == task_id
+        and last_row.get("subtask_id") == subtask_id
+    ):
+        logger.info(
+            "Worker already logged a row for %s/%s; not writing a sentinel.",
+            task_id,
+            subtask_id,
+        )
+        return False
+
+    write_run_summary(
+        RunSummary(
+            created_at_utc=datetime.now(timezone.utc).isoformat(timespec="seconds"),
+            task_id=task_id,
+            subtask_id=subtask_id,
+            task_dir=task_dir,
+            tag=tag,
+            orchestrator_variant=orchestrator_variant,
+            success=-1,
+            termination_reason=termination_reason,
+            error_type=error_type,
+            wall_clock_seconds=round(elapsed_seconds, 2),
+        ),
+        path,
+    )
+    return True
+
+
 def _optional_bool(value: bool | None) -> int:
     return {True: 1, False: 0}.get(value, -1)
 

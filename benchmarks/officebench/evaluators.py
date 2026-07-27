@@ -28,9 +28,7 @@ from apps.email_app import email_list_emails
 logger = logging.getLogger(__name__)
 
 
-# ---------------------------------------------------------------------------
 # Original OfficeBench primitive.
-# ---------------------------------------------------------------------------
 def _is_number(string):
     try:
         float(string)
@@ -39,14 +37,13 @@ def _is_number(string):
         return False
 
 
-# ---------------------------------------------------------------------------
+# 
 # NOTE: Modification - flexible text matching.
 #
 # Original OfficeBench only lowercased strings, stripped commas for numeric
 # keywords, and required exact substring containment. The helpers in this
 # section keep that exact check but add casefold/separator normalization and a
 # TF-IDF fallback for minor differences.
-# ---------------------------------------------------------------------------
 _SOFT_MATCH_THRESHOLD = 0.35
 
 
@@ -95,13 +92,11 @@ def _soft_contains(content: str, keyword: str) -> bool:
     return False
 
 
-# ---------------------------------------------------------------------------
 # NOTE: Modification - flexible Excel value matching.
 #
 # Original OfficeBench evaluated cell values by searching the serialized Excel
 # text for an exact ``(row, col): value`` pattern. These helpers read workbook
 # cells directly and normalize common numeric/time/string variants.
-# ---------------------------------------------------------------------------
 def _normalize_cell_value(value):
     """Normalize a cell value for flexible comparison (int/float/str)."""
     if value is None:
@@ -196,10 +191,8 @@ def _excel_values_match(expected, actual):
     return False
 
 
-# ---------------------------------------------------------------------------
 # Original OfficeBench containment helper, extended with the text matching
 # modification above.
-# ---------------------------------------------------------------------------
 def _evaluate_contain_text(content, args):
     raw_content = _normalize_for_match(content)
     for keyword in args['keywords']:
@@ -273,14 +266,13 @@ def evaluate_not_contain(testbed_dir, args):
     return not evaluate_contain(testbed_dir, args)
 
 
-# ---------------------------------------------------------------------------
+
 # NOTE: Thesis modification - fuzzy path resolution.
 #
 # Original OfficeBench used exact ``os.path.exists(os.path.join(...))`` checks.
 # The helpers in this section keep exact paths as the first tier, then accept
 # case/separator-insensitive names and unique stem-prefix variants such as
 # ``report_updated.xlsx`` for ``report.xlsx``.
-# ---------------------------------------------------------------------------
 def _split_rel_path(rel_path: str) -> tuple[list[str], str]:
     """Split a relative path into (dir_parts, filename), stripping a leading ./ or .\\."""
     if rel_path.startswith('./') or rel_path.startswith('.\\'):
