@@ -25,37 +25,37 @@ STABLE_POOL_PATHS = {
         OUTPUT_DIR
         / "officebench"
         / "dynamic_pool"
-        / f"stable_pool_fold_{fold}.csv"
-        for fold in (1, 2, 3)
+        / f"stable_pool_fold_{split}.csv"
+        for split in (1, 2, 3)
     ),
     "gaia": tuple(
         OUTPUT_DIR
         / "gaia"
         / "dynamic_pool"
-        / f"stable_pool_fold_{fold}.csv"
-        for fold in (1, 2, 3)
+        / f"stable_pool_fold_{split}.csv"
+        for split in (1, 2, 3)
     ),
 }
 
 DYNAMIC_PATHS = {
     "officebench": tuple(
-        OUTPUT_DIR / "officebench" / "dynamic_pool" / f"test_memory_new_agents_fold_{fold}.csv"
-        for fold in (1, 2, 3)
+        OUTPUT_DIR / "officebench" / "dynamic_pool" / f"test_memory_new_agents_fold_{split}.csv"
+        for split in (1, 2, 3)
     ),
     "gaia": tuple(
-        OUTPUT_DIR / "gaia" / "dynamic_pool" / f"train_memory_new_agents_fold_{fold}.csv"
-        for fold in (1, 2, 3)
+        OUTPUT_DIR / "gaia" / "dynamic_pool" / f"train_memory_new_agents_fold_{split}.csv"
+        for split in (1, 2, 3)
     ),
 }
 
 PAIRED_ORIGINAL_PATHS = {
     "officebench": tuple(
-        OUTPUT_DIR / "officebench" / "rich" / "adaptive" / f"test_memory_fold_{fold}.csv"
-        for fold in (1, 2, 3)
+        OUTPUT_DIR / "officebench" / "rich" / "adaptive" / f"test_memory_fold_{split}.csv"
+        for split in (1, 2, 3)
     ),
     "gaia": tuple(
-        OUTPUT_DIR / "gaia" / "rich" / "adaptive" / f"adaptive_testing_rich_fold_{fold}.csv"
-        for fold in (1, 2, 3)
+        OUTPUT_DIR / "gaia" / "rich" / "adaptive" / f"adaptive_testing_rich_fold_{split}.csv"
+        for split in (1, 2, 3)
     ),
 }
 
@@ -105,28 +105,28 @@ def _stability_comparison(
         name: [_load_runs(path) for path in paths]
         for name, (paths, _) in conditions.items()
     }
-    expected_tasks = _expected_tasks_by_fold(condition_runs)
+    expected_tasks = _expected_tasks_by_split(condition_runs)
 
     rows = []
     for condition, (_, valid_agents) in conditions.items():
-        fold_runs = condition_runs[condition]
-        fold_stats = pd.DataFrame(
-            _stability_fold_summary(runs, valid_agents, len(task_keys))
-            for runs, task_keys in zip(fold_runs, expected_tasks, strict=True)
+        split_runs = condition_runs[condition]
+        split_stats = pd.DataFrame(
+            _stability_split_summary(runs, valid_agents, len(task_keys))
+            for runs, task_keys in zip(split_runs, expected_tasks, strict=True)
         )
-        fold_rates = fold_stats["Success Rate (%)"]
+        split_rates = split_stats["Success Rate (%)"]
         rows.append(
             {
                 "Condition": condition,
-                "Fold 1 SR (%)": fold_rates.iloc[0],
-                "Fold 2 SR (%)": fold_rates.iloc[1],
-                "Fold 3 SR (%)": fold_rates.iloc[2],
-                "Overall SR (%)": fold_rates.mean(),
-                "SR Std. (%)": fold_rates.std(),
-                "Delegations": fold_stats["Delegations"].mean(),
-                "Tokens (K)": fold_stats["Tokens (K)"].mean(),
-                "Cost ($)": fold_stats["Cost ($)"].mean(),
-                "Distract (%)": fold_stats["Distract (%)"].mean(),
+                "Split 1 SR (%)": split_rates.iloc[0],
+                "Split 2 SR (%)": split_rates.iloc[1],
+                "Split 3 SR (%)": split_rates.iloc[2],
+                "Overall SR (%)": split_rates.mean(),
+                "SR Std. (%)": split_rates.std(),
+                "Delegations": split_stats["Delegations"].mean(),
+                "Tokens (K)": split_stats["Tokens (K)"].mean(),
+                "Cost ($)": split_stats["Cost ($)"].mean(),
+                "Distract (%)": split_stats["Distract (%)"].mean(),
             }
         )
     table = pd.DataFrame(rows).set_index("Condition")
@@ -135,28 +135,28 @@ def _stability_comparison(
     return table.round(decimals)
 
 
-def _expected_tasks_by_fold(
+def _expected_tasks_by_split(
     condition_runs: dict[str, list[pd.DataFrame]],
 ) -> list[set[str]]:
-    fold_count = len(next(iter(condition_runs.values())))
+    split_count = len(next(iter(condition_runs.values())))
     return [
-        set().union(*(set(runs[fold]["task_key"]) for runs in condition_runs.values()))
-        for fold in range(fold_count)
+        set().union(*(set(runs[split]["task_key"]) for runs in condition_runs.values()))
+        for split in range(split_count)
     ]
 
 
 def adoption_rate(benchmark: str) -> pd.DataFrame:
-    """How often, and how early, each newly introduced agent is used per fold."""
+    """How often, and how early, each newly introduced agent is used per split."""
     new_agents = NEW_AGENTS[benchmark]
     rows = []
-    for fold, fold_runs in _load_folds(DYNAMIC_PATHS[benchmark]).groupby("fold", sort=True):
-        usage = _agent_usage_by_step(fold_runs, new_agents)
+    for split, split_runs in _load_splits(DYNAMIC_PATHS[benchmark]).groupby("split", sort=True):
+        usage = _agent_usage_by_step(split_runs, new_agents)
         n = len(usage)
         for agent in new_agents:
             hits = usage[usage[agent]]
             rows.append(
                 {
-                    "fold": int(fold),
+                    "split": int(split),
                     "agent": agent,
                     "used_tasks": len(hits),
                     "usage_rate (%)": (len(hits) / n * 100) if n else 0.0,
@@ -167,15 +167,15 @@ def adoption_rate(benchmark: str) -> pd.DataFrame:
     return pd.DataFrame(rows).round({"usage_rate (%)": 1})
 
 
-def adoption_by_fold(benchmark: str) -> pd.DataFrame:
-    """Cumulative new-agent usage per step, with the step counter reset per fold."""
+def adoption_by_split(benchmark: str) -> pd.DataFrame:
+    """Cumulative new-agent usage per step, with the step counter reset per split."""
     new_agents = NEW_AGENTS[benchmark]
     frames = []
-    for fold, fold_runs in _load_folds(DYNAMIC_PATHS[benchmark]).groupby("fold", sort=True):
-        usage = _agent_usage_by_step(fold_runs, new_agents)
+    for split, split_runs in _load_splits(DYNAMIC_PATHS[benchmark]).groupby("split", sort=True):
+        usage = _agent_usage_by_step(split_runs, new_agents)
         cumulative = usage[["Step"]].copy()
         cumulative[new_agents] = usage[new_agents].cumsum()
-        cumulative.insert(0, "fold", int(fold))
+        cumulative.insert(0, "split", int(split))
         frames.append(cumulative)
     return pd.concat(frames, ignore_index=True, sort=False)
 
@@ -184,36 +184,30 @@ def adoption_by_fold(benchmark: str) -> pd.DataFrame:
 def agent_usage_shift_table(
     benchmark: str,
     *,
-    fold_average: bool = False,
+    split_average: bool = False,
 ) -> pd.DataFrame:
     """Compare old/new agent usage on paired original-pool and dynamic-pool runs."""
     original = _paired_condition_usage(
         benchmark,
         "Original Pool",
-        by_fold=fold_average,
+        by_split=split_average,
     )
     dynamic = _paired_condition_usage(
         benchmark,
         "Dynamic Pool",
-        by_fold=fold_average,
+        by_split=split_average,
     )
     merge_keys = ["Agent"]
-    if fold_average:
-        merge_keys.insert(0, "Fold")
+    if split_average:
+        merge_keys.insert(0, "Split")
     merged = original.merge(dynamic, on=merge_keys, suffixes=(" Original", " Dynamic"))
-    merged["Delta task usage (pp)"] = (
-        merged["Task usage (%) Dynamic"] - merged["Task usage (%) Original"]
-    )
     merged["Delta agent-use share (pp)"] = (
         merged["Agent-use share (%) Dynamic"] - merged["Agent-use share (%) Original"]
     )
 
-    if fold_average:
+    if split_average:
         merged = merged.groupby("Agent", sort=False, as_index=False).agg(
             {
-                "Task usage (%) Original": "mean",
-                "Task usage (%) Dynamic": "mean",
-                "Delta task usage (pp)": "mean",
                 "Agent-use share (%) Original": "mean",
                 "Agent-use share (%) Dynamic": "mean",
                 "Delta agent-use share (pp)": "mean",
@@ -222,18 +216,12 @@ def agent_usage_shift_table(
     return merged[
         [
             "Agent",
-            "Task usage (%) Original",
-            "Task usage (%) Dynamic",
-            "Delta task usage (pp)",
             "Agent-use share (%) Original",
             "Agent-use share (%) Dynamic",
             "Delta agent-use share (pp)",
         ]
     ].round(
         {
-            "Task usage (%) Original": 1,
-            "Task usage (%) Dynamic": 1,
-            "Delta task usage (pp)": 1,
             "Agent-use share (%) Original": 1,
             "Agent-use share (%) Dynamic": 1,
             "Delta agent-use share (pp)": 1,
@@ -247,40 +235,40 @@ def playbook_activity(benchmark: str) -> pd.DataFrame:
     tracked = NEW_AGENTS[benchmark] + CAPABILITY_SHIFT_AGENTS[benchmark]
     columns = ["event_type", "agent", "section", "Step", "task_key", "bullet_id", "rule"]
     frames = []
-    for fold, fold_runs in _load_folds(DYNAMIC_PATHS[benchmark]).groupby("fold", sort=True):
-        bullets = _bullet_table(fold_runs, tracked)
+    for split, split_runs in _load_splits(DYNAMIC_PATHS[benchmark]).groupby("split", sort=True):
+        bullets = _bullet_table(split_runs, tracked)
         if bullets.empty:
             continue
-        bullets.insert(0, "fold", int(fold))
-        frames.append(bullets[["fold", *columns]])
+        bullets.insert(0, "split", int(split))
+        frames.append(bullets[["split", *columns]])
     if not frames:
-        return pd.DataFrame(columns=["fold", *columns])
+        return pd.DataFrame(columns=["split", *columns])
     return pd.concat(frames, ignore_index=True, sort=False).sort_values(
         ["event_type", "agent", "section", "Step", "bullet_id"], kind="stable"
     )
 
 
 def _load_runs(path: str | Path) -> pd.DataFrame:
-    """Load a single fold's CSV with derived metrics."""
+    """Load a single split's CSV with derived metrics."""
     return add_derived_metrics(load_runs([Path(path)]))
 
 
-def _load_folds(paths: Iterable[str | Path]) -> pd.DataFrame:
-    """Load the per-fold CSVs into one frame, tagged with a ``fold`` column."""
+def _load_splits(paths: Iterable[str | Path]) -> pd.DataFrame:
+    """Load the per-split CSVs into one frame, tagged with a ``split`` column."""
     frames = []
-    for fold, path in enumerate(paths, start=1):
+    for split, path in enumerate(paths, start=1):
         runs = load_runs([Path(path)])
-        runs["fold"] = fold
+        runs["split"] = split
         frames.append(runs)
     return add_derived_metrics(pd.concat(frames, ignore_index=True, sort=False))
 
 
-def _stability_fold_summary(
+def _stability_split_summary(
     runs: pd.DataFrame,
     valid_agents: set[str],
     expected_task_count: int,
 ) -> dict[str, float]:
-    """Fold-level success and efficiency metrics for the dynamic-pool table."""
+    """Split-level success and efficiency metrics for the dynamic-pool table."""
     return {
         "Success Rate (%)": runs["is_success"].sum() / expected_task_count * 100,
         "Delegations": runs["total_delegations"].mean(),
@@ -293,23 +281,23 @@ def _paired_condition_usage(
     benchmark: str,
     condition: str,
     *,
-    by_fold: bool,
+    by_split: bool,
 ) -> pd.DataFrame:
     paths = {
         "Original Pool": PAIRED_ORIGINAL_PATHS[benchmark],
         "Dynamic Pool": DYNAMIC_PATHS[benchmark],
     }[condition]
     frames = []
-    for fold, path in enumerate(paths, start=1):
+    for split, path in enumerate(paths, start=1):
         runs = _load_runs(path)
-        if by_fold:
-            fold_summary = _agent_usage_summary(runs, USAGE_SHIFT_AGENTS[benchmark])
-            fold_summary.insert(0, "Fold", fold)
-            frames.append(fold_summary)
+        if by_split:
+            split_summary = _agent_usage_summary(runs, USAGE_SHIFT_AGENTS[benchmark])
+            split_summary.insert(0, "Split", split)
+            frames.append(split_summary)
             continue
         frames.append(runs)
 
-    if by_fold:
+    if by_split:
         return pd.concat(frames, ignore_index=True, sort=False)
 
     runs = pd.concat(frames, ignore_index=True, sort=False)
@@ -322,14 +310,11 @@ def _agent_usage_summary(runs: pd.DataFrame, agents: Iterable[str]) -> pd.DataFr
     total_agent_uses = sum(len(sequence) for sequence in sequences)
     rows = []
     for agent in agents:
-        task_used = int(sequences.apply(lambda sequence: agent in set(sequence)).sum())
         agent_uses = int(sum(sequence.count(agent) for sequence in sequences))
         rows.append(
             {
                 "Agent": agent,
                 "N": len(runs),
-                "Task used": task_used,
-                "Task usage (%)": task_used / len(runs) * 100 if len(runs) else 0.0,
                 "Agent uses": agent_uses,
                 "Agent-use share (%)": (
                     agent_uses / total_agent_uses * 100 if total_agent_uses else 0.0

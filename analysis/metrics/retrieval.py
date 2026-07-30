@@ -46,7 +46,7 @@ def per_row_metrics(card: str, config: BenchmarkConfig = OFFICEBENCH_CONFIG) -> 
         rows.append(
             {
                 "Condition": row["condition"],
-                "Fold": row["fold"],
+                "Split": row["split"],
                 "Task Key": task_key,
                 "Recall": _recall(retrieved, gold_set),
                 "Precision": _precision(retrieved, gold_set),

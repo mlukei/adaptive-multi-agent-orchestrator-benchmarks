@@ -1,13 +1,14 @@
-"""Judge agreement metrics for adaptive-system training folds."""
+"""Judge agreement metrics for adaptive-system training splits."""
 
 from __future__ import annotations
 
-import json
 from pathlib import Path
 
 import pandas as pd
 
 from loader import OUTPUT_DIR, percentage, require_output_file
+
+from .overall import per_split_metrics
 
 
 TRAINING_SOURCES = {
@@ -16,101 +17,100 @@ TRAINING_SOURCES = {
         / "officebench"
         / "rich"
         / "adaptive"
-        / f"train_memory_fold_{fold}.csv"
-        for fold in (1, 2, 3)
+        / f"train_memory_fold_{split}.csv"
+        for split in (1, 2, 3)
     ),
     ("OfficeBench", "Sparse"): tuple(
         OUTPUT_DIR
         / "officebench"
         / "sparse"
         / "adaptive"
-        / f"train_memory_fold_{fold}.csv"
-        for fold in (1, 2, 3)
+        / f"train_memory_fold_{split}.csv"
+        for split in (1, 2, 3)
     ),
     ("GAIA", "Rich"): tuple(
         OUTPUT_DIR
         / "gaia"
         / "rich"
         / "adaptive"
-        / f"adaptive_training_rich_fold_{fold}.csv"
-        for fold in (1, 2, 3)
+        / f"adaptive_training_rich_fold_{split}.csv"
+        for split in (1, 2, 3)
     ),
     ("GAIA", "Sparse"): tuple(
         OUTPUT_DIR
         / "gaia"
         / "sparse"
         / "adaptive"
-        / f"adaptive_training_sparse_fold_{fold}.csv"
-        for fold in (1, 2, 3)
+        / f"adaptive_training_sparse_fold_{split}.csv"
+        for split in (1, 2, 3)
     ),
 }
 
-REQUIRED_COLUMNS = {"success", "judge_accepted", "tool_call_history"}
+
+DISPLAY_COLUMNS = [
+    "Benchmark Success (%)",
+    "Judge Accept (%)",
+    "Positive Label Precision (%)",
+]
 
 
 def load_training_runs() -> pd.DataFrame:
-    """Load and validate all rich/sparse adaptive training folds."""
+    """Load and validate all rich/sparse adaptive training splits."""
     frames = []
     for (benchmark, cards), paths in TRAINING_SOURCES.items():
-        for fold, path in enumerate(paths, start=1):
-            frames.append(_load_training_fold(path, benchmark, cards, fold))
+        for split, path in enumerate(paths, start=1):
+            frames.append(_load_training_split(path, benchmark, cards, split))
     return pd.concat(frames, ignore_index=True, sort=False)
 
 
 def agreement_table(runs: pd.DataFrame) -> pd.DataFrame:
-    """Return pooled judge-vs-benchmark agreement per benchmark and card type."""
-    rows = [
-        {"Benchmark": benchmark, "Cards": cards, **_agreement_metrics(group)}
-        for (benchmark, cards), group in runs.groupby(["Benchmark", "Cards"], sort=False)
-    ]
-    return pd.DataFrame(rows).set_index(["Benchmark", "Cards"]).round(1)
+    """Return the three split-averaged judge-label metrics."""
+    rows = []
+    for (benchmark, cards), group in runs.groupby(
+        ["Benchmark", "Cards"],
+        sort=False,
+    ):
+        split_metrics = per_split_metrics(
+            group,
+            _agreement_metrics,
+            split_column="Split",
+        )
+        metrics = split_metrics[DISPLAY_COLUMNS].mean().to_dict()
+        rows.append({"Benchmark": benchmark, "Cards": cards, **metrics})
+
+    table = pd.DataFrame(rows).set_index(["Benchmark", "Cards"])
+    return table.round({column: 1 for column in DISPLAY_COLUMNS})
 
 
-def _load_training_fold(
+def _load_training_split(
     path: Path,
     benchmark: str,
     cards: str,
-    fold: int,
+    split: int,
 ) -> pd.DataFrame:
     frame = pd.read_csv(require_output_file(path), engine="python")
-    _validate_fold(frame, path)
     return pd.DataFrame(
         {
             "Benchmark": benchmark,
             "Cards": cards,
-            "Fold": fold,
+            "Split": split,
             "Benchmark Success": frame["success"].astype(int).astype(bool),
             "Judge Accept": frame["judge_accepted"].astype(int).astype(bool),
         }
     )
 
-
-def _validate_fold(frame: pd.DataFrame, path: Path) -> None:
-    missing = REQUIRED_COLUMNS - set(frame.columns)
-    if missing:
-        raise ValueError(f"{path} is missing required columns: {sorted(missing)}")
-    for column in ("success", "judge_accepted"):
-        invalid = set(frame[column].dropna().astype(int)) - {0, 1}
-        if invalid:
-            raise ValueError(f"{path} has invalid {column} labels: {sorted(invalid)}")
-    judge_reviewed = frame["tool_call_history"].map(_has_judge_review)
-    if not judge_reviewed.all():
-        raise ValueError(f"{path} has {int((~judge_reviewed).sum())} rows without judge_review")
-
-
-def _has_judge_review(value: str) -> bool:
-    return "judge_review" in json.loads(value)
-
-
-def _agreement_metrics(group: pd.DataFrame) -> dict[str, float | int]:
+def _agreement_metrics(group: pd.DataFrame) -> dict[str, float]:
     truth = group["Benchmark Success"]
     accepted = group["Judge Accept"]
     total = len(group)
     true_positive = int((truth & accepted).sum())
-    predicted_positive = int(accepted.sum())
+    false_negative = int((truth & ~accepted).sum())
+    false_positive = int((~truth & accepted).sum())
     return {
-        "N": total,
-        "Benchmark Success (%)": percentage(int(truth.sum()), total),
-        "Judge Accept (%)": percentage(predicted_positive, total),
-        "Positive Label Precision (%)": percentage(true_positive, predicted_positive),
+        "Benchmark Success (%)": percentage(true_positive + false_negative, total),
+        "Judge Accept (%)": percentage(true_positive + false_positive, total),
+        "Positive Label Precision (%)": percentage(
+            true_positive,
+            true_positive + false_positive,
+        ),
     }

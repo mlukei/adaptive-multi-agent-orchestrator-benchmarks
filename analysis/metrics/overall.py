@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from collections.abc import Callable, Mapping
+
 import pandas as pd
 
 from loader import BenchmarkConfig
@@ -13,9 +15,22 @@ TIER_COLUMNS = {
 }
 
 
+def per_split_metrics(
+    runs: pd.DataFrame,
+    summarize: Callable[[pd.DataFrame], Mapping[str, float | int]],
+    *,
+    split_column: str = "split",
+) -> pd.DataFrame:
+    """Compute one metric row per split so callers can average splits equally."""
+    return pd.DataFrame(
+        summarize(split_runs)
+        for _, split_runs in runs.groupby(split_column, sort=True)
+    )
+
+
 def overall_table(card: str, config: BenchmarkConfig = OFFICEBENCH_CONFIG) -> pd.DataFrame:
     runs = load_card(card, config)
-    expected = _expected_counts_by_fold(runs)
+    expected = expected_counts_by_split(runs)
     rows = [
         _condition_summary(runs, condition, config, expected)
         for condition in config.system_order
@@ -36,15 +51,15 @@ def overall_table(card: str, config: BenchmarkConfig = OFFICEBENCH_CONFIG) -> pd
     )
 
 
-def _expected_counts_by_fold(runs: pd.DataFrame) -> dict[tuple[int, int | None], int]:
+def expected_counts_by_split(runs: pd.DataFrame) -> dict[tuple[int, int | None], int]:
     """
-    Task counts per fold, and per fold/tier, unioned across all conditions.
+    Task counts per split, and per split/tier, unioned across all conditions.
     """
     counts: dict[tuple[int, int | None], int] = {}
-    for fold, fold_runs in runs.groupby("fold"):
-        counts[(int(fold), None)] = fold_runs["task_key"].nunique()
-        for tier, tier_runs in fold_runs.groupby("tier"):
-            counts[(int(fold), int(tier))] = tier_runs["task_key"].nunique()
+    for split, split_runs in runs.groupby("split"):
+        counts[(int(split), None)] = split_runs["task_key"].nunique()
+        for tier, tier_runs in split_runs.groupby("tier"):
+            counts[(int(split), int(tier))] = tier_runs["task_key"].nunique()
     return counts
 
 
@@ -54,33 +69,33 @@ def _condition_summary(
     config: BenchmarkConfig,
     expected: dict[tuple[int, int | None], int],
 ) -> dict[str, float | str]:
-    fold_stats = pd.DataFrame(
-        _fold_summary(fold, config, expected)
-        for _, fold in runs[runs["condition"] == condition].groupby("fold")
+    split_stats = per_split_metrics(
+        runs[runs["condition"] == condition],
+        lambda split_runs: _split_summary(split_runs, config, expected),
     )
     summary: dict[str, float | str] = {"Condition": condition}
     for column in TIER_COLUMNS.values():
-        summary[column] = fold_stats[column].mean()
-    summary["Overall SR (%)"] = fold_stats["Overall SR (%)"].mean()
-    summary["SR Std. (%)"] = fold_stats["Overall SR (%)"].std()
-    summary["Delegations"] = fold_stats["Delegations"].mean()
-    summary["Tokens (K)"] = fold_stats["Tokens (K)"].mean()
-    summary["Cost ($)"] = fold_stats["Cost ($)"].mean()
-    summary["Distract (%)"] = fold_stats["Distract (%)"].mean()
+        summary[column] = split_stats[column].mean()
+    summary["Overall SR (%)"] = split_stats["Overall SR (%)"].mean()
+    summary["SR Std. (%)"] = split_stats["Overall SR (%)"].std()
+    summary["Delegations"] = split_stats["Delegations"].mean()
+    summary["Tokens (K)"] = split_stats["Tokens (K)"].mean()
+    summary["Cost ($)"] = split_stats["Cost ($)"].mean()
+    summary["Distract (%)"] = split_stats["Distract (%)"].mean()
     return summary
 
 
-def _fold_summary(
+def _split_summary(
     runs: pd.DataFrame,
     config: BenchmarkConfig,
     expected: dict[tuple[int, int | None], int],
 ) -> dict[str, float]:
-    fold = int(runs["fold"].iloc[0])
+    split = int(runs["split"].iloc[0])
     summary = {
-        column: success_rate(runs[runs["tier"] == tier], expected.get((fold, tier)))
+        column: success_rate(runs[runs["tier"] == tier], expected.get((split, tier)))
         for tier, column in TIER_COLUMNS.items()
     }
-    summary["Overall SR (%)"] = success_rate(runs, expected.get((fold, None)))
+    summary["Overall SR (%)"] = success_rate(runs, expected.get((split, None)))
     summary["Delegations"] = runs["total_delegations"].mean()
     summary["Tokens (K)"] = runs["tokens_total"].mean() / 1000
     summary["Cost ($)"] = runs["cost_total"].mean()

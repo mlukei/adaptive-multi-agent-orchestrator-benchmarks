@@ -30,46 +30,46 @@ SYSTEM_ORDER = (
 CARD_PATHS: dict[str, dict[str, tuple[Path, ...]]] = {
     "rich": {
         "BL-Lower": tuple(
-            _OB_DIR / "rich" / "baselines" / f"baseline_lower_fold_{fold}.csv"
-            for fold in (1, 2, 3)
+            _OB_DIR / "rich" / "baselines" / f"baseline_lower_fold_{split}.csv"
+            for split in (1, 2, 3)
         ),
         "BL-Upper": tuple(
-            _OB_DIR / "rich" / "baselines" / f"baseline_upper_fold_{fold}.csv"
-            for fold in (1, 2, 3)
+            _OB_DIR / "rich" / "baselines" / f"baseline_upper_fold_{split}.csv"
+            for split in (1, 2, 3)
         ),
         "Blueprint": tuple(
-            _OB_DIR / "rich" / "blueprints" / f"test_memory_ablation_blueprint_fold_{fold}.csv"
-            for fold in (1, 2, 3)
+            _OB_DIR / "rich" / "blueprints" / f"test_memory_ablation_blueprint_fold_{split}.csv"
+            for split in (1, 2, 3)
         ),
         "Playbook": tuple(
-            _OB_DIR / "rich" / "playbooks" / f"test_memory_ablation_playbook_fold_{fold}.csv"
-            for fold in (1, 2, 3)
+            _OB_DIR / "rich" / "playbooks" / f"test_memory_ablation_playbook_fold_{split}.csv"
+            for split in (1, 2, 3)
         ),
         "Adaptive System": tuple(
-            _OB_DIR / "rich" / "adaptive" / f"test_memory_fold_{fold}.csv"
-            for fold in (1, 2, 3)
+            _OB_DIR / "rich" / "adaptive" / f"test_memory_fold_{split}.csv"
+            for split in (1, 2, 3)
         ),
     },
     "sparse": {
         "BL-Lower": tuple(
-            _OB_DIR / "sparse" / "baselines" / f"sparse_baseline_lower_fold{fold}.csv"
-            for fold in (1, 2, 3)
+            _OB_DIR / "sparse" / "baselines" / f"sparse_baseline_lower_fold{split}.csv"
+            for split in (1, 2, 3)
         ),
         "BL-Upper": tuple(
-            _OB_DIR / "sparse" / "baselines" / f"sparse_baseline_upper_fold{fold}.csv"
-            for fold in (1, 2, 3)
+            _OB_DIR / "sparse" / "baselines" / f"sparse_baseline_upper_fold{split}.csv"
+            for split in (1, 2, 3)
         ),
         "Blueprint": tuple(
-            _OB_DIR / "sparse" / "blueprints" / f"sparse_test_blueprint_fold{fold}.csv"
-            for fold in (1, 2, 3)
+            _OB_DIR / "sparse" / "blueprints" / f"sparse_test_blueprint_fold{split}.csv"
+            for split in (1, 2, 3)
         ),
         "Playbook": tuple(
-            _OB_DIR / "sparse" / "playbooks" / f"sparse_test_playbook_fold{fold}.csv"
-            for fold in (1, 2, 3)
+            _OB_DIR / "sparse" / "playbooks" / f"sparse_test_playbook_fold{split}.csv"
+            for split in (1, 2, 3)
         ),
         "Adaptive System": tuple(
-            _OB_DIR / "sparse" / "adaptive" / f"sparse_test_full_fold{fold}.csv"
-            for fold in (1, 2, 3)
+            _OB_DIR / "sparse" / "adaptive" / f"sparse_test_full_fold{split}.csv"
+            for split in (1, 2, 3)
         ),
     },
 }
@@ -88,46 +88,46 @@ _GAIA_DIR = OUTPUT_DIR / "gaia"
 GAIA_CARD_PATHS: dict[str, dict[str, tuple[Path, ...]]] = {
     "rich": {
         "BL-Lower": tuple(
-            _GAIA_DIR / "rich" / "baselines" / f"baseline_lower_rich_fold_{fold}.csv"
-            for fold in (1, 2, 3)
+            _GAIA_DIR / "rich" / "baselines" / f"baseline_lower_rich_fold_{split}.csv"
+            for split in (1, 2, 3)
         ),
         "BL-Upper": tuple(
-            _GAIA_DIR / "rich" / "baselines" / f"baseline_upper_rich_fold_{fold}.csv"
-            for fold in (1, 2, 3)
+            _GAIA_DIR / "rich" / "baselines" / f"baseline_upper_rich_fold_{split}.csv"
+            for split in (1, 2, 3)
         ),
         "Blueprint": tuple(
-            _GAIA_DIR / "rich" / "blueprints" / f"adaptive_testing_rich_blueprint_fold_{fold}.csv"
-            for fold in (1, 2, 3)
+            _GAIA_DIR / "rich" / "blueprints" / f"adaptive_testing_rich_blueprint_fold_{split}.csv"
+            for split in (1, 2, 3)
         ),
         "Playbook": tuple(
-            _GAIA_DIR / "rich" / "playbooks" / f"adaptive_testing_rich_playbook_fold_{fold}.csv"
-            for fold in (1, 2, 3)
+            _GAIA_DIR / "rich" / "playbooks" / f"adaptive_testing_rich_playbook_fold_{split}.csv"
+            for split in (1, 2, 3)
         ),
         "Adaptive System": tuple(
-            _GAIA_DIR / "rich" / "adaptive" / f"adaptive_testing_rich_fold_{fold}.csv"
-            for fold in (1, 2, 3)
+            _GAIA_DIR / "rich" / "adaptive" / f"adaptive_testing_rich_fold_{split}.csv"
+            for split in (1, 2, 3)
         ),
     },
     "sparse": {
         "BL-Lower": tuple(
-            _GAIA_DIR / "sparse" / "baselines" / f"baseline_lower_fold_{fold}.csv"
-            for fold in (1, 2, 3)
+            _GAIA_DIR / "sparse" / "baselines" / f"baseline_lower_fold_{split}.csv"
+            for split in (1, 2, 3)
         ),
         "BL-Upper": tuple(
-            _GAIA_DIR / "sparse" / "baselines" / f"baseline_upper_fold_{fold}.csv"
-            for fold in (1, 2, 3)
+            _GAIA_DIR / "sparse" / "baselines" / f"baseline_upper_fold_{split}.csv"
+            for split in (1, 2, 3)
         ),
         "Blueprint": tuple(
-            _GAIA_DIR / "sparse" / "blueprints" / f"blueprints_fold_{fold}.csv"
-            for fold in (1, 2, 3)
+            _GAIA_DIR / "sparse" / "blueprints" / f"blueprints_fold_{split}.csv"
+            for split in (1, 2, 3)
         ),
         "Playbook": tuple(
-            _GAIA_DIR / "sparse" / "playbooks" / f"playbook_fold_{fold}.csv"
-            for fold in (1, 2, 3)
+            _GAIA_DIR / "sparse" / "playbooks" / f"playbook_fold_{split}.csv"
+            for split in (1, 2, 3)
         ),
         "Adaptive System": tuple(
-            _GAIA_DIR / "sparse" / "adaptive" / f"adaptive_testing_sparse_fold_{fold}.csv"
-            for fold in (1, 2, 3)
+            _GAIA_DIR / "sparse" / "adaptive" / f"adaptive_testing_sparse_fold_{split}.csv"
+            for split in (1, 2, 3)
         ),
     },
 }
@@ -144,10 +144,10 @@ GAIA_CONFIG = BenchmarkConfig(
 def load_card(card: str, config: BenchmarkConfig = OFFICEBENCH_CONFIG) -> pd.DataFrame:
     frames: list[pd.DataFrame] = []
     for condition in config.system_order:
-        for fold, path in enumerate(config.card_paths[card][condition], start=1):
+        for split, path in enumerate(config.card_paths[card][condition], start=1):
             runs = load_runs([path])
             runs["condition"] = condition
-            runs["fold"] = fold
+            runs["split"] = split
             frames.append(runs)
 
     df = add_derived_metrics(pd.concat(frames, ignore_index=True, sort=False))

@@ -12,6 +12,7 @@ from .conditions import (
     load_card,
     load_gold,
 )
+from .overall import per_split_metrics
 
 ERROR_LABELS = [
     "success",
@@ -29,29 +30,49 @@ ERROR_COLUMNS = {
 
 
 def error_table(card: str, config: BenchmarkConfig = OFFICEBENCH_CONFIG) -> pd.DataFrame:
-    rows = classified_rows(card, config)
+    rows = _classify_runs(load_card(card, config), config)
     table_rows = []
     for condition in config.system_order:
-        counts = rows[rows["Condition"] == condition]["Error"].value_counts(normalize=True)
+        split_metrics = per_split_metrics(
+            rows[rows["Condition"] == condition],
+            _error_rates,
+            split_column="Split",
+        )
         table_rows.append(
             {"Condition": condition}
-            | {ERROR_COLUMNS[label]: counts.get(label, 0.0) * 100 for label in ERROR_LABELS}
+            | split_metrics.mean().to_dict()
         )
     return pd.DataFrame(table_rows).set_index("Condition").round(1)
 
 
+def _error_rates(rows: pd.DataFrame) -> dict[str, float]:
+    shares = rows["Error"].value_counts(normalize=True)
+    return {
+        ERROR_COLUMNS[label]: shares.get(label, 0.0) * 100
+        for label in ERROR_LABELS
+    }
+
+
 def classified_rows(card: str, config: BenchmarkConfig = OFFICEBENCH_CONFIG) -> pd.DataFrame:
     runs = load_card(card, config)
+    return _classify_runs(runs, config)
+
+
+def _classify_runs(runs: pd.DataFrame, config: BenchmarkConfig) -> pd.DataFrame:
     gold = load_gold(config)
+    missing_gold = sorted(set(runs["task_key"]) - set(gold))
+    if missing_gold:
+        raise ValueError(
+            f"{config.name} has {len(missing_gold)} task keys without gold annotations"
+        )
+
     rows = []
     for _, row in runs.iterrows():
         task_key = row["task_key"]
-        if task_key not in gold:
-            continue
         rows.append(
             {
                 "Condition": row["condition"],
-                "Fold": row["fold"],
+                "Split": row["split"],
                 "Task Key": task_key,
                 "Error": classify(row, gold[task_key], config),
             }

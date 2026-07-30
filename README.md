@@ -100,14 +100,16 @@ Copy it into `configs/officebench/` or `configs/gaia/` and edit it per experimen
 
 The exact YAML configuration files used for the experiments reported in the thesis are available in the [`Configs/` directory of the experimental artifacts](https://tubcloud.tu-berlin.de/s/Ne48mdXqCdQRjnL).
 
-### Reproducing the paper folds
+### Reproducing the paper splits
 
-The published results are averaged over three folds. A fold is one deterministic
-stratified re-split of the full task set. Folds 1, 2
-and 3 use seeds **42, 43 and 44**, with `train_fraction: 0.4` / `test_fraction: 0.6`
-(the values in [configs/template.yaml](configs/template.yaml)).
+The published results are averaged over three splits. Each split is one
+deterministic stratified random draw over the full task set (Monte Carlo
+cross-validation). Splits 1, 2 and 3 use seeds
+**42, 43 and 44**, with `train_fraction: 0.4` / `test_fraction: 0.6` (the values
+in [configs/template.yaml](configs/template.yaml)).
 
-Each fold is a separate config file. Fold 2's training config sets:
+
+Each split is a separate config file. Split 2's training config sets:
 
 ```yaml
 execution:
@@ -119,12 +121,12 @@ execution:
 ```
 
 and its testing config sets `name: test` with the same `seed: 43`, typically with
-`memory_schema` pointed at the fold-2 training variant. Then run each phase with
+`memory_schema` pointed at the split-2 training variant. Then run each phase with
 its own config file:
 
 ```bash
-uv run python run.py --benchmark gaia --config configs/gaia/fold2_train.yaml
-uv run python run.py --benchmark gaia --config configs/gaia/fold2_test.yaml
+uv run python run.py --benchmark gaia --config configs/gaia/split2_train.yaml
+uv run python run.py --benchmark gaia --config configs/gaia/split2_test.yaml
 ```
 
 
@@ -191,10 +193,8 @@ family calls into them:
 | `overall_performance.ipynb` | Main results table: success rate per difficulty tier, delegations, tokens, cost, distractor share | `metrics/overall.py` |
 | `task_wise_comparison.ipynb` | Paired per-task condition comparison with McNemar tests and pairwise p-values | `metrics/conditions.py` |
 | `error_decomposition.ipynb` | Failure breakdown by error category | `metrics/errors.py` |
-| `conversion.ipynb` | Conversion of retrieved memory into successful outcomes | `metrics/errors.py` |
 | `retrieval.ipynb` | Blueprint and playbook retrieval quality | `metrics/retrieval.py` |
-| `judge_agreement.ipynb` | Agreement between the judge gate and task evaluation on the training folds | `metrics/judge.py` |
-| `selection_and_shell_usage.ipynb` | Agent-selection misses against the gold labels, and OfficeBench shell-workaround usage | `metrics/agents.py`, `metrics/paths.py` |
+| `judge_agreement.ipynb` | Agreement between the judge gate and task evaluation on the training splits | `metrics/judge.py` |
 | `agent_experiment.ipynb` | Dynamic-pool experiment: stability, new-agent adoption, usage shift, playbook activity | `metrics/agents.py` |
 
 
