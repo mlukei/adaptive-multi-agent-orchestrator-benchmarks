@@ -19,8 +19,9 @@ Runs depend on several moving parts: the orchestrator dependency revision, the t
 - **Docker** - required for the Postgres memory database (both benchmarks) and for
   the per-task OfficeBench containers. The OfficeBench image is built automatically
   on the first run.
-- **Tesseract and FFmpeg** - host binaries the GAIA tools need for OCR and
-  for Whisper audio transcription:
+- **Tesseract** - host OCR binary needed by both benchmarks
+- **FFmpeg** - only needed for local Whisper audio transcription (one GAIA
+  tool)
 
   ```bash
   sudo apt-get update && sudo apt-get install -y tesseract-ocr ffmpeg
@@ -34,10 +35,11 @@ Runs depend on several moving parts: the orchestrator dependency revision, the t
 uv sync
 ```
 
-This installs every Python dependency from `uv.lock`, including the orchestrator
-itself at its pinned revision.
+Local Whisper audio transcription (used by one GAIA tool) is an optional extra, since it pulls in `torch` and CUDA wheels (~3.7GB). Skip it unless you run GAIA:
 
-`.python-version` pins Python 3.11.
+```bash
+uv sync --extra audio
+```
 
 ### 2. Configure Azure OpenAI credentials
 
